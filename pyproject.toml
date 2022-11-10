@@ -50,6 +50,9 @@ initial_revision = "71a3cd2"
 initial_date = 2022-11-10T18:16:55+01:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates"
 cookiecutter_directory = "minimal-python"
+applied_migrations = [
+    "d1a9eb9", # 2022-11-10T18:31:09+01:00
+]
 
 [manageprojects.cookiecutter_context.cookiecutter]
 full_name = "Jens Diemer"

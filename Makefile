@@ -10,6 +10,6 @@ install: ## Install the project in a Python virtualenv
 	.venv/bin/pip-sync requirements/develop.txt
 
 update-requirements: ## Update requirements via pip-compile
-	.venv/bin/pip-compile --upgrade --allow-unsafe --generate-hashes requirements/production.in requirements/develop.in --output-file requirements/production.txt
-	.venv/bin/pip-compile --upgrade --allow-unsafe --generate-hashes requirements/develop.in --output-file requirements/develop.txt
+	.venv/bin/pip-compile --upgrade --allow-unsafe --generate-hashes requirements/production.in --output-file requirements/production.txt
+	.venv/bin/pip-compile --upgrade --allow-unsafe --generate-hashes requirements/production.in requirements/develop.in --output-file requirements/develop.txt
 	.venv/bin/pip-sync requirements/develop.txt
