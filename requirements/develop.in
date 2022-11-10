@@ -1,0 +1,5 @@
+darker
+coverage
+mypy
+pip-tools
+pyproject-flake8

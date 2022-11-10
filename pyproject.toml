@@ -1,0 +1,62 @@
+[project]
+name = "pysmartmeter"
+version = "0.0.1"
+description = "Collect data from Hitchi Smartmeter and expose it via MQTT"
+readme = "README.md"
+authors = [
+    {name = 'Jens Diemer', email = 'pysmartmeter@jensdiemer.de'}
+]
+
+[tool.setuptools]
+packages = ["pysmartmeter"]
+
+[project.scripts]
+manageprojects = "pysmartmeter.__main__:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 119
+
+[tool.isort]
+profile = "black"
+
+[tool.flake8]
+statistics = "True"
+ignore = ["D203" , "W503"]
+max-line-length = 119
+exclude = '''
+    .git,
+'''
+
+[tool.pytest.ini_options]
+filterwarnings = []
+
+[tool.coverage.run]
+branch = true
+source = ["apps"]
+omit = ["apps/*/tests/*", "apps/*/migrations/*"]
+command_line = "-m pytest"
+
+[tool.mypy]
+ignore_missing_imports = true
+plugins = ["mypy_django_plugin.main"]
+
+
+[manageprojects] # https://github.com/jedie/manageprojects
+initial_revision = "71a3cd2"
+initial_date = 2022-11-10T18:16:55+01:00
+cookiecutter_template = "https://github.com/jedie/cookiecutter_templates"
+cookiecutter_directory = "minimal-python"
+
+[manageprojects.cookiecutter_context.cookiecutter]
+full_name = "Jens Diemer"
+github_username = "jedie"
+author_email = "pysmartmeter@jensdiemer.de"
+package_name = "pysmartmeter"
+package_version = "0.0.1"
+package_description = "Collect data from Hitchi Smartmeter and expose it via MQTT"
+package_url = "https://github.com/jedie/pysmartmeter"
+_template = "https://github.com/jedie/cookiecutter_templates"
