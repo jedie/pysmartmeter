@@ -11,3 +11,6 @@ install: ## Install the project in a Python virtualenv
 
 update-requirements: ## Update requirements
 	.venv/bin/pipenv update --dev
+
+serial-dump: ## Just dump the serial output
+	.venv/bin/python pysmartmeter/dump.py
