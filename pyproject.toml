@@ -11,7 +11,8 @@ authors = [
 packages = ["pysmartmeter"]
 
 [project.scripts]
-manageprojects = "pysmartmeter.__main__:main"
+pysmartmeter = "pysmartmeter.__main__:main"
+
 
 [build-system]
 requires = ["setuptools>=61.0"]
@@ -46,13 +47,10 @@ plugins = ["mypy_django_plugin.main"]
 
 
 [manageprojects] # https://github.com/jedie/manageprojects
-initial_revision = "71a3cd2"
-initial_date = 2022-11-10T18:16:55+01:00
+initial_revision = "b98a4da"
+initial_date = 2022-11-10T20:57:04+01:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates"
-cookiecutter_directory = "minimal-python"
-applied_migrations = [
-    "d1a9eb9", # 2022-11-10T18:31:09+01:00
-]
+cookiecutter_directory = "pipenv-python"
 
 [manageprojects.cookiecutter_context.cookiecutter]
 full_name = "Jens Diemer"

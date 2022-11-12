@@ -6,10 +6,11 @@ help: ## List all commands
 
 install: ## Install the project in a Python virtualenv
 	python3 -m venv .venv
-	.venv/bin/pip install -U pip-tools
-	.venv/bin/pip-sync requirements/develop.txt
+	.venv/bin/pip install -U pipenv
+	.venv/bin/pipenv install
 
-update-requirements: ## Update requirements via pip-compile
-	.venv/bin/pip-compile --upgrade --allow-unsafe --generate-hashes requirements/production.in --output-file requirements/production.txt
-	.venv/bin/pip-compile --upgrade --allow-unsafe --generate-hashes requirements/production.in requirements/develop.in --output-file requirements/develop.txt
-	.venv/bin/pip-sync requirements/develop.txt
+update-requirements: ## Update requirements
+	.venv/bin/pipenv update --dev
+
+serial-dump: ## Just dump the serial output
+	.venv/bin/python pysmartmeter/dump.py
