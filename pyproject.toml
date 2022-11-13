@@ -1,56 +1,103 @@
-[project]
+[tool.poetry]
 name = "pysmartmeter"
 version = "0.0.1"
 description = "Collect data from Hitchi Smartmeter and expose it via MQTT"
-readme = "README.md"
 authors = [
-    {name = 'Jens Diemer', email = 'pysmartmeter@jensdiemer.de'}
+    "Jens Diemer <pysmartmeter@jensdiemer.de>",
 ]
+maintainers = [
+    "Jens Diemer <pysmartmeter@jensdiemer.de>",
+]
+homepage = "https://github.com/jedie/pysmartmeter"
+packages = [{ include = "pysmartmeter" }]
+license = "GPL-3.0-or-later"
+readme = 'README.md'
 
-[tool.setuptools]
-packages = ["pysmartmeter"]
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/jedie/pysmartmeter/issues"
 
-[project.scripts]
-pysmartmeter = "pysmartmeter.__main__:main"
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0.0"
+pyserial = "*"
+paho-mqtt = "*"
+
+[tool.poetry.dev-dependencies]
+bx_py_utils = "*"
+tox = "*"
+darker = "*"  # https://github.com/akaihola/pytest-darker
+coveralls = "*"
+isort = "*"
+flake8 = "*"
+EditorConfig = "*"  # https://github.com/editorconfig/editorconfig-core-py
+safety = "*"  # https://github.com/pyupio/safety
+poetry-publish = "*"  # https://github.com/jedie/poetry-publish
+mypy = "*"
+pyproject-flake8="*"
+
+[tool.poetry.scripts]
+pysmartmeter = "pysmartmeter.main:main"
+publish = "pysmartmeter.publish:publish"
 
 
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
-[tool.black]
-line-length = 119
+
+[tool.darker]
+src = ['.']
+revision = "origin/main..."
+line_length = 100
+verbose = true
+skip_string_normalization = true
+diff = false
+check = false
+stdout = false
+isort = true
+lint = [
+    "flake8",
+]
+log_level = "INFO"
+
 
 [tool.isort]
-profile = "black"
+# https://pycqa.github.io/isort/docs/configuration/config_files/#pyprojecttoml-preferred-format
+atomic=true
+profile='black'
+skip_glob=["*/htmlcov/*"]
+known_first_party=['pysmartmeter']
+line_length=100
+lines_after_imports=2
 
-[tool.flake8]
-statistics = "True"
-ignore = ["D203" , "W503"]
-max-line-length = 119
-exclude = '''
-    .git,
-'''
-
-[tool.pytest.ini_options]
-filterwarnings = []
 
 [tool.coverage.run]
-branch = true
-source = ["apps"]
-omit = ["apps/*/tests/*", "apps/*/migrations/*"]
-command_line = "-m pytest"
+omit = [".*"]
 
-[tool.mypy]
-ignore_missing_imports = true
-plugins = ["mypy_django_plugin.main"]
+
+[tool.tox]
+# https://tox.readthedocs.io/en/latest/example/basic.html#pyproject-toml-tox-legacy-ini
+legacy_tox_ini = """
+[tox]
+isolated_build = True
+envlist = py{39,310}
+skip_missing_interpreters = True
+
+[testenv]
+passenv = *
+whitelist_externals = make
+commands =
+    make test
+"""
 
 
 [manageprojects] # https://github.com/jedie/manageprojects
-initial_revision = "b98a4da"
-initial_date = 2022-11-10T20:57:04+01:00
-cookiecutter_template = "https://github.com/jedie/cookiecutter_templates"
-cookiecutter_directory = "pipenv-python"
+initial_revision = "5da68af"
+initial_date = 2022-11-13T17:41:01+01:00
+cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
+cookiecutter_directory = "poetry-python"
+applied_migrations = [
+    "9fd42df", # 2022-11-13T17:49:17+01:00
+]
 
 [manageprojects.cookiecutter_context.cookiecutter]
 full_name = "Jens Diemer"
@@ -60,4 +107,6 @@ package_name = "pysmartmeter"
 package_version = "0.0.1"
 package_description = "Collect data from Hitchi Smartmeter and expose it via MQTT"
 package_url = "https://github.com/jedie/pysmartmeter"
-_template = "https://github.com/jedie/cookiecutter_templates"
+issues_url = "https://github.com/jedie/pysmartmeter/issues"
+license = "GNU General Public License v3.0"
+_template = "https://github.com/jedie/cookiecutter_templates/"

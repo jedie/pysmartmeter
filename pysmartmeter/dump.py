@@ -9,7 +9,7 @@ def print_callback(**kwargs):
     pprint(kwargs)
 
 
-def dump():
+def serial_dump():
     """
     Dump the output of the first working serial port.
     """
@@ -28,6 +28,6 @@ def dump():
 
 if __name__ == '__main__':
     try:
-        dump()
+        serial_dump()
     except KeyboardInterrupt:
         print('\nbye, bye\n')
