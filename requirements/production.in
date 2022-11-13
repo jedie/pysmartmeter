@@ -1,2 +1,2 @@
-pyserial-asyncio
-asyncio-mqtt
+pyserial
+paho-mqtt
