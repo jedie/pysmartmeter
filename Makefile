@@ -20,9 +20,11 @@ install-poetry:  ## install or update poetry
 	curl -sSL https://install.python-poetry.org | python3 -
 
 install: check-poetry  ## install project via poetry
+	python3 -m venv .venv
 	poetry install
 
 update: check-poetry  ## update the sources and installation and generate "conf/requirements.txt"
+	python3 -m venv .venv
 	poetry self update
 	poetry update -v
 	poetry install

@@ -44,3 +44,9 @@ def get_serial(
                 print(data)
             if data.endswith(terminator):
                 return ser
+
+
+def print_detect_serial():
+    print('Detect Serial...')
+    ser = get_serial()
+    print(ser)

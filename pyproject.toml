@@ -20,6 +20,7 @@ readme = 'README.md'
 python = ">=3.9,<4.0.0"
 pyserial = "*"
 paho-mqtt = "*"
+typer = "*"
 
 [tool.poetry.dev-dependencies]
 bx_py_utils = "*"
