@@ -1,6 +1,6 @@
 [packages]
-pyserial-asyncio="*"
-asyncio-mqtt="*"
+pyserial="*"
+paho-mqtt="*"
 
 
 [dev-packages]
