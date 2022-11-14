@@ -16,6 +16,7 @@ readme = 'README.md'
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/jedie/pysmartmeter/issues"
 
+
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0.0"
 pyserial = "*"
@@ -34,6 +35,8 @@ safety = "*"  # https://github.com/pyupio/safety
 poetry-publish = "*"  # https://github.com/jedie/poetry-publish
 mypy = "*"
 pyproject-flake8="*"
+tomli = "*"
+
 
 [tool.poetry.scripts]
 pysmartmeter = "pysmartmeter.main:main"
