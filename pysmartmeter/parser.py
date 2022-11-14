@@ -62,7 +62,7 @@ class ObisParser:
                 self.set_new_state(State.identifier)
         elif self.state == State.identifier:
             self._buffer.clear()
-            self._buffer[State.identifier.name] = line
+            self._buffer[State.identifier.name] = (line.strip(), None)
             self.set_new_state(State.separator)
         elif self.state == State.separator:
             self.set_new_state(State.data)
