@@ -1,7 +1,4 @@
-"""
-    Allow pysmartmeter to be executable
-    through `python -m pysmartmeter`.
-"""
+import os
 import shlex
 import subprocess
 import sys
@@ -9,6 +6,8 @@ from pathlib import Path
 
 import typer
 from bx_py_utils.path import assert_is_dir, assert_is_file
+from darker.__main__ import main as darker_main
+from flake8.main.cli import main as flake8_main
 
 import pysmartmeter
 from pysmartmeter import __version__
@@ -32,9 +31,9 @@ def which(file_name: str) -> Path:
     return bin_path
 
 
-def verbose_check_call(*args):
+def verbose_check_call(*args, cwd=PACKAGE_ROOT):
     print(f'+{shlex.join(str(part) for part in args)}')
-    subprocess.check_call(args)
+    subprocess.check_call(args, cwd=cwd)
 
 
 @app.command()
@@ -51,6 +50,56 @@ def dump():
     Just dump serial output
     """
     serial_dump()
+
+
+def _call_darker(*, argv):
+    # Work-a-round for:
+    #
+    #   File ".../site-packages/darker/linting.py", line 148, in _check_linter_output
+    #     with Popen(  # nosec
+    #   ...
+    #   File "/usr/lib/python3.10/subprocess.py", line 1845, in _execute_child
+    #     raise child_exception_type(errno_num, err_msg, err_filename)
+    # FileNotFoundError: [Errno 2] No such file or directory: 'flake8'
+    #
+    # Just add .venv/bin/ to PATH:
+    venv_path = PACKAGE_ROOT / '.venv' / 'bin'
+
+    assert_is_dir(venv_path)
+    assert_is_file(venv_path / 'flake8')
+    venv_path = str(venv_path)
+    if venv_path not in os.environ['PATH']:
+        os.environ['PATH'] = venv_path + os.pathsep + os.environ['PATH']
+
+    darker_main(argv=argv)
+
+
+@app.command()
+def fix_code_style():
+    """
+    Fix code style via darker
+    """
+    _call_darker(argv=['--color'])
+
+
+@app.command()
+def check_code_style(verbose: bool = True):
+    _call_darker(argv=['--color', '--check'])
+    if verbose:
+        argv = ['--verbose']
+    else:
+        argv = []
+
+    flake8_main(argv=argv)
+
+
+@app.command()
+def mypy(verbose: bool = True):
+    """Run Mypy (configured in pyproject.toml)"""
+    args = [which('mypy')]
+    if verbose:
+        args.append('--verbose')
+    verbose_check_call(*args, PACKAGE_ROOT)
 
 
 @app.command()  # Just add this command to help page

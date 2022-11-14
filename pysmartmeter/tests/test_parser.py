@@ -3,6 +3,7 @@ from unittest import TestCase
 
 from pysmartmeter.parser import ObisParser, parse_obis_values
 
+
 RAW_TEST_DATA_SMALL = (
     b'/EBZ5DD3BZ06ETA_107\r\n',  # Manufacturer and software version
     b'\r\n',

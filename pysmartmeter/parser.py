@@ -1,6 +1,7 @@
 import enum
 import re
 
+
 ENCODING = 'ASCII'
 TERMINATOR = '!\r\n'
 

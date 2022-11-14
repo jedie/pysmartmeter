@@ -29,10 +29,9 @@ update: check-poetry  ## update the sources and installation and generate "conf/
 	poetry update -v
 	poetry install
 
-poormans-setup:
+without-poetry-install: ## Install/update without poetry (not recommended!)
 	python3 -m venv .venv
 	.venv/bin/pip install -U pip
-	.venv/bin/pip install -U pyserial paho-mqtt typer
 	.venv/bin/pip install -e .
 
 lint: ## Run code formatters and linter
