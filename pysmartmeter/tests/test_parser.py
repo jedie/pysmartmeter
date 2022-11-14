@@ -53,7 +53,7 @@ class ParserTestCase(TestCase):
             expected_data=[
                 {
                     'data': {
-                        'identifier': '/EBZ5DD3BZ06ETA_107\r\n',
+                        'identifier': ('/EBZ5DD3BZ06ETA_107', None),
                         '1-0:0.0.0*255': ('1EBZ0100000123', None),
                         '1-0:96.1.0*255': ('1EBZ0100000123', None),
                         '1-0:1.8.0*255': (12345.0, 'kWh'),
@@ -75,7 +75,7 @@ class ParserTestCase(TestCase):
             expected_data=[
                 {
                     'data': {
-                        'identifier': '/EBZ5DD3BZ06ETA_107\r\n',
+                        'identifier': ('/EBZ5DD3BZ06ETA_107', None),
                         '1-0:0.0.0*255': ('1EBZ0100000123', None),
                         '1-0:96.1.0*255': ('1EBZ0100000123', None),
                         '1-0:1.8.0*255': (12345.0, 'kWh'),

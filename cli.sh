@@ -2,5 +2,5 @@
 
 set -ex
 
-exec poetry run python -m pysmartmeter "$@"
+exec .venv/bin/python -m pysmartmeter "$@"
 
