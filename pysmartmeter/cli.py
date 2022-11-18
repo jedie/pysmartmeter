@@ -14,9 +14,8 @@ from pysmartmeter.detect_serial import print_detect_serial
 from pysmartmeter.dump import serial_dump
 from pysmartmeter.log_utils import log_config
 from pysmartmeter.publish_loop import publish_forever
-from pysmartmeter.utilities import systemd
+from pysmartmeter.utilities import subprocess_utils, systemd
 from pysmartmeter.utilities.credentials import get_mqtt_settings, store_mqtt_settings
-from pysmartmeter.utilities.subprocess_utils import verbose_check_call
 
 
 PACKAGE_ROOT = Path(pysmartmeter.__file__).parent.parent
@@ -33,6 +32,18 @@ def which(file_name: str) -> Path:
     if not bin_path.is_file():
         raise FileNotFoundError(f'File {file_name}!r not found in {venv_bin_path}')
     return bin_path
+
+
+def verbose_call(file_name, *args, **kwargs):
+    file_name = which(file_name)
+    kwargs.setdefault('cwd', PACKAGE_ROOT)
+    subprocess_utils.verbose_check_call(
+        file_name,
+        *args,
+        verbose=True,
+        exit_on_error=True,
+        **kwargs,
+    )
 
 
 @app.command()
@@ -195,12 +206,12 @@ def check_code_style(verbose: bool = True):
 
 
 @app.command()
-def mypy(verbose: bool = True):
+def mypy(verbose: bool = False):
     """Run Mypy (configured in pyproject.toml)"""
-    args = [which('mypy')]
+    args = ['mypy']
     if verbose:
         args.append('--verbose')
-    verbose_check_call(*args, cwd=PACKAGE_ROOT)
+    verbose_call(*args, PACKAGE_ROOT)
 
 
 @app.command()  # Just add this command to help page
@@ -209,7 +220,7 @@ def test():
     Run unittests
     """
     # Use the CLI from unittest module and pass all args to it:
-    verbose_check_call(sys.executable, '-m', 'unittest', *sys.argv[2:], cwd=PACKAGE_ROOT)
+    verbose_call(sys.executable, '-m', 'unittest', *sys.argv[2:])
 
 
 @app.command()
@@ -217,10 +228,9 @@ def coverage():
     """
     Run and show coverage.
     """
-    coverage_bin = which('coverage')
-    verbose_check_call(coverage_bin, 'run', cwd=PACKAGE_ROOT)
-    verbose_check_call(coverage_bin, 'report', '--fail-under=30', cwd=PACKAGE_ROOT)
-    verbose_check_call(coverage_bin, 'json', cwd=PACKAGE_ROOT)
+    verbose_call('coverage', 'run')
+    verbose_call('coverage', 'report', '--fail-under=30')
+    verbose_call('coverage', 'json')
 
 
 def main():

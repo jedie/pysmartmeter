@@ -100,10 +100,10 @@ def ha_convert_obis_values(*, obis_values: list[ObisValue]) -> list[Homeassistan
     else:
         # Add a human-readable operation time entry:
         op_sec = operation_duration.value
-        obis_value = operation_duration.copy()
+        obis_value: ObisValue = operation_duration.copy()
         op_str = human_timedelta(op_sec)
         value, unit = op_str.split('\xa0')
-        obis_value.value = float(value)
+        obis_value.value = float(value)  # type: ignore[arg-type]
         obis_value.unit = unit
         ha_values.append(
             HomeassistantValue(

@@ -1,6 +1,6 @@
 import dataclasses
 import json
-from typing import Any, Optional
+from typing import Optional, Union
 
 from bx_py_utils.anonymize import anonymize
 
@@ -39,11 +39,11 @@ class ObisValue:
     key_slug: str
     name: str  # Human readable name, e.g.: 'Zählerstand (Tariflos)'
     raw_value: str  # e.g.: '0010002*kWh'
-    value: Any  # e.g.: 10002.0
+    value: Union[str, float]  # e.g.: 10002.0
     raw_unit: Optional[str] = None  # e.g.: 'kWh'
     unit: Optional[str] = None  # e.g.: 'kWh'
 
-    def copy(self):
+    def copy(self) -> 'ObisValue':
         data = dataclasses.asdict(self)
         return ObisValue(**data)
 

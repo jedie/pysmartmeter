@@ -86,6 +86,15 @@ omit = ['.*', '*/tests/*']
 command_line = "-m unittest"
 
 
+[tool.mypy]
+warn_unused_configs = true
+ignore_missing_imports = true
+allow_redefinition = true  # https://github.com/python/mypy/issues/7165
+show_error_codes = true
+plugins = []
+exclude = ['.venv', 'tests']
+
+
 [tool.tox]
 # https://tox.readthedocs.io/en/latest/example/basic.html#pyproject-toml-tox-legacy-ini
 legacy_tox_ini = """
