@@ -1,12 +1,13 @@
 import sys
-from pprint import pprint
+
+from rich.pretty import pprint
 
 from pysmartmeter.detect_serial import get_serial
 from pysmartmeter.parser import ObisParser
 
 
 def print_callback(**kwargs):
-    pprint(kwargs)
+    pprint(kwargs, indent_guides=False)
 
 
 def serial_dump():

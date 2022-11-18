@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pysmartmeter"
-version = "0.0.1"
+version = "0.1.0"
 description = "Collect data from Hitchi Smartmeter and expose it via MQTT"
 authors = [
     "Jens Diemer <pysmartmeter@jensdiemer.de>",
@@ -22,7 +22,12 @@ python = ">=3.9,<4.0.0"
 pyserial = "*"
 paho-mqtt = "*"
 typer = "*"
+rich = "*"
 bx_py_utils = "*"
+
+# TODO: Use keyring for store MQTT credentials:
+#keyring = "*" # https://github.com/jaraco/keyring
+
 
 [tool.poetry.dev-dependencies]
 tox = "*"
@@ -79,6 +84,15 @@ branch = true
 source = ['.']
 omit = ['.*', '*/tests/*']
 command_line = "-m unittest"
+
+
+[tool.mypy]
+warn_unused_configs = true
+ignore_missing_imports = true
+allow_redefinition = true  # https://github.com/python/mypy/issues/7165
+show_error_codes = true
+plugins = []
+exclude = ['.venv', 'tests']
 
 
 [tool.tox]
