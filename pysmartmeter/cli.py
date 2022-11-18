@@ -1,5 +1,6 @@
 import getpass
 import os
+import shutil
 import sys
 from pathlib import Path
 
@@ -34,7 +35,7 @@ def which(file_name: str) -> Path:
     return bin_path
 
 
-def verbose_call(file_name, *args, **kwargs):
+def verbose_check_call(file_name, *args, **kwargs):
     file_name = which(file_name)
     kwargs.setdefault('cwd', PACKAGE_ROOT)
     subprocess_utils.verbose_check_call(
@@ -211,7 +212,7 @@ def mypy(verbose: bool = False):
     args = ['mypy']
     if verbose:
         args.append('--verbose')
-    verbose_call(*args, PACKAGE_ROOT)
+    verbose_check_call(*args, PACKAGE_ROOT)
 
 
 @app.command()  # Just add this command to help page
@@ -220,7 +221,7 @@ def test():
     Run unittests
     """
     # Use the CLI from unittest module and pass all args to it:
-    verbose_call(sys.executable, '-m', 'unittest', *sys.argv[2:])
+    verbose_check_call(sys.executable, '-m', 'unittest', *sys.argv[2:])
 
 
 @app.command()
@@ -228,9 +229,31 @@ def coverage():
     """
     Run and show coverage.
     """
-    verbose_call('coverage', 'run')
-    verbose_call('coverage', 'report', '--fail-under=30')
-    verbose_call('coverage', 'json')
+    verbose_check_call('coverage', 'run')
+    verbose_check_call('coverage', 'report', '--fail-under=30')
+    verbose_check_call('coverage', 'json')
+
+
+@app.command()
+def publish():
+    """
+    Build and upload this project to PyPi
+    """
+    log_config()
+    test()  # Don't publish a broken state
+
+    # TODO: Add the checks from:
+    #       https://github.com/jedie/poetry-publish/blob/main/poetry_publish/publish.py
+
+    twine_bin = which('twine')
+
+    dist_path = PACKAGE_ROOT / 'dist'
+    if dist_path.exists():
+        shutil.rmtree(dist_path)
+
+    verbose_check_call(sys.executable, '-m', 'build')
+    verbose_check_call(twine_bin, 'check', 'dist/*')
+    verbose_check_call(twine_bin, 'upload', 'dist/*')
 
 
 def main():
