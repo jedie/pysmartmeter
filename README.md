@@ -45,12 +45,25 @@ PySmartMeter v0.1.0
 
 Test if you Hitchi Smartmeter with CP2102 USB to UART Bridge Controller works, e.g.:
 ```bash
-~/pysmartmeter $ ./cli.sh dump
+~/pysmartmeter$ ./cli.sh dump
 ```
 
-Maybe you have to setup permissions, e.g.:
+Maybe you didn't have permissions to access the port, e.g.:
 ```bash
-sudo chmod +r /dev/ttyUSB0
+~/pysmartmeter$ ./cli.sh dump
+...
+try: /dev/ttyUSB0 CP2102 USB to UART Bridge Controller - CP2102 USB to UART Bridge Controller USB VID:PID=10C4:EA60
+/dev/ttyUSB0 file mode: 0o20660
+/dev/ttyUSB0 user ID: 0
+/dev/ttyUSB0 user group ID: 20
+/dev/ttyUSB0 user group: 'dialout'
+ERROR: [Errno 13] could not open port /dev/ttyUSB0: [Errno 13] Permission denied: '/dev/ttyUSB0'
+...
+```
+
+Fix fiy by add the user to the group, e.g.:
+```bash
+sudo usermod -a -G dialout $USER
 ```
 
 ## publish smartmeter data via MQTT
