@@ -1,0 +1,170 @@
+[
+    {
+        "data": {
+            "device": {
+                "identifiers": [
+                    "ebz5dd3bz06eta107_identifier",
+                    "ebz5dd3bz06eta107_1_0_0_0_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_1_0_255",
+                    "ebz5dd3bz06eta107_1_0_1_8_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_5_0_255",
+                    "ebz5dd3bz06eta107_0_0_96_8_0_255",
+                    "ebz5dd3bz06eta107_human_op_time"
+                ],
+                "name": "EBZ5DD3BZ06ETA_107"
+            },
+            "device_class": "energy",
+            "name": "Gerätetyp mit Software Version",
+            "state_class": "measurement",
+            "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
+            "unique_id": "ebz5dd3bz06eta107_identifier",
+            "unit_of_measurement": null,
+            "value_template": "{{ value_json.value_identifier }}"
+        },
+        "topic": "homeassistant/sensor/ebz5dd3bz06eta107_identifier/config"
+    },
+    {
+        "data": {
+            "device": {
+                "identifiers": [
+                    "ebz5dd3bz06eta107_identifier",
+                    "ebz5dd3bz06eta107_1_0_0_0_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_1_0_255",
+                    "ebz5dd3bz06eta107_1_0_1_8_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_5_0_255",
+                    "ebz5dd3bz06eta107_0_0_96_8_0_255",
+                    "ebz5dd3bz06eta107_human_op_time"
+                ],
+                "name": "EBZ5DD3BZ06ETA_107"
+            },
+            "device_class": "energy",
+            "name": "Eigentumsnummer",
+            "state_class": "measurement",
+            "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
+            "unique_id": "ebz5dd3bz06eta107_1_0_0_0_0_255",
+            "unit_of_measurement": null,
+            "value_template": "{{ value_json.value_1_0_0_0_0_255 }}"
+        },
+        "topic": "homeassistant/sensor/ebz5dd3bz06eta107_1_0_0_0_0_255/config"
+    },
+    {
+        "data": {
+            "device": {
+                "identifiers": [
+                    "ebz5dd3bz06eta107_identifier",
+                    "ebz5dd3bz06eta107_1_0_0_0_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_1_0_255",
+                    "ebz5dd3bz06eta107_1_0_1_8_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_5_0_255",
+                    "ebz5dd3bz06eta107_0_0_96_8_0_255",
+                    "ebz5dd3bz06eta107_human_op_time"
+                ],
+                "name": "EBZ5DD3BZ06ETA_107"
+            },
+            "device_class": "energy",
+            "name": "Geräte-Identifikationsnummer",
+            "state_class": "measurement",
+            "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
+            "unique_id": "ebz5dd3bz06eta107_1_0_96_1_0_255",
+            "unit_of_measurement": null,
+            "value_template": "{{ value_json.value_1_0_96_1_0_255 }}"
+        },
+        "topic": "homeassistant/sensor/ebz5dd3bz06eta107_1_0_96_1_0_255/config"
+    },
+    {
+        "data": {
+            "device": {
+                "identifiers": [
+                    "ebz5dd3bz06eta107_identifier",
+                    "ebz5dd3bz06eta107_1_0_0_0_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_1_0_255",
+                    "ebz5dd3bz06eta107_1_0_1_8_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_5_0_255",
+                    "ebz5dd3bz06eta107_0_0_96_8_0_255",
+                    "ebz5dd3bz06eta107_human_op_time"
+                ],
+                "name": "EBZ5DD3BZ06ETA_107"
+            },
+            "device_class": "energy",
+            "name": "Zählerstand (Tariflos)",
+            "state_class": "measurement",
+            "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
+            "unique_id": "ebz5dd3bz06eta107_1_0_1_8_0_255",
+            "unit_of_measurement": "kWh",
+            "value_template": "{{ value_json.value_1_0_1_8_0_255 }}"
+        },
+        "topic": "homeassistant/sensor/ebz5dd3bz06eta107_1_0_1_8_0_255/config"
+    },
+    {
+        "data": {
+            "device": {
+                "identifiers": [
+                    "ebz5dd3bz06eta107_identifier",
+                    "ebz5dd3bz06eta107_1_0_0_0_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_1_0_255",
+                    "ebz5dd3bz06eta107_1_0_1_8_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_5_0_255",
+                    "ebz5dd3bz06eta107_0_0_96_8_0_255",
+                    "ebz5dd3bz06eta107_human_op_time"
+                ],
+                "name": "EBZ5DD3BZ06ETA_107"
+            },
+            "device_class": "energy",
+            "name": "Betriebszustand",
+            "state_class": "measurement",
+            "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
+            "unique_id": "ebz5dd3bz06eta107_1_0_96_5_0_255",
+            "unit_of_measurement": null,
+            "value_template": "{{ value_json.value_1_0_96_5_0_255 }}"
+        },
+        "topic": "homeassistant/sensor/ebz5dd3bz06eta107_1_0_96_5_0_255/config"
+    },
+    {
+        "data": {
+            "device": {
+                "identifiers": [
+                    "ebz5dd3bz06eta107_identifier",
+                    "ebz5dd3bz06eta107_1_0_0_0_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_1_0_255",
+                    "ebz5dd3bz06eta107_1_0_1_8_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_5_0_255",
+                    "ebz5dd3bz06eta107_0_0_96_8_0_255",
+                    "ebz5dd3bz06eta107_human_op_time"
+                ],
+                "name": "EBZ5DD3BZ06ETA_107"
+            },
+            "device_class": "energy",
+            "name": "Betriebsdauer",
+            "state_class": "measurement",
+            "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
+            "unique_id": "ebz5dd3bz06eta107_0_0_96_8_0_255",
+            "unit_of_measurement": "sec.",
+            "value_template": "{{ value_json.value_0_0_96_8_0_255 }}"
+        },
+        "topic": "homeassistant/sensor/ebz5dd3bz06eta107_0_0_96_8_0_255/config"
+    },
+    {
+        "data": {
+            "device": {
+                "identifiers": [
+                    "ebz5dd3bz06eta107_identifier",
+                    "ebz5dd3bz06eta107_1_0_0_0_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_1_0_255",
+                    "ebz5dd3bz06eta107_1_0_1_8_0_255",
+                    "ebz5dd3bz06eta107_1_0_96_5_0_255",
+                    "ebz5dd3bz06eta107_0_0_96_8_0_255",
+                    "ebz5dd3bz06eta107_human_op_time"
+                ],
+                "name": "EBZ5DD3BZ06ETA_107"
+            },
+            "device_class": "energy",
+            "name": "Betriebsdauer",
+            "state_class": "measurement",
+            "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
+            "unique_id": "ebz5dd3bz06eta107_human_op_time",
+            "unit_of_measurement": "months",
+            "value_template": "{{ value_json.value_human_op_time }}"
+        },
+        "topic": "homeassistant/sensor/ebz5dd3bz06eta107_human_op_time/config"
+    }
+]
