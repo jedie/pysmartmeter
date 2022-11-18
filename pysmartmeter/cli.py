@@ -245,15 +245,14 @@ def publish():
     # TODO: Add the checks from:
     #       https://github.com/jedie/poetry-publish/blob/main/poetry_publish/publish.py
 
-    twine_bin = which('twine')
-
     dist_path = PACKAGE_ROOT / 'dist'
     if dist_path.exists():
         shutil.rmtree(dist_path)
 
-    verbose_check_call(sys.executable, '-m', 'build')
-    verbose_check_call(twine_bin, 'check', 'dist/*')
-    verbose_check_call(twine_bin, 'upload', 'dist/*')
+    subprocess_utils.verbose_check_call('poetry', 'build', verbose=True, exit_on_error=True)
+
+    verbose_check_call('twine', 'check', 'dist/*')
+    verbose_check_call('twine', 'upload', 'dist/*')
 
 
 def main():
