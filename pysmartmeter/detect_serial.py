@@ -1,3 +1,6 @@
+import grp
+from pathlib import Path
+
 import serial
 from serial.tools.list_ports_posix import comports
 
@@ -16,7 +19,16 @@ def get_serial(
     """
     for port, desc, hwid in comports(include_links=False):
         if verbose:
+            print('_'*100)
             print(f'try: {port} {desc} {hwid}')
+
+        port_stat = Path(port).stat()
+        print(f'{port} file mode:', oct(port_stat.st_mode))
+        print(f'{port} user ID:', port_stat.st_uid)
+        print(f'{port} user group ID:', port_stat.st_gid)
+        user_group_name = grp.getgrgid(port_stat.st_gid).gr_name
+        print(f'{port} user group: {user_group_name!r}')
+
         try:
             ser = serial.Serial(
                 port,
@@ -29,6 +41,11 @@ def get_serial(
         except Exception as err:
             if verbose:
                 print(f'ERROR: {err}')
+                print()
+                print('Hint:')
+                print(f'\tsudo usermod -a -G {user_group_name} $USER')
+                print('and try again ;)')
+                print('-'*100)
             continue
 
         if verbose:
