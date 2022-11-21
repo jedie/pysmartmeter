@@ -1,6 +1,6 @@
 # pysmartmeter
 
-Collect data from Hichi Smartmeter (USB Version) and expose it via MQTT.
+Collect data from Hichi Smartmeter aka `volkszaehler.org` (USB Version) and expose it via MQTT.
 
 ## quickstart
 
@@ -85,3 +85,4 @@ Setup systemd service:
 * https://github.com/eclipse/paho.mqtt.python
 * https://github.com/eclipse/mosquitto
 * https://dewiki.de/Lexikon/OBIS-Kennzahlen (de) | https://www.promotic.eu/en/pmdoc/Subsystems/Comm/PmDrivers/IEC62056_OBIS.htm (en)
+* https://www.photovoltaikforum.com/thread/145886-habe-lesk%C3%B6pfe-mit-usb-%C3%BCber/ (de)
