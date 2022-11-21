@@ -1,6 +1,6 @@
 # pysmartmeter
 
-Collect data from Hitchi Smartmeter (USB Version) and expose it via MQTT.
+Collect data from Hichi Smartmeter (USB Version) and expose it via MQTT.
 
 ## quickstart
 
@@ -43,7 +43,7 @@ PySmartMeter v0.1.0
 ╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
-Test if you Hitchi Smartmeter with CP2102 USB to UART Bridge Controller works, e.g.:
+Test if you Hichi Smartmeter with CP2102 USB to UART Bridge Controller works, e.g.:
 ```bash
 ~/pysmartmeter$ ./cli.sh dump
 ```
