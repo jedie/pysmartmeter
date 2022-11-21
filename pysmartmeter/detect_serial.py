@@ -19,7 +19,7 @@ def get_serial(
     """
     for port, desc, hwid in comports(include_links=False):
         if verbose:
-            print('_'*100)
+            print('_' * 100)
             print(f'try: {port} {desc} {hwid}')
 
         port_stat = Path(port).stat()
@@ -45,7 +45,7 @@ def get_serial(
                 print('Hint:')
                 print(f'\tsudo usermod -a -G {user_group_name} $USER')
                 print('and try again ;)')
-                print('-'*100)
+                print('-' * 100)
             continue
 
         if verbose:

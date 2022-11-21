@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pysmartmeter"
 version = "0.1.0"
-description = "Collect data from Hitchi Smartmeter and expose it via MQTT"
+description = "Collect data from Hichi Smartmeter and expose it via MQTT"
 authors = [
     "Jens Diemer <pysmartmeter@jensdiemer.de>",
 ]
@@ -123,7 +123,7 @@ github_username = "jedie"
 author_email = "pysmartmeter@jensdiemer.de"
 package_name = "pysmartmeter"
 package_version = "0.0.1"
-package_description = "Collect data from Hitchi Smartmeter and expose it via MQTT"
+package_description = "Collect data from Hichi Smartmeter and expose it via MQTT"
 package_url = "https://github.com/jedie/pysmartmeter"
 issues_url = "https://github.com/jedie/pysmartmeter/issues"
 license = "GPL-3.0-or-later"

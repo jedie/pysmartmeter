@@ -1,4 +1,4 @@
-"""pysmartmeter - Collect data from Hitchi Smartmeter and expose it via MQTT"""
+"""pysmartmeter - Collect data from Hichi Smartmeter and expose it via MQTT"""
 
 from importlib.metadata import version
 
