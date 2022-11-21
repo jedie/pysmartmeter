@@ -2,6 +2,13 @@
 
 Collect data from Hichi Smartmeter aka `volkszaehler.org` (USB Version) and expose it via MQTT.
 
+In the end it can looks like the following [Home Assistant](https://www.home-assistant.io/) dashboard screenshot, using [MQTT integration](https://www.home-assistant.io/integrations/mqtt):
+
+![2022-11-21_13-47.png](https://raw.githubusercontent.com/jedie/jedie.github.io/master/screenshots/pysmartmeter/2022-11-21_13-47.png "2022-11-21_13-47.png")
+
+With my "eBZ DD3" energy meterby eBZ GmbH the values update live every second ;)
+
+
 ## quickstart
 
 ```bash
@@ -86,3 +93,5 @@ Setup systemd service:
 * https://github.com/eclipse/mosquitto
 * https://dewiki.de/Lexikon/OBIS-Kennzahlen (de) | https://www.promotic.eu/en/pmdoc/Subsystems/Comm/PmDrivers/IEC62056_OBIS.htm (en)
 * https://www.photovoltaikforum.com/thread/145886-habe-lesk%C3%B6pfe-mit-usb-%C3%BCber/ (de)
+* https://www.heise.de/tests/Ausprobiert-Guenstiger-IR-Lesekopf-fuer-Smart-Meter-mit-Tastmota-Firmware-7065559.html (de)
+* 
