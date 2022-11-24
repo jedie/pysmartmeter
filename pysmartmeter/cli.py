@@ -66,11 +66,12 @@ def dump():
 
 
 @app.command()
-def publish_loop(verbose: bool = True):
+def publish_loop(log: bool = True, verbose: bool = True):
     """
     Publish current data via MQTT (endless loop)
     """
-    log_config()
+    if log:
+        log_config()
     settings: MqttSettings = get_mqtt_settings()
     pprint(settings.anonymized())
     try:
