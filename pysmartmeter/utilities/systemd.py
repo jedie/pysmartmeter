@@ -20,7 +20,7 @@ User={user}
 Group={group}
 WorkingDirectory={work_dir}
 
-ExecStart={python_bin} -m pysmartmeter publish-loop --no-verbose
+ExecStart={python_bin} -m pysmartmeter publish-loop --no-log --no-verbose
 
 Restart=always
 RestartSec=5s
