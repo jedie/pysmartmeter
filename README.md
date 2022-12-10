@@ -11,6 +11,12 @@ With my "eBZ DD3" energy meterby eBZ GmbH the values update live every second ;)
 
 ## quickstart
 
+Install minimum requirements, e.g.:
+```bash
+~$ sudo apt install make python3-venv
+```
+
+Clone sources and install project:
 ```bash
 ~$ git clone https://github.com/jedie/pysmartmeter.git
 ~$ cd pysmartmeter
@@ -52,7 +58,8 @@ PySmartMeter v0.1.0
 
 Test if you Hichi Smartmeter with CP2102 USB to UART Bridge Controller works, e.g.:
 ```bash
-~/pysmartmeter$ ./cli.sh dump
+~/pysmartmeter$ 
+
 ```
 
 Maybe you didn't have permissions to access the port, e.g.:
