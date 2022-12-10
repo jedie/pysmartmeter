@@ -56,10 +56,9 @@ PySmartMeter v0.1.0
 ╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
-Test if you Hichi Smartmeter with CP2102 USB to UART Bridge Controller works, e.g.:
+Test if you Hichi Smartmeter with CP2102 USB to UART Bridge Controller will be found, e.g.:
 ```bash
-~/pysmartmeter$ 
-
+~/pysmartmeter$ ./cli.sh detect-serial
 ```
 
 Maybe you didn't have permissions to access the port, e.g.:
@@ -86,12 +85,26 @@ You have to store your MQTT settings (host, port, username, password) one time, 
 ```bash
 ~/pysmartmeter$ ./cli.sh store-settings
 ```
+This will create a JSON file here: `~/.pysmartmeter`
+
+You can test reading this settings file with:
+```bash
+~/pysmartmeter$ ./cli.sh debug-settings
+```
 
 Setup systemd service:
 ```bash
 ~/pysmartmeter$ sudo ./cli.sh setup-systemd-service
 ```
+This will create a systemd service that automaticly starts on every boot.
 
+Check if service is running:
+```bash
+~/pysmartmeter$ sudo ./cli.sh systemd-status
+```
+
+If everything is fine: Go to your [Home Assistant and check the MQTT integration](https://www.home-assistant.io/integrations/mqtt/)
+The device discovery will be made automaticly.
 
 # various links
 
@@ -101,4 +114,4 @@ Setup systemd service:
 * https://dewiki.de/Lexikon/OBIS-Kennzahlen (de) | https://www.promotic.eu/en/pmdoc/Subsystems/Comm/PmDrivers/IEC62056_OBIS.htm (en)
 * https://www.photovoltaikforum.com/thread/145886-habe-lesk%C3%B6pfe-mit-usb-%C3%BCber/ (de)
 * https://www.heise.de/tests/Ausprobiert-Guenstiger-IR-Lesekopf-fuer-Smart-Meter-mit-Tastmota-Firmware-7065559.html (de)
-* 
+* https://www.home-assistant.io
