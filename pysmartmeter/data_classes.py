@@ -56,6 +56,7 @@ class HomeassistantValue:
 
     unique_id: str
     value_key: str
+    state_class: str
     obis_value: ObisValue
 
     @property
