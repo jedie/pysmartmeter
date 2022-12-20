@@ -9,6 +9,7 @@
             "unit": null,
             "value": "EBZ5DD3BZ06ETA_107"
         },
+        "state_class": "measurement",
         "unique_id": "ebz5dd3bz06eta107_identifier",
         "value_key": "value_identifier"
     },
@@ -22,6 +23,7 @@
             "unit": null,
             "value": "1EBZ0100000123"
         },
+        "state_class": "measurement",
         "unique_id": "ebz5dd3bz06eta107_1_0_0_0_0_255",
         "value_key": "value_1_0_0_0_0_255"
     },
@@ -35,6 +37,7 @@
             "unit": null,
             "value": "1EBZ0100000123"
         },
+        "state_class": "measurement",
         "unique_id": "ebz5dd3bz06eta107_1_0_96_1_0_255",
         "value_key": "value_1_0_96_1_0_255"
     },
@@ -48,6 +51,7 @@
             "unit": "kWh",
             "value": 10002.0
         },
+        "state_class": "total",
         "unique_id": "ebz5dd3bz06eta107_1_0_1_8_0_255",
         "value_key": "value_1_0_1_8_0_255"
     },
@@ -61,6 +65,7 @@
             "unit": null,
             "value": "001C0104"
         },
+        "state_class": "measurement",
         "unique_id": "ebz5dd3bz06eta107_1_0_96_5_0_255",
         "value_key": "value_1_0_96_5_0_255"
     },
@@ -74,6 +79,7 @@
             "unit": "sec.",
             "value": 12513026
         },
+        "state_class": "total",
         "unique_id": "ebz5dd3bz06eta107_0_0_96_8_0_255",
         "value_key": "value_0_0_96_8_0_255"
     },
@@ -87,6 +93,7 @@
             "unit": "months",
             "value": 4.8
         },
+        "state_class": "measurement",
         "unique_id": "ebz5dd3bz06eta107_human_op_time",
         "value_key": "value_human_op_time"
     }

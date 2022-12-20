@@ -5,7 +5,11 @@ from bx_py_utils.humanize.time import human_timedelta
 
 from pysmartmeter import ha_const
 from pysmartmeter.data_classes import HomeassistantValue, MqttPayload, ObisValue
-from pysmartmeter.obis_map import OBIS_OPERATION_DURATION_KEY
+from pysmartmeter.obis_map import (
+    DEFAULT_HS_STATE,
+    OBIS_KEY2HA_STATE_CLASS,
+    OBIS_OPERATION_DURATION_KEY,
+)
 from pysmartmeter.utilities.string_utils import slugify
 
 
@@ -49,7 +53,7 @@ def data2config(ha_values: list[HomeassistantValue]) -> list[MqttPayload]:
                     },
                     'name': ha_value.obis_value.name,
                     'unique_id': ha_value.unique_id,
-                    'state_class': 'measurement',
+                    'state_class': ha_value.state_class,
                     ha_const.CONF_STATE_TOPIC: state_topic,
                     'unit_of_measurement': ha_value.obis_value.unit,
                     'value_template': value_template,
@@ -81,11 +85,13 @@ def ha_convert_obis_values(*, obis_values: list[ObisValue]) -> list[Homeassistan
 
     ha_values = []
     for value in obis_values:
+        state_class = OBIS_KEY2HA_STATE_CLASS.get(value.key, DEFAULT_HS_STATE)
         unique_id = f'{identifier_slug}_{value.key_slug}'
         ha_values.append(
             HomeassistantValue(
                 unique_id=unique_id,
                 value_key=f'value_{value.key_slug}',
+                state_class=state_class,
                 obis_value=value,
             )
         )
@@ -107,6 +113,7 @@ def ha_convert_obis_values(*, obis_values: list[ObisValue]) -> list[Homeassistan
             HomeassistantValue(
                 unique_id=f'{identifier_slug}_human_op_time',
                 value_key='value_human_op_time',
+                state_class=DEFAULT_HS_STATE,
                 obis_value=obis_value,
             )
         )

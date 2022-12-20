@@ -16,3 +16,9 @@ OBIS_KEY_MAP = {
 }
 
 OBIS_OPERATION_DURATION_KEY = '0-0:96.8.0*255'
+
+DEFAULT_HS_STATE = 'measurement'
+OBIS_KEY2HA_STATE_CLASS = {
+    '1-0:1.8.0*255': 'total',
+    '0-0:96.8.0*255': 'total',
+}
