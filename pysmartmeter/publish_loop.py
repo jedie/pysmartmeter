@@ -8,7 +8,7 @@ from bx_py_utils.anonymize import anonymize
 from rich.pretty import pprint
 
 import pysmartmeter
-from pysmartmeter.data_classes import MqttSettings, ObisValue
+from pysmartmeter.data_classes import MqttPayload, MqttSettings, ObisValue
 from pysmartmeter.detect_serial import get_serial
 from pysmartmeter.homeassistant import data2config, data2state, ha_convert_obis_values
 from pysmartmeter.parser import ObisParser
@@ -44,17 +44,29 @@ class MqttPublisher:
         client_id = f'PySmartMeter v{pysmartmeter.__version__} on {hostname}'
         return client_id
 
-    def publish(self, *, topic: str, data: dict):
+    def publish(self, *, mqtt_payload: MqttPayload) -> None:
         if self.verbose:
             print('_' * 100)
-            print(f'Publish MQTT topic: {topic}')
-            pprint(data)
+            print(f'Publish MQTT topic: {mqtt_payload.topic}')
+            pprint(mqtt_payload.data)
 
         assert self.mqttc.is_connected()
-        info = self.mqttc.publish(topic=topic, payload=json.dumps(data))
+        info = self.mqttc.publish(topic=mqtt_payload.topic, payload=json.dumps(mqtt_payload.data))
 
         if self.verbose:
             print('publish result:', info)
+
+
+def obis_values2mqtt_state(obis_values: list[ObisValue], verbose: bool = False) -> MqttPayload:
+    ha_values = ha_convert_obis_values(obis_values=obis_values)
+    if verbose:
+        pprint(ha_values)
+    return data2state(ha_values=ha_values)
+
+
+def obis_values2mqtt_config(obis_values: list[ObisValue]) -> list[MqttPayload]:
+    ha_values = ha_convert_obis_values(obis_values=obis_values)
+    return data2config(ha_values=ha_values)
 
 
 class HomeAssistantMqtt:
@@ -65,22 +77,14 @@ class HomeAssistantMqtt:
         self.send_count = 0
 
     def __call__(self, *, obis_values: list[ObisValue]):
-        ha_values = ha_convert_obis_values(obis_values=obis_values)
+        if self.send_count % 12 == 0:
+            for payload in obis_values2mqtt_config(obis_values=obis_values):
+                self.mqtt_publisher.publish(mqtt_payload=payload)
+
         if self.verbose:
             print(f'publish values (send count: {self.send_count}):')
-            pprint(ha_values)
-
-        if self.send_count % 12 == 0:
-            for config in data2config(ha_values=ha_values):
-                self.mqtt_publisher.publish(
-                    topic=config['topic'],
-                    data=config['data'],
-                )
-
-        result = data2state(ha_values=ha_values)
         self.mqtt_publisher.publish(
-            topic=result['topic'],
-            data=result['data'],
+            mqtt_payload=obis_values2mqtt_state(obis_values=obis_values, verbose=self.verbose)
         )
         self.send_count += 1
 

@@ -1,14 +1,16 @@
+import dataclasses
 import re
 
 from bx_py_utils.test_utils.snapshot import assert_snapshot
 
-from pysmartmeter.data_classes import HomeassistantValue, ObisValue
+from pysmartmeter.data_classes import HomeassistantValue, MqttPayload, ObisValue
 from pysmartmeter.homeassistant import (
     data2config,
     data2state,
     get_value_by_key,
     ha_convert_obis_values,
 )
+from pysmartmeter.publish_loop import obis_values2mqtt_config, obis_values2mqtt_state
 from pysmartmeter.tests import BaseTestCase
 from pysmartmeter.tests.data import get_obis_values
 from pysmartmeter.utilities.serializer import serialize_values
@@ -67,17 +69,21 @@ class HomeassistantTestCase(BaseTestCase):
 
     def test_data2config(self):
         ha_values = ha_convert_obis_values(obis_values=get_obis_values())
-        config = data2config(ha_values=ha_values)
+        mqtt_payloads = data2config(ha_values=ha_values)
+        self.assertIsInstance(mqtt_payloads, list)
 
+        payloads = []
         unique_ids = []
-        for data in config:
-            topic = data['topic']
-            self.assertRegex(topic, TOPIC_MATCHER)
+        for mqtt_payload in mqtt_payloads:
+            self.assertIsInstance(mqtt_payload, MqttPayload)
+            self.assertRegex(mqtt_payload.topic, TOPIC_MATCHER)
 
             # Check object_id uniqueness:
-            unique_id = data['data']['unique_id']
+            unique_id = mqtt_payload.data['unique_id']
             self.assertNotIn(unique_id, unique_ids)
             unique_ids.append(unique_id)
+
+            payloads.append(dataclasses.asdict(mqtt_payload))
 
         self.assertEqual(
             unique_ids,
@@ -91,13 +97,14 @@ class HomeassistantTestCase(BaseTestCase):
                 'ebz5dd3bz06eta107_human_op_time',
             ],
         )
-        assert_snapshot(got=config)
+        assert_snapshot(got=payloads)
 
     def test_data2state(self):
         ha_values = ha_convert_obis_values(obis_values=get_obis_values())
-        result = data2state(ha_values=ha_values)
+        mqtt_payload = data2state(ha_values=ha_values)
+        self.assertIsInstance(mqtt_payload, MqttPayload)
         self.assert_verbose(
-            got=result,
+            got=dataclasses.asdict(mqtt_payload),
             excepted={
                 'topic': 'homeassistant/sensor/EBZ5DD3BZ06ETA107/state',
                 'data': {
@@ -111,3 +118,16 @@ class HomeassistantTestCase(BaseTestCase):
                 },
             },
         )
+
+    def test_homeassistant_mqtt_payloads(self):
+        """
+        Snapshot a complete configs/data MQTT payload for Home Assistant
+        """
+        obis_values = get_obis_values()
+        payloads = obis_values2mqtt_config(obis_values=obis_values)
+        payloads.append(obis_values2mqtt_state(obis_values=obis_values))
+        results = []
+        for mqtt_payload in payloads:
+            self.assertIsInstance(mqtt_payload, MqttPayload)
+            results.append(dataclasses.asdict(mqtt_payload))
+        assert_snapshot(got=results)

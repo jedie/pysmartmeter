@@ -4,7 +4,7 @@
 from bx_py_utils.humanize.time import human_timedelta
 
 from pysmartmeter import ha_const
-from pysmartmeter.data_classes import HomeassistantValue, ObisValue
+from pysmartmeter.data_classes import HomeassistantValue, MqttPayload, ObisValue
 from pysmartmeter.obis_map import OBIS_OPERATION_DURATION_KEY
 from pysmartmeter.utilities.string_utils import slugify
 
@@ -23,7 +23,7 @@ def get_value_by_key(values, key: str):
     raise KeyError(key)
 
 
-def data2config(ha_values: list[HomeassistantValue]) -> list[dict]:
+def data2config(ha_values: list[HomeassistantValue]) -> list[MqttPayload]:
     identifier_value = get_value_by_key(values=ha_values, key='identifier')
     identifier_raw = identifier_value.obis_value.value
     assert identifier_raw
@@ -33,13 +33,13 @@ def data2config(ha_values: list[HomeassistantValue]) -> list[dict]:
 
     identifiers = [ha_value.unique_id for ha_value in ha_values]
 
-    configs = []
+    payloads = []
     for ha_value in ha_values:
         config_topic = f'{ha_const.DEFAULT_PREFIX}/{HA_COMPONENT}/{ha_value.unique_id}/config'
         value_template = '{{ value_json.%(value_key)s }}' % dict(value_key=ha_value.value_key)
 
-        configs.append(
-            dict(
+        payloads.append(
+            MqttPayload(
                 topic=config_topic,
                 data={
                     ha_const.CONF_DEVICE_CLASS: 'energy',
@@ -57,22 +57,20 @@ def data2config(ha_values: list[HomeassistantValue]) -> list[dict]:
             )
         )
 
-    return configs
+    return payloads
 
 
-def data2state(ha_values: list[HomeassistantValue]) -> dict:
+def data2state(ha_values: list[HomeassistantValue]) -> MqttPayload:
     identifier_value = get_value_by_key(values=ha_values, key='identifier')
     identifier_raw = identifier_value.obis_value.value
     assert identifier_raw
     identifier_slug = slugify(identifier_raw)
 
     payload = {ha_value.value_key: ha_value.obis_value.value for ha_value in ha_values}
-    result = dict(
+    return MqttPayload(
         topic=f'{ha_const.DEFAULT_PREFIX}/{HA_COMPONENT}/{identifier_slug}/state',
         data=payload,
     )
-
-    return result
 
 
 def ha_convert_obis_values(*, obis_values: list[ObisValue]) -> list[HomeassistantValue]:

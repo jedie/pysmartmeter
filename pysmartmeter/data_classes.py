@@ -61,3 +61,9 @@ class HomeassistantValue:
     @property
     def key(self):
         return self.obis_value.key
+
+
+@dataclasses.dataclass
+class MqttPayload:
+    topic: str
+    data: dict
