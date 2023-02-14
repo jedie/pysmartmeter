@@ -88,7 +88,7 @@ def store_settings():
     log_config()
 
     try:
-        settings: MqttSettings = get_mqtt_settings()
+        settings: MqttSettings = get_mqtt_settings(False)
     except FileNotFoundError:
         print('No settings stored, yet. ok.')
         print()
