@@ -21,7 +21,7 @@ def get_mqtt_settings() -> MqttSettings:
     try:
         data_str = CREDENTIAL_FILE_PATH.read_text(encoding='UTF-8')
     except FileNotFoundError as err:
-        print(f'ERROR: File not found: {err}')
+        print(f'ERROR: Error reading config: {err}')
         print('(Hint save settings first with: "./cli.sh store-settings")')
         raise FileNotFoundError(err)
     settings = MqttSettings.from_json(data_str)
