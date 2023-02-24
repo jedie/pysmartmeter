@@ -9,8 +9,8 @@ from bx_py_utils.anonymize import anonymize
 class MqttSettings:
     host: str
     port: int
-    user_name: Optional[str]
-    password: Optional[str]
+    user_name: str
+    password: str
 
     def as_json(self):
         data = dataclasses.asdict(self)
