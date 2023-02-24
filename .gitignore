@@ -1,6 +1,7 @@
 .*
-dist
+*.egg-info
 __pycache__
+/dist/
 coverage.json
 
 !.github
