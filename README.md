@@ -1,11 +1,14 @@
 # pysmartmeter
 
-Collect data from Hichi Smartmeter aka `volkszaehler.org` (USB Version) and expose it via MQTT.
+
 [![tests](https://github.com/jedie/pysmartmeter/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/jedie/pysmartmeter/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/github/jedie/pysmartmeter/branch/main/graph/badge.svg)](https://codecov.io/github/jedie/pysmartmeter)
 [![pysmartmeter @ PyPi](https://img.shields.io/pypi/v/pysmartmeter?label=pysmartmeter%20%40%20PyPi)](https://pypi.org/project/pysmartmeter/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/pysmartmeter)](https://github.com/jedie/pysmartmeter/blob/main/pyproject.toml)
 [![License GPL-3.0-or-later](https://img.shields.io/pypi/l/pysmartmeter)](https://github.com/jedie/pysmartmeter/blob/main/LICENSE)
+
+
+Collect data from Hichi Smartmeter aka `volkszaehler.org` (USB Version) and expose it via MQTT.
 
 In the end it can looks like the following [Home Assistant](https://www.home-assistant.io/) dashboard screenshot, using [MQTT integration](https://www.home-assistant.io/integrations/mqtt):
 
