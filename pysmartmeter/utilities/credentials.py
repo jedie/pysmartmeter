@@ -1,4 +1,3 @@
-import sys
 from pathlib import Path
 
 from pysmartmeter.data_classes import MqttSettings
@@ -24,6 +23,6 @@ def get_mqtt_settings() -> MqttSettings:
     except FileNotFoundError as err:
         print(f'ERROR: File not found: {err}')
         print('(Hint save settings first with: "./cli.sh store-settings")')
-        sys.exit(1)
+        raise FileNotFoundError(err)
     settings = MqttSettings.from_json(data_str)
     return settings
