@@ -3,8 +3,9 @@ import os
 import sys
 from pathlib import Path
 
+from manageprojects.utilities.subprocess_utils import verbose_check_call
+
 from pysmartmeter import __version__
-from pysmartmeter.utilities.subprocess_utils import verbose_check_call
 
 
 SERVICE_NAME = 'pysmartmeter.service'

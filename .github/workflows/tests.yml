@@ -16,9 +16,6 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.11", "3.10", "3.9"]
-    env:
-      PYTHONUNBUFFERED: 1
-      PYTHONWARNINGS: always
     steps:
     - name: Checkout
       run: |
@@ -32,23 +29,25 @@ jobs:
       # https://github.com/marketplace/actions/setup-python
       with:
         python-version: '${{ matrix.python-version }}'
+        cache: 'pip' # caching pip dependencies
+        cache-dependency-path: '**/requirements.dev.txt'
 
-    - uses: actions/cache@v2
-      with:
-        path: ~/.cache/
-        key: dot-cache-files
-
-    - name: 'Install Poetry'
+    - name: 'Bootstrap'
+      # The first CLI call will create the .venv
       run: |
-        make install-poetry
+        ./cli.py version
 
-    - name: 'Install'
+    - name: 'CLI help'
       run: |
-        make install
+        ./cli.py --help
+
+    - name: 'Safety'
+      run: |
+        ./cli.py safety
 
     - name: 'Run tests with Python v${{ matrix.python-version }}'
       run: |
-        ./cli.sh coverage
+        ./cli.py coverage
 
     - name: 'Upload coverage report'
       uses: codecov/codecov-action@v3

@@ -1,63 +1,69 @@
-[tool.poetry]
+[project]
 name = "pysmartmeter"
-version = "0.2.2"
+version = "0.3.0.dev0"
 description = "Collect data from Hichi Smartmeter and expose it via MQTT"
+readme = "README.md"
 authors = [
-    "Jens Diemer <pysmartmeter@jensdiemer.de>",
+    {name = 'Jens Diemer', email = 'pysmartmeter@jensdiemer.de'}
 ]
-maintainers = [
-    "Jens Diemer <pysmartmeter@jensdiemer.de>",
+requires-python = ">=3.9,<4"
+dependencies = [
+    "manageprojects",  # https://github.com/jedie/manageprojects
+    "pyserial",
+    "paho-mqtt",
+
+    # TODO: Use keyring for store MQTT credentials:
+    #"keyring",  # https://github.com/jaraco/keyring
+
+    "bx_py_utils",  # https://github.com/boxine/bx_py_utils
+    "click",  # https://github.com/pallets/click/
+    "rich-click",  # https://github.com/ewels/rich-click
+    "rich",  # https://github.com/Textualize/rich
 ]
-homepage = "https://github.com/jedie/pysmartmeter"
-packages = [{ include = "pysmartmeter" }]
-license = "GPL-3.0-or-later"
-readme = 'README.md'
+[project.optional-dependencies]
+dev = [
+    "pip-tools",  # https://github.com/jazzband/pip-tools/
+    "tox",  # https://github.com/tox-dev/tox
+    "coverage",  # https://github.com/nedbat/coveragepy
+    "darker>=1.7",  # https://github.com/akaihola/darker
+    "autopep8",  # https://github.com/hhatto/autopep8
+    "pyupgrade",  # https://github.com/asottile/pyupgrade
+    "isort",  # https://github.com/pycqa/isort
+    "flynt",  # https://github.com/ikamensh/flynt
+    "flake8",  # https://github.com/pycqa/flake8
+    "pyflakes",  # https://github.com/PyCQA/pyflakes
+    "codespell",  # https://github.com/codespell-project/codespell
+    "EditorConfig",  # https://github.com/editorconfig/editorconfig-core-py
+    "safety",  # https://github.com/pyupio/safety
+    "mypy",  # https://github.com/python/mypy
+    "tomli",  # https://github.com/hukkin/tomli
+    "twine",  # https://github.com/pypa/twine
+    #
+    # Work-a-round for:
+    # https://github.com/jazzband/pip-tools/issues/994#issuecomment-1321226661
+    "typing-extensions>=3.10",
+]
 
-[tool.poetry.urls]
-"Bug Tracker" = "https://github.com/jedie/pysmartmeter/issues"
+[project.urls]
+Documentation = "https://github.com/jedie/pysmartmeter"
+Source = "https://github.com/jedie/pysmartmeter"
 
+[project.scripts]
+pysmartmeter = "pysmartmeter.__main__:main"
 
-[tool.poetry.dependencies]
-python = ">=3.9,<4.0.0"
-pyserial = "*"
-paho-mqtt = "*"
-typer = "*"
-rich = "*"
-bx_py_utils = "*"
-
-# TODO: Use keyring for store MQTT credentials:
-#keyring = "*" # https://github.com/jaraco/keyring
-
-
-[tool.poetry.dev-dependencies]
-tox = ">=4.4.4"  # https://github.com/tox-dev/tox
-coverage= "*"  # https://github.com/nedbat/coveragepy
-darker = "*"  # https://github.com/akaihola/darker
-isort = "*"  # https://github.com/pycqa/isort
-flynt = "*"  # https://github.com/ikamensh/flynt
-flake8 = "*"  # https://github.com/pycqa/flake8
-EditorConfig = "*"  # https://github.com/editorconfig/editorconfig-core-py
-safety = "*"  # https://github.com/pyupio/safety
-poetry-publish = "*"  # https://github.com/jedie/poetry-publish
-manageprojects = "*"  # https://github.com/jedie/manageprojects
-mypy = "*"
-pyproject-flake8="*"
-tomli = "*"
-
-
-[tool.poetry.scripts]
-pysmartmeter = "pysmartmeter.main:main"
-
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pysmartmeter*"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
 
 [tool.darker]
 src = ['.']
 revision = "origin/main..."
-line_length = 100
+line_length = 119
 verbose = true
 color = true
 skip_string_normalization = true
@@ -78,7 +84,7 @@ atomic=true
 profile='black'
 skip_glob=['.*', '*/htmlcov/*']
 known_first_party=['pysmartmeter']
-line_length=100
+line_length=119
 lines_after_imports=2
 
 
@@ -86,7 +92,7 @@ lines_after_imports=2
 branch = true
 source = ['.']
 omit = ['.*', '*/tests/*']
-command_line = "-m unittest --locals --verbose"
+command_line = '-m unittest --verbose --locals --buffer'
 
 [tool.coverage.report]
 skip_empty = true
@@ -111,11 +117,12 @@ skip_missing_interpreters = True
 
 [testenv]
 passenv = *
-allowlist_externals = make
+skip_install = true
 commands_pre =
-    make install
+    pip install -U pip-tools
+    pip-sync requirements.dev.txt
 commands =
-    make test
+    python -m coverage run
 """
 
 
@@ -123,7 +130,7 @@ commands =
 initial_revision = "e826e73"
 initial_date = 2022-11-14T08:20:55+01:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
-cookiecutter_directory = "poetry-python"
+cookiecutter_directory = "piptools-python"
 
 [manageprojects.cookiecutter_context.cookiecutter]
 full_name = "Jens Diemer"
@@ -136,6 +143,7 @@ package_url = "https://github.com/jedie/pysmartmeter"
 issues_url = "https://github.com/jedie/pysmartmeter/issues"
 license = "GPL-3.0-or-later"
 _template = "https://github.com/jedie/cookiecutter_templates/"
+
 applied_migrations = [
     "d970456", # 2023-02-20T16:19:35+01:00
 ]
