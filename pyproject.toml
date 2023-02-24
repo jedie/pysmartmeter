@@ -39,6 +39,7 @@ flake8 = "*"  # https://github.com/pycqa/flake8
 EditorConfig = "*"  # https://github.com/editorconfig/editorconfig-core-py
 safety = "*"  # https://github.com/pyupio/safety
 poetry-publish = "*"  # https://github.com/jedie/poetry-publish
+manageprojects = "*"  # https://github.com/jedie/manageprojects
 mypy = "*"
 pyproject-flake8="*"
 tomli = "*"
@@ -46,7 +47,6 @@ tomli = "*"
 
 [tool.poetry.scripts]
 pysmartmeter = "pysmartmeter.main:main"
-publish = "pysmartmeter.publish:publish"
 
 
 [build-system]

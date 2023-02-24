@@ -6,10 +6,10 @@ from pathlib import Path
 
 import typer
 from bx_py_utils.path import assert_is_dir, assert_is_file
+from manageprojects.utilities.version_info import print_version
 from rich.pretty import pprint
 
 import pysmartmeter
-from pysmartmeter import __version__
 from pysmartmeter.data_classes import MqttSettings
 from pysmartmeter.detect_serial import print_detect_serial
 from pysmartmeter.dump import serial_dump
@@ -243,8 +243,7 @@ def publish():
     log_config()
     test()  # Don't publish a broken state
 
-    # TODO: Add the checks from:
-    #       https://github.com/jedie/poetry-publish/blob/main/poetry_publish/publish.py
+    # TODO: Use publish from manageprojects!
 
     dist_path = PACKAGE_ROOT / 'dist'
     if dist_path.exists():
@@ -257,7 +256,8 @@ def publish():
 
 
 def main():
-    print(f'PySmartMeter v{__version__}')
+    print_version(pysmartmeter)
+
     if len(sys.argv) >= 2 and sys.argv[1] == 'test':
         # Just use the CLI from unittest with all available options and origin --help output ;)
         return test()
