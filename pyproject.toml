@@ -30,14 +30,16 @@ bx_py_utils = "*"
 
 
 [tool.poetry.dev-dependencies]
-tox = "*"
-darker = "*"  # https://github.com/akaihola/pytest-darker
-coveralls = "*"
-isort = "*"
-flake8 = "*"
+tox = ">=4.4.4"  # https://github.com/tox-dev/tox
+coverage= "*"  # https://github.com/nedbat/coveragepy
+darker = "*"  # https://github.com/akaihola/darker
+isort = "*"  # https://github.com/pycqa/isort
+flynt = "*"  # https://github.com/ikamensh/flynt
+flake8 = "*"  # https://github.com/pycqa/flake8
 EditorConfig = "*"  # https://github.com/editorconfig/editorconfig-core-py
 safety = "*"  # https://github.com/pyupio/safety
 poetry-publish = "*"  # https://github.com/jedie/poetry-publish
+manageprojects = "*"  # https://github.com/jedie/manageprojects
 mypy = "*"
 pyproject-flake8="*"
 tomli = "*"
@@ -45,7 +47,6 @@ tomli = "*"
 
 [tool.poetry.scripts]
 pysmartmeter = "pysmartmeter.main:main"
-publish = "pysmartmeter.publish:publish"
 
 
 [build-system]
@@ -58,11 +59,13 @@ src = ['.']
 revision = "origin/main..."
 line_length = 100
 verbose = true
+color = true
 skip_string_normalization = true
 diff = false
 check = false
 stdout = false
 isort = true
+flynt = true
 lint = [
     "flake8",
 ]
@@ -73,7 +76,7 @@ log_level = "INFO"
 # https://pycqa.github.io/isort/docs/configuration/config_files/#pyprojecttoml-preferred-format
 atomic=true
 profile='black'
-skip_glob=["*/htmlcov/*"]
+skip_glob=['.*', '*/htmlcov/*']
 known_first_party=['pysmartmeter']
 line_length=100
 lines_after_imports=2
@@ -83,8 +86,11 @@ lines_after_imports=2
 branch = true
 source = ['.']
 omit = ['.*', '*/tests/*']
-command_line = "-m unittest"
+command_line = "-m unittest --locals --verbose"
 
+[tool.coverage.report]
+skip_empty = true
+fail_under = 45
 
 [tool.mypy]
 warn_unused_configs = true
@@ -94,18 +100,18 @@ show_error_codes = true
 plugins = []
 exclude = ['.venv', 'tests']
 
-
-[tool.tox]
-# https://tox.readthedocs.io/en/latest/example/basic.html#pyproject-toml-tox-legacy-ini
+[tool.tox]  # https://tox.wiki/en/latest/config.html#pyproject-toml
 legacy_tox_ini = """
 [tox]
 isolated_build = True
-envlist = py{39,310}
+envlist = py{311,310,39}
 skip_missing_interpreters = True
 
 [testenv]
 passenv = *
-whitelist_externals = make
+allowlist_externals = make
+commands_pre =
+    make install
 commands =
     make test
 """
@@ -128,3 +134,6 @@ package_url = "https://github.com/jedie/pysmartmeter"
 issues_url = "https://github.com/jedie/pysmartmeter/issues"
 license = "GPL-3.0-or-later"
 _template = "https://github.com/jedie/cookiecutter_templates/"
+applied_migrations = [
+    "d970456", # 2023-02-20T16:19:35+01:00
+]
