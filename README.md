@@ -14,7 +14,7 @@ Discussion: https://www.photovoltaikforum.com/thread/188160-pysmartmeter (de)
 
 In the end it can looks like the following [Home Assistant](https://www.home-assistant.io/) dashboard screenshot, using [MQTT integration](https://www.home-assistant.io/integrations/mqtt):
 
-![2022-11-21_13-47.png](https://raw.githubusercontent.com/jedie/jedie.github.io/master/screenshots/pysmartmeter/2022-11-21_13-47.png "2022-11-21_13-47.png")
+![2023-02-26_17-39.png](https://raw.githubusercontent.com/jedie/jedie.github.io/master/screenshots/pysmartmeter/2023-02-26_17-39.png "2023-02-26_17-39.png")
 
 With my "eBZ DD3" energy meterby eBZ GmbH the values update live every second ;)
 
