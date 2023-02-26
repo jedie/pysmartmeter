@@ -1,6 +1,6 @@
 [project]
 name = "pysmartmeter"
-version = "0.3.3"
+version = "0.3.4"
 description = "Collect data from Hichi Smartmeter and expose it via MQTT"
 readme = "README.md"
 authors = [
