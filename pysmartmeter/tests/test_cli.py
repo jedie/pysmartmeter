@@ -3,6 +3,7 @@ from unittest.mock import patch
 from manageprojects.test_utils.click_cli_utils import invoke_click
 from manageprojects.tests.base import BaseTestCase
 
+from pysmartmeter import detect_serial
 from pysmartmeter.cli import cli_app
 from pysmartmeter.cli.cli_app import cli
 from pysmartmeter.data_classes import MqttSettings
@@ -38,5 +39,17 @@ class CliTestCase(BaseTestCase):
                 'foo.host.tld',
                 'fxxxxxxxz',
                 'Bye, bye',
+            ),
+        )
+
+    def test_detect_serial(self):
+        with patch.object(detect_serial, 'comports', return_value=[]):
+            stdout = invoke_click(cli, 'detect-serial')
+
+        self.assert_in_content(
+            got=stdout,
+            parts=(
+                'Detect Serial...',
+                'No serial ports found!',
             ),
         )
