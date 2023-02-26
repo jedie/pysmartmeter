@@ -118,6 +118,28 @@ Check if service is running:
 If everything is fine: Go to your [Home Assistant and check the MQTT integration](https://www.home-assistant.io/integrations/mqtt/)
 The device discovery will be made automaticly.
 
+
+# Backwards-incompatible changes
+
+## v0.2.x -> v0.3.x
+
+Packages changes:
+
+* We switched from `poetry` to `pip-tools`
+* `Makefile` was removed
+* "Renamed" `cli.sh` to `cli.py`
+
+The `Makefile` is no longer needed, because "Bootstrapping" will be made, just by call `cli.py`
+
+To migrate, just remove the existing `.venv` and create a fresh one, e.g.:
+```bash
+~$ cd pysmartmeter
+~/pysmartmeter$ git pull origin main
+~/pysmartmeter$ rm -Rf .venv
+~/pysmartmeter$ ./cli.py --help
+```
+
+
 # various links
 
 * https://github.com/pyserial/pyserial
