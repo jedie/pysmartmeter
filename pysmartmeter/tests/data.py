@@ -17,7 +17,7 @@ RAW_TEST_DATA_BIG = (
     '\r\n'
     '1-0:0.0.0*255(1EBZ0100000123)\r\n'  # Eigentumsnummer
     '1-0:96.1.0*255(1EBZ0100000123)\r\n'  # Geräte-Identifikationsnummer
-    '1-0:1.8.0*255(005087.48789958*kWh)\r\n'  # Zählerstand (Tariflos)
+    '1-0:1.8.0*255(005087.48789958*kWh)\r\n'  # Zählerstand Bezug (Tariflos)
     '1-0:16.7.0*255(000236.12*W)\r\n'  # Summe der Momentan-Leistungen in allen Phase
     '1-0:36.7.0*255(000212.65*W)\r\n'  # Momentane Leistung in Phase L1
     '1-0:56.7.0*255(000000.00*W)\r\n'  # Momentane Leistung in Phase L2

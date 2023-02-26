@@ -31,7 +31,7 @@
             {
                 "key": "1-0:1.8.0*255",
                 "key_slug": "1_0_1_8_0_255",
-                "name": "Zählerstand (Tariflos)",
+                "name": "Zählerstand Bezug (Tariflos)",
                 "raw_unit": "kWh",
                 "raw_value": "0010002*kWh",
                 "unit": "kWh",
@@ -89,7 +89,7 @@
             {
                 "key": "1-0:1.8.0*255",
                 "key_slug": "1_0_1_8_0_255",
-                "name": "Zählerstand (Tariflos)",
+                "name": "Zählerstand Bezug (Tariflos)",
                 "raw_unit": "kWh",
                 "raw_value": "0010003*kWh",
                 "unit": "kWh",

@@ -37,7 +37,7 @@ class ObisValue:
 
     key: str  # origin name e.g.: '1-0:1.8.0*255'
     key_slug: str
-    name: str  # Human readable name, e.g.: 'Zählerstand (Tariflos)'
+    name: str  # Human readable name, e.g.: 'Zählerstand Bezug (Tariflos)'
     raw_value: str  # e.g.: '0010002*kWh'
     value: Union[str, float]  # e.g.: 10002.0
     raw_unit: Optional[str] = None  # e.g.: 'kWh'

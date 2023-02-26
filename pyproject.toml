@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pysmartmeter"
-version = "0.2.1"
+version = "0.2.2"
 description = "Collect data from Hichi Smartmeter and expose it via MQTT"
 authors = [
     "Jens Diemer <pysmartmeter@jensdiemer.de>",
@@ -92,6 +92,7 @@ command_line = "-m unittest --locals --verbose"
 skip_empty = true
 fail_under = 45
 
+
 [tool.mypy]
 warn_unused_configs = true
 ignore_missing_imports = true
@@ -99,6 +100,7 @@ allow_redefinition = true  # https://github.com/python/mypy/issues/7165
 show_error_codes = true
 plugins = []
 exclude = ['.venv', 'tests']
+
 
 [tool.tox]  # https://tox.wiki/en/latest/config.html#pyproject-toml
 legacy_tox_ini = """
