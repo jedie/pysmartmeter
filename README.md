@@ -28,50 +28,54 @@ Clone sources and install project:
 ```bash
 ~$ git clone https://github.com/jedie/pysmartmeter.git
 ~$ cd pysmartmeter
-~/pysmartmeter$ make install-poetry
-~/pysmartmeter$ make install
-~/pysmartmeter$ ./cli.sh --help
-+ exec .venv/bin/python -m pysmartmeter --help
-PySmartMeter v0.1.0
-
- Usage: python -m pysmartmeter [OPTIONS] COMMAND [ARGS]...
-
-╭─ Options ─────────────────────────────────────────────────────────────────────────────────────────╮
-│ --install-completion        [bash|zsh|fish|powershell|pwsh]  Install completion for the specified │
-│                                                              shell.                               │
-│                                                              [default: None]                      │
-│ --show-completion           [bash|zsh|fish|powershell|pwsh]  Show completion for the specified    │
-│                                                              shell, to copy it or customize the   │
-│                                                              installation.                        │
-│                                                              [default: None]                      │
-│ --help                                                       Show this message and exit.          │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Commands ────────────────────────────────────────────────────────────────────────────────────────╮
-│ check-code-style                                                                                  │
-│ coverage                     Run and show coverage.                                               │
-│ debug-settings               Display (anonymized) MQTT server username and password               │
-│ debug-systemd-service        Just print the systemd service file content                          │
-│ detect-serial                Just print the detected serial port instance                         │
-│ dump                         Just dump serial output                                              │
-│ fix-code-style               Fix code style via darker                                            │
-│ mypy                         Run Mypy (configured in pyproject.toml)                              │
-│ publish-loop                 Publish current data via MQTT (endless loop)                         │
-│ setup-systemd-service        Setup PySmartMeter systemd services and starts it.                   │
-│ store-settings               Store MQTT server settings.                                          │
-│ systemd-status               Call systemd status of PySmartMeter services                         │
-│ systemd-stop                 Stop PySmartMeter systemd services                                   │
-│ test                         Run unittests                                                        │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
+~/pysmartmeter$ ./cli.py --help
 ```
+
+The output of `./cli.py --help` looks like:
+
+[comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
+```
+Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
+
+╭─ Options ────────────────────────────────────────────────────────────────────────────────────────╮
+│ --help      Show this message and exit.                                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
+│ check-code-style            Check code style by calling darker + flake8                          │
+│ coverage                    Run and show coverage.                                               │
+│ debug-settings              Display (anonymized) MQTT server username and password               │
+│ debug-systemd-service       Just print the systemd service file content                          │
+│ detect-serial               Just print the detected serial port instance                         │
+│ dump                        Just dump serial output                                              │
+│ fix-code-style              Fix code style of all pysmartmeter source code files via darker      │
+│ install                     Run pip-sync and install 'pysmartmeter' via pip as editable.         │
+│ mypy                        Run Mypy (configured in pyproject.toml)                              │
+│ publish                     Build and upload this project to PyPi                                │
+│ publish-loop                Publish current data via MQTT (endless loop)                         │
+│ safety                      Run safety check against current requirements files                  │
+│ setup-systemd-service       Setup PySmartMeter systemd services and starts it.                   │
+│ store-settings              Store MQTT server settings.                                          │
+│ systemd-restart             Restart PySmartMeter systemd services                                │
+│ systemd-status              Call systemd status of PySmartMeter services                         │
+│ systemd-stop                Stop PySmartMeter systemd services                                   │
+│ test                        Run unittests                                                        │
+│ tox                         Run tox                                                              │
+│ update                      Update "requirements*.txt" dependencies files                        │
+│ update-test-snapshot-files  Update all test snapshot files (by remove and recreate all snapshot  │
+│                             files)                                                               │
+│ version                     Print version and exit                                               │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+[comment]: <> (✂✂✂ auto generated main help end ✂✂✂)
 
 Test if you Hichi Smartmeter with CP2102 USB to UART Bridge Controller will be found, e.g.:
 ```bash
-~/pysmartmeter$ ./cli.sh detect-serial
+~/pysmartmeter$ ./cli.py detect-serial
 ```
 
 Maybe you didn't have permissions to access the port, e.g.:
 ```bash
-~/pysmartmeter$ ./cli.sh dump
+~/pysmartmeter$ ./cli.py dump
 ...
 try: /dev/ttyUSB0 CP2102 USB to UART Bridge Controller - CP2102 USB to UART Bridge Controller USB VID:PID=10C4:EA60
 /dev/ttyUSB0 file mode: 0o20660
@@ -91,24 +95,24 @@ sudo usermod -a -G dialout $USER
 
 You have to store your MQTT settings (host, port, username, password) one time, e.g.:
 ```bash
-~/pysmartmeter$ ./cli.sh store-settings
+~/pysmartmeter$ ./cli.py store-settings
 ```
 This will create a JSON file here: `~/.pysmartmeter`
 
 You can test reading this settings file with:
 ```bash
-~/pysmartmeter$ ./cli.sh debug-settings
+~/pysmartmeter$ ./cli.py debug-settings
 ```
 
 Setup systemd service:
 ```bash
-~/pysmartmeter$ sudo ./cli.sh setup-systemd-service
+~/pysmartmeter$ sudo ./cli.py setup-systemd-service
 ```
 This will create a systemd service that automaticly starts on every boot.
 
 Check if service is running:
 ```bash
-~/pysmartmeter$ sudo ./cli.sh systemd-status
+~/pysmartmeter$ sudo ./cli.py systemd-status
 ```
 
 If everything is fine: Go to your [Home Assistant and check the MQTT integration](https://www.home-assistant.io/integrations/mqtt/)
