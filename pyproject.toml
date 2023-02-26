@@ -1,6 +1,6 @@
 [project]
 name = "pysmartmeter"
-version = "0.3.2"
+version = "0.3.3"
 description = "Collect data from Hichi Smartmeter and expose it via MQTT"
 readme = "README.md"
 authors = [
@@ -9,7 +9,7 @@ authors = [
 requires-python = ">=3.9,<4"
 dependencies = [
     "manageprojects",  # https://github.com/jedie/manageprojects
-    "pyserial",
+    "pyserial",  # https://github.com/pyserial/pyserial
     "paho-mqtt",
 
     # TODO: Use keyring for store MQTT credentials:

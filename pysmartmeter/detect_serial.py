@@ -1,7 +1,9 @@
 import grp
+import time
 from pathlib import Path
 
 import serial
+from rich import print  # noqa
 from serial.tools.list_ports_posix import comports
 
 
@@ -17,10 +19,15 @@ def get_serial(
     """
     Get the first "working" serial instance back.
     """
+    if verbose:
+        print('[cyan]Detect Serial...')
+
+    checked_ports = []
     for port, desc, hwid in comports(include_links=False):
+        checked_ports.append(port)
         if verbose:
             print('_' * 100)
-            print(f'try: {port} {desc} {hwid}')
+            print(f'[magenta]try: {port} {desc} {hwid}')
 
         port_stat = Path(port).stat()
         print(f'{port} file mode:', oct(port_stat.st_mode))
@@ -40,30 +47,40 @@ def get_serial(
             )
         except Exception as err:
             if verbose:
-                print(f'ERROR: {err}')
+                print(f'[red]ERROR: {err}')
                 print()
                 print('Hint:')
-                print(f'\tsudo usermod -a -G {user_group_name} $USER')
+                print(f'\t[blue]sudo usermod -a -G {user_group_name} $USER')
                 print('and try again ;)')
                 print('-' * 100)
             continue
 
         if verbose:
-            print(f'Read from {ser}...', end=' ', flush=True)
-        try:
-            data = ser.readline()
-        except Exception as err:
-            if verbose:
-                print(f'ERROR: {err}')
-            continue
-        else:
-            if verbose:
-                print(data)
-            if data.endswith(terminator):
-                return ser
+            print(f'Read from {ser}...', flush=True)
+
+        for try_count in range(5):
+            try:
+                data = ser.readline()
+            except Exception as err:
+                if verbose:
+                    print(f'[yellow]ERROR: {err}')
+                time.sleep(0.1)
+                continue
+            else:
+                if verbose:
+                    print(data)
+                if data.endswith(terminator):
+                    return ser
+
+        if verbose:
+            print('[red]Can\'t read from. Try next serial.')
+
+    if not checked_ports:
+        print('[red]No serial ports found!')
 
 
 def print_detect_serial():
-    print('Detect Serial...')
-    ser = get_serial()
-    print(ser)
+    ser = get_serial(verbose=True)
+    if ser:
+        print('[green]Found serial:')
+        print(ser)
