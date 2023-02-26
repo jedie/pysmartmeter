@@ -56,6 +56,7 @@ class HomeassistantValue:
 
     unique_id: str
     value_key: str
+    device_class: str  # e.g.: 'energy' / 'voltage'
     state_class: str
     obis_value: ObisValue
 

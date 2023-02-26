@@ -1,5 +1,6 @@
 [
     {
+        "device_class": "energy",
         "obis_value": {
             "key": "identifier",
             "key_slug": "identifier",
@@ -14,6 +15,7 @@
         "value_key": "value_identifier"
     },
     {
+        "device_class": "energy",
         "obis_value": {
             "key": "1-0:0.0.0*255",
             "key_slug": "1_0_0_0_0_255",
@@ -28,6 +30,7 @@
         "value_key": "value_1_0_0_0_0_255"
     },
     {
+        "device_class": "energy",
         "obis_value": {
             "key": "1-0:96.1.0*255",
             "key_slug": "1_0_96_1_0_255",
@@ -42,6 +45,7 @@
         "value_key": "value_1_0_96_1_0_255"
     },
     {
+        "device_class": "energy",
         "obis_value": {
             "key": "1-0:1.8.0*255",
             "key_slug": "1_0_1_8_0_255",
@@ -56,6 +60,7 @@
         "value_key": "value_1_0_1_8_0_255"
     },
     {
+        "device_class": "energy",
         "obis_value": {
             "key": "1-0:96.5.0*255",
             "key_slug": "1_0_96_5_0_255",
@@ -70,6 +75,7 @@
         "value_key": "value_1_0_96_5_0_255"
     },
     {
+        "device_class": "energy",
         "obis_value": {
             "key": "0-0:96.8.0*255",
             "key_slug": "0_0_96_8_0_255",
@@ -84,6 +90,7 @@
         "value_key": "value_0_0_96_8_0_255"
     },
     {
+        "device_class": "energy",
         "obis_value": {
             "key": "0-0:96.8.0*255",
             "key_slug": "0_0_96_8_0_255",

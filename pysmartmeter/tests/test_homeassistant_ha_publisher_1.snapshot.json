@@ -268,7 +268,7 @@
                 ],
                 "name": "EBZ5DD3BZ06ETA_107"
             },
-            "device_class": "energy",
+            "device_class": "voltage",
             "name": "Spannung L1",
             "state_class": "measurement",
             "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
@@ -299,7 +299,7 @@
                 ],
                 "name": "EBZ5DD3BZ06ETA_107"
             },
-            "device_class": "energy",
+            "device_class": "voltage",
             "name": "Spannung L2",
             "state_class": "measurement",
             "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
@@ -330,7 +330,7 @@
                 ],
                 "name": "EBZ5DD3BZ06ETA_107"
             },
-            "device_class": "energy",
+            "device_class": "voltage",
             "name": "Spannung L3",
             "state_class": "measurement",
             "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
