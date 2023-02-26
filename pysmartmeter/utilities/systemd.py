@@ -2,9 +2,12 @@ import getpass
 import os
 import sys
 from pathlib import Path
+from subprocess import CalledProcessError
+
+from manageprojects.utilities.subprocess_utils import verbose_check_call
+from rich import print  # noqa
 
 from pysmartmeter import __version__
-from pysmartmeter.utilities.subprocess_utils import verbose_check_call
 
 
 SERVICE_NAME = 'pysmartmeter.service'
@@ -48,21 +51,31 @@ def compile_service():
     return content
 
 
+def print_hint_sudo_error(err):
+    print('-' * 100)
+    print(f'[red]ERROR: {err}')
+    print('[blue bold](Hint: Maybe sudo is needed for this command!)')
+    print('-' * 100)
+
+
 def write_service_file():
     content = compile_service()
     print(f'Write "{SYSTEMD_SERVICE_PATH}"...')
     try:
         SYSTEMD_SERVICE_PATH.write_text(content, encoding='UTF-8')
     except PermissionError as err:
-        print(f'ERROR: {err}')
-        print('Please restart this command with "sudo" ;)')
-        sys.exit(1)
+        print_hint_sudo_error(err)
+        raise
 
     verbose_check_call('systemctl', 'daemon-reload')
 
 
 def call_service_command(command: str):
-    verbose_check_call('systemctl', command, SERVICE_NAME)
+    try:
+        verbose_check_call('systemctl', command, SERVICE_NAME)
+    except CalledProcessError as err:
+        print_hint_sudo_error(err)
+        raise
 
 
 def enable_service():

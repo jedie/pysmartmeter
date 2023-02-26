@@ -2,6 +2,5 @@
 
 from importlib.metadata import version
 
-
 __version__ = version('pysmartmeter')
 __author__ = 'Jens Diemer <pysmartmeter@jensdiemer.de>'

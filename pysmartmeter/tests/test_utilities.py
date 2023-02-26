@@ -1,8 +1,9 @@
-from pysmartmeter.tests import BaseTestCase
+from unittest import TestCase
+
 from pysmartmeter.utilities.string_utils import slugify
 
 
-class UtilitiesTestCase(BaseTestCase):
+class UtilitiesTestCase(TestCase):
     def test_slugify(self):
         self.assertEqual(slugify('Test äöü ß'), 'Testaou')
         self.assertEqual(slugify('1-0:96.1.0*255'), '109610255')

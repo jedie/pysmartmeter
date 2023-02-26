@@ -2,11 +2,13 @@
     Allow pysmartmeter to be executable
     through `python -m pysmartmeter`.
 """
-from pysmartmeter import cli
+
+
+from pysmartmeter.cli import cli_app
 
 
 def main():
-    cli.main()
+    cli_app.main()
 
 
 if __name__ == '__main__':
