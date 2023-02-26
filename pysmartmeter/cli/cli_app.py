@@ -201,6 +201,18 @@ cli.add_command(systemd_stop)
 
 
 @click.command()
+def systemd_restart():
+    """
+    Restart PySmartMeter systemd services
+    """
+    systemd.restart_service()
+    systemd.status()
+
+
+cli.add_command(systemd_restart)
+
+
+@click.command()
 def mypy(verbose: bool = True):
     """Run Mypy (configured in pyproject.toml)"""
     verbose_check_call('mypy', '.', cwd=PACKAGE_ROOT, verbose=verbose, exit_on_error=True)
