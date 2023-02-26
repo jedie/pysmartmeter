@@ -82,6 +82,8 @@ cli.add_command(dump)
 
 
 @click.command()
+@click.option('--log/--no-log', **OPTION_ARGS_DEFAULT_TRUE)
+@click.option('--verbose/--no-verbose', **OPTION_ARGS_DEFAULT_TRUE)
 def publish_loop(log: bool = True, verbose: bool = True):
     """
     Publish current data via MQTT (endless loop)
