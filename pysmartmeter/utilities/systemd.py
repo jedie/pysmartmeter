@@ -51,15 +51,21 @@ def compile_service():
     return content
 
 
+def print_hint_sudo_error(err):
+    print('-' * 100)
+    print(f'[red]ERROR: {err}')
+    print('[blue bold](Hint: Maybe sudo is needed for this command!)')
+    print('-' * 100)
+
+
 def write_service_file():
     content = compile_service()
     print(f'Write "{SYSTEMD_SERVICE_PATH}"...')
     try:
         SYSTEMD_SERVICE_PATH.write_text(content, encoding='UTF-8')
     except PermissionError as err:
-        print(f'ERROR: {err}')
-        print('Please restart this command with "sudo" ;)')
-        sys.exit(1)
+        print_hint_sudo_error(err)
+        raise
 
     verbose_check_call('systemctl', 'daemon-reload')
 
@@ -68,10 +74,7 @@ def call_service_command(command: str):
     try:
         verbose_check_call('systemctl', command, SERVICE_NAME)
     except CalledProcessError as err:
-        print('-' * 100)
-        print(f'[red]ERROR: {err}')
-        print('[blue bold](Hint: Maybe sudo is needed for this command!)')
-        print('-' * 100)
+        print_hint_sudo_error(err)
         raise
 
 
