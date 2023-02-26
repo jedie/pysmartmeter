@@ -173,6 +173,7 @@ def setup_systemd_service():
     systemd.write_service_file()
     systemd.enable_service()
     systemd.restart_service()
+    systemd.status()
 
 
 cli.add_command(setup_systemd_service)
@@ -195,6 +196,7 @@ def systemd_stop():
     Stop PySmartMeter systemd services
     """
     systemd.stop()
+    systemd.status()
 
 
 cli.add_command(systemd_stop)
