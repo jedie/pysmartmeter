@@ -54,3 +54,10 @@ class MqttClientMock:
         test_class.assertEqual(self.credentials, credentials)
         test_class.assertEqual(self.connects, connects)
         test_class.assertEqual(self.loop_started, loop_started)
+
+
+class MqttPublisherMock:
+    mqtt_payloads = []
+
+    def publish(self, *, mqtt_payload):
+        self.mqtt_payloads.append(mqtt_payload)

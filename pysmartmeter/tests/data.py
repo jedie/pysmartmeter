@@ -29,6 +29,9 @@ RAW_TEST_DATA_BIG = (
     '0-0:96.8.0*255(00BEEF00)\r\n'  # Betriebsdauer in Sekunden
     '!\r\n'
 )
+TEST_DATA_BIG = tuple(
+    line.encode('ASCII') for line in (RAW_TEST_DATA_BIG + RAW_TEST_DATA_BIG).splitlines(keepends=True)
+)
 
 
 class RawObisDataMock:

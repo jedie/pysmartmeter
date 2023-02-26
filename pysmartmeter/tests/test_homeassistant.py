@@ -5,9 +5,11 @@ from bx_py_utils.test_utils.snapshot import assert_snapshot
 
 from pysmartmeter.data_classes import HomeassistantValue, MqttPayload, ObisValue
 from pysmartmeter.homeassistant import data2config, data2state, get_value_by_key, ha_convert_obis_values
-from pysmartmeter.publish_loop import obis_values2mqtt_config, obis_values2mqtt_state
+from pysmartmeter.parser import ObisParser
+from pysmartmeter.publish_loop import HomeAssistantMqtt, obis_values2mqtt_config, obis_values2mqtt_state
 from pysmartmeter.tests import BaseTestCase
-from pysmartmeter.tests.data import RAW_TEST_DATA_BIG, get_obis_values, test_data2obis_parser_result
+from pysmartmeter.tests.data import TEST_DATA_BIG, get_obis_values
+from pysmartmeter.tests.mocks import MqttPublisherMock
 from pysmartmeter.utilities.serializer import serialize_values
 
 
@@ -135,11 +137,18 @@ class HomeassistantTestCase(BaseTestCase):
         self.assertEqual(len(results), 8)
         assert_snapshot(got=results)
 
-        # Snapshot RAW_TEST_DATA_BIG:
-        two_blocks = RAW_TEST_DATA_BIG + RAW_TEST_DATA_BIG
-        parsed_bock_data = test_data2obis_parser_result(
-            lines=[line.encode('ASCII') for line in two_blocks.splitlines(keepends=True)]
-        )
-        results = obis2mqtt(obis_values=parsed_bock_data[0]['obis_values'])
-        self.assertEqual(len(results), 15)
-        assert_snapshot(got=results)
+    def test_ha_publisher(self):
+        mqtt_publisher = MqttPublisherMock()
+
+        publisher = HomeAssistantMqtt(mqtt_publisher=mqtt_publisher, verbose=False)
+        parser = ObisParser(publish_callback=publisher, verbose=False)
+        for line in TEST_DATA_BIG:
+            parser.feed_line(line)
+
+        self.assertEqual(len(mqtt_publisher.mqtt_payloads), 15)
+        result = []
+        for payload in mqtt_publisher.mqtt_payloads:
+            self.assertIsInstance(payload, MqttPayload)
+            result.append(dataclasses.asdict(payload))
+
+        assert_snapshot(got=result)
