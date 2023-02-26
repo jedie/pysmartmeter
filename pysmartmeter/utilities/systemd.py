@@ -2,8 +2,10 @@ import getpass
 import os
 import sys
 from pathlib import Path
+from subprocess import CalledProcessError
 
 from manageprojects.utilities.subprocess_utils import verbose_check_call
+from rich import print  # noqa
 
 from pysmartmeter import __version__
 
@@ -63,7 +65,14 @@ def write_service_file():
 
 
 def call_service_command(command: str):
-    verbose_check_call('systemctl', command, SERVICE_NAME)
+    try:
+        verbose_check_call('systemctl', command, SERVICE_NAME)
+    except CalledProcessError as err:
+        print('-' * 100)
+        print(f'[red]ERROR: {err}')
+        print('[blue bold](Hint: Maybe sudo is needed for this command!)')
+        print('-' * 100)
+        raise
 
 
 def enable_service():
