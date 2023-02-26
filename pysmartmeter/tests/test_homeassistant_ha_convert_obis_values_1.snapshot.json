@@ -45,7 +45,7 @@
         "obis_value": {
             "key": "1-0:1.8.0*255",
             "key_slug": "1_0_1_8_0_255",
-            "name": "Zählerstand (Tariflos)",
+            "name": "Zählerstand Bezug (Tariflos)",
             "raw_unit": "kWh",
             "raw_value": "0010002*kWh",
             "unit": "kWh",
@@ -79,7 +79,7 @@
             "unit": "sec.",
             "value": 12513026
         },
-        "state_class": "total",
+        "state_class": "measurement",
         "unique_id": "ebz5dd3bz06eta107_0_0_96_8_0_255",
         "value_key": "value_0_0_96_8_0_255"
     },

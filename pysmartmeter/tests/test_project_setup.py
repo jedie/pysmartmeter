@@ -20,6 +20,8 @@ class ProjectSetupTestCase(TestCase):
         self.assertIsNotNone(__version__)
 
         pyproject_toml = tomli.loads(pyproject_toml_path.read_text(encoding='UTF-8'))
+        pyproject_name = pyproject_toml['tool']['poetry']['name']
+        self.assertEqual(pyproject_name, 'pysmartmeter')
         pyproject_version = pyproject_toml['tool']['poetry']['version']
 
         self.assertEqual(__version__, pyproject_version)

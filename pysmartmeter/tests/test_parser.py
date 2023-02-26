@@ -57,7 +57,7 @@ class ParserTestCase(BaseTestCase):
             ObisValue(
                 key='1-0:1.8.0*255',
                 key_slug='1_0_1_8_0_255',
-                name='Zählerstand (Tariflos)',
+                name='Zählerstand Bezug (Tariflos)',
                 raw_value='012345*kWh',
                 value=12345.0,
                 raw_unit='kWh',

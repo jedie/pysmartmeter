@@ -86,7 +86,7 @@
                 "name": "EBZ5DD3BZ06ETA_107"
             },
             "device_class": "energy",
-            "name": "Zählerstand (Tariflos)",
+            "name": "Zählerstand Bezug (Tariflos)",
             "state_class": "total",
             "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
             "unique_id": "ebz5dd3bz06eta107_1_0_1_8_0_255",
@@ -135,7 +135,7 @@
             },
             "device_class": "energy",
             "name": "Betriebsdauer",
-            "state_class": "total",
+            "state_class": "measurement",
             "state_topic": "homeassistant/sensor/EBZ5DD3BZ06ETA107/state",
             "unique_id": "ebz5dd3bz06eta107_0_0_96_8_0_255",
             "unit_of_measurement": "sec.",

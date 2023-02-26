@@ -40,7 +40,7 @@ class HomeassistantTestCase(BaseTestCase):
                 obis_value=ObisValue(
                     key='1-0:1.8.0*255',
                     key_slug='1_0_1_8_0_255',
-                    name='Zählerstand (Tariflos)',
+                    name='Zählerstand Bezug (Tariflos)',
                     raw_value='0010002*kWh',
                     value=10002.0,
                     raw_unit='kWh',
@@ -54,7 +54,7 @@ class HomeassistantTestCase(BaseTestCase):
             excepted=HomeassistantValue(
                 unique_id='ebz5dd3bz06eta107_0_0_96_8_0_255',
                 value_key='value_0_0_96_8_0_255',
-                state_class='total',
+                state_class='measurement',
                 obis_value=ObisValue(
                     key='0-0:96.8.0*255',
                     key_slug='0_0_96_8_0_255',
