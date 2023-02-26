@@ -10,31 +10,13 @@ from pysmartmeter import __version__, publish_loop
 from pysmartmeter.data_classes import MqttSettings
 from pysmartmeter.publish_loop import logger as publish_forever_logger
 from pysmartmeter.publish_loop import publish_forever
+from pysmartmeter.tests.data import TEST_DATA_BIG
 from pysmartmeter.tests.mocks import MqttClientMock, SerialMock, SerialMockEnds
 
 
 class CliTestCase(BaseTestCase):
     def test_publish_loop(self):
-        mocked_serial = SerialMock(
-            lines=(
-                b'/EBZ5DD3BZ06ETA_107\r\n',
-                b'\r\n',
-                b'1-0:0.0.0*255(1EBZ0100000123)\r\n',
-                b'1-0:96.1.0*255(1EBZ0100000123)\r\n',
-                b'1-0:1.8.0*255(0010001*kWh)\r\n',
-                b'1-0:96.5.0*255(001C0104)\r\n',
-                b'0-0:96.8.0*255(000BEEF01)\r\n',
-                b'!\r\n',
-                b'/EBZ5DD3BZ06ETA_107\r\n',
-                b'\r\n',
-                b'1-0:0.0.0*255(1EBZ0100000123)\r\n',
-                b'1-0:96.1.0*255(1EBZ0100000123)\r\n',
-                b'1-0:1.8.0*255(0010002*kWh)\r\n',
-                b'1-0:96.5.0*255(001C0104)\r\n',
-                b'0-0:96.8.0*255(000BEEF02)\r\n',
-                b'!\r\n',
-            )
-        )
+        mocked_serial = SerialMock(lines=TEST_DATA_BIG)
         mqtt_client = MqttClientMock()
 
         with patch.object(publish_loop, 'get_serial', mocked_serial), patch.object(mqtt, 'Client', mqtt_client):
