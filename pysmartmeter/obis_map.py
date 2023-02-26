@@ -31,3 +31,9 @@ OBIS_KEY2HA_STATE_CLASS = {
     '1-0:1.8.2*255': 'total',
     '1-0:2.8.2*255': 'total',
 }
+DEFAULT_HS_DEVICE_CLASS = 'energy'
+OBIS_KEY2HA_DEVICE_CLASS = {
+    '1-0:32.7.0*255': 'voltage',
+    '1-0:52.7.0*255': 'voltage',
+    '1-0:72.7.0*255': 'voltage',
+}
