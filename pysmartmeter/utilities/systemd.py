@@ -58,6 +58,14 @@ def print_hint_sudo_error(err):
     print('-' * 100)
 
 
+def print_systemd_file():
+    print('_' * 100)
+    print(SYSTEMD_SERVICE_PATH)
+    print('-' * 100)
+    print(SYSTEMD_SERVICE_PATH.read_text(encoding='UTF-8'))
+    print('=' * 100)
+
+
 def write_service_file():
     content = compile_service()
     print(f'Write "{SYSTEMD_SERVICE_PATH}"...')
@@ -67,6 +75,7 @@ def write_service_file():
         print_hint_sudo_error(err)
         raise
 
+    print_systemd_file()
     verbose_check_call('systemctl', 'daemon-reload')
 
 
@@ -89,6 +98,7 @@ def restart_service():
 
 
 def status():
+    print_systemd_file()
     call_service_command('status')
 
 
