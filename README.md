@@ -10,12 +10,13 @@
 
 Collect data from Hichi Smartmeter aka `volkszaehler.org` (USB Version) and expose it via MQTT.
 
+Discussion: https://www.photovoltaikforum.com/thread/188160-pysmartmeter (de)
+
 In the end it can looks like the following [Home Assistant](https://www.home-assistant.io/) dashboard screenshot, using [MQTT integration](https://www.home-assistant.io/integrations/mqtt):
 
 ![2022-11-21_13-47.png](https://raw.githubusercontent.com/jedie/jedie.github.io/master/screenshots/pysmartmeter/2022-11-21_13-47.png "2022-11-21_13-47.png")
 
 With my "eBZ DD3" energy meterby eBZ GmbH the values update live every second ;)
-
 
 ## quickstart
 
@@ -142,6 +143,7 @@ To migrate, just remove the existing `.venv` and create a fresh one, e.g.:
 
 # various links
 
+* Discussion: https://www.photovoltaikforum.com/thread/188160-pysmartmeter (de)
 * https://github.com/pyserial/pyserial
 * https://github.com/eclipse/paho.mqtt.python
 * https://github.com/eclipse/mosquitto
