@@ -418,9 +418,9 @@ keyring==23.13.1 \
     --hash=sha256:771ed2a91909389ed6148631de678f82ddc73737d85a927f382a8a1b157898cd \
     --hash=sha256:ba2e15a9b35e21908d0aaf4e0a47acc52d6ae33444df0da2b49d41a46ef6d678
     # via twine
-manageprojects==0.9.1 \
-    --hash=sha256:3aa43a45f9417d0e1c32850b219c1a9ef5be1f7b7c82d5fc49247c0db5e4db5c \
-    --hash=sha256:9cd157e48eb705d0a4962af5fce63cb5c83bdb4134e3c511ed1e539a2288e321
+manageprojects==0.9.2 \
+    --hash=sha256:29f2c8ea11c5011e4734cb675b8ee8909d01fa0ed668fe67dbf0cb60a7bb5e51 \
+    --hash=sha256:4e7c9190697a56568651b506f7f0debb95356315ce481e7d8965c9fcf44eb368
     # via pysmartmeter (pyproject.toml)
 markdown-it-py==2.2.0 \
     --hash=sha256:5a35f8d1870171d9acc47b99612dc146129b631baf04970128b568f190d0cc30 \
