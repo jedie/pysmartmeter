@@ -4,15 +4,10 @@ import re
 from bx_py_utils.test_utils.snapshot import assert_snapshot
 
 from pysmartmeter.data_classes import HomeassistantValue, MqttPayload, ObisValue
-from pysmartmeter.homeassistant import (
-    data2config,
-    data2state,
-    get_value_by_key,
-    ha_convert_obis_values,
-)
+from pysmartmeter.homeassistant import data2config, data2state, get_value_by_key, ha_convert_obis_values
 from pysmartmeter.publish_loop import obis_values2mqtt_config, obis_values2mqtt_state
 from pysmartmeter.tests import BaseTestCase
-from pysmartmeter.tests.data import get_obis_values
+from pysmartmeter.tests.data import RAW_TEST_DATA_BIG, get_obis_values, test_data2obis_parser_result
 from pysmartmeter.utilities.serializer import serialize_values
 
 
@@ -125,11 +120,26 @@ class HomeassistantTestCase(BaseTestCase):
         """
         Snapshot a complete configs/data MQTT payload for Home Assistant
         """
-        obis_values = get_obis_values()
-        payloads = obis_values2mqtt_config(obis_values=obis_values)
-        payloads.append(obis_values2mqtt_state(obis_values=obis_values))
-        results = []
-        for mqtt_payload in payloads:
-            self.assertIsInstance(mqtt_payload, MqttPayload)
-            results.append(dataclasses.asdict(mqtt_payload))
+
+        def obis2mqtt(obis_values):
+            payloads = obis_values2mqtt_config(obis_values=obis_values)
+            payloads.append(obis_values2mqtt_state(obis_values=obis_values))
+            results = []
+            for mqtt_payload in payloads:
+                self.assertIsInstance(mqtt_payload, MqttPayload)
+                results.append(dataclasses.asdict(mqtt_payload))
+            return results
+
+        # Snapshot RAW_TEST_DATA_SMALL:
+        results = obis2mqtt(obis_values=get_obis_values())
+        self.assertEqual(len(results), 8)
+        assert_snapshot(got=results)
+
+        # Snapshot RAW_TEST_DATA_BIG:
+        two_blocks = RAW_TEST_DATA_BIG + RAW_TEST_DATA_BIG
+        parsed_bock_data = test_data2obis_parser_result(
+            lines=[line.encode('ASCII') for line in two_blocks.splitlines(keepends=True)]
+        )
+        results = obis2mqtt(obis_values=parsed_bock_data[0]['obis_values'])
+        self.assertEqual(len(results), 15)
         assert_snapshot(got=results)
