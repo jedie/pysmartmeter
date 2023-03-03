@@ -23,7 +23,6 @@ from pysmartmeter.publish_loop import publish_forever
 from pysmartmeter.utilities import systemd
 from pysmartmeter.utilities.credentials import get_mqtt_settings, store_mqtt_settings
 
-
 logger = logging.getLogger(__name__)
 
 

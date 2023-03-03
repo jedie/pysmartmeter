@@ -2,6 +2,7 @@ import json
 import logging
 import socket
 import sys
+import time
 
 import paho.mqtt.client as mqtt
 from bx_py_utils.anonymize import anonymize
@@ -13,6 +14,9 @@ from pysmartmeter.detect_serial import get_serial
 from pysmartmeter.homeassistant import data2config, data2state, ha_convert_obis_values
 from pysmartmeter.parser import ObisParser
 
+from pysmartmeter.binary_sml_handler import ParserBinMessage
+from pysmartmeter.config_manager import ConfigManager
+from pysmartmeter.obis_kennzahlen import ObisGen
 
 logger = logging.getLogger(__name__)
 
@@ -90,15 +94,36 @@ class HomeAssistantMqtt:
 
 
 def publish_forever(*, settings: MqttSettings, verbose):
-    serial = get_serial()
+    import serial
+    config_manager = ConfigManager()
+
+    if config_manager.BINARY_MODE:
+        serial = get_serial(bytesize=serial.EIGHTBITS)
+    else:
+        serial = get_serial()
+
     if not serial:
         print('Serial not found')
         sys.exit(1)
 
     mqtt_publisher = MqttPublisher(settings=settings, verbose=verbose)
     publisher = HomeAssistantMqtt(mqtt_publisher=mqtt_publisher, verbose=verbose)
-    parser = ObisParser(publish_callback=publisher, verbose=verbose)
 
-    while True:
-        data = serial.readline()
-        parser.feed_line(data)
+    if config_manager.BINARY_MODE:
+        parser_bin = ParserBinMessage()
+        parser = ObisGen(publish_callback=publisher)
+        while True:
+            if config_manager.SML_BINARY_TEST_MESSAGE is None:
+                br = bytearray(serial.readline())
+            else:
+                time.sleep(1)
+                br = b'\0'
+
+            kv_store = parser_bin.handle_received_bytes(br)
+            if kv_store is not None:
+                parser.send_smartmeter(kv_store)
+    else:
+        parser = ObisParser(publish_callback=publisher, verbose=verbose)
+        while True:
+            data = serial.readline()
+            parser.feed_line(data)

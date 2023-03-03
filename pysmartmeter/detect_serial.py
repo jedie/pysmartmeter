@@ -69,7 +69,7 @@ def get_serial(
             else:
                 if verbose:
                     print(data)
-                if data.endswith(terminator):
+                if data.endswith(terminator) or data.endswith(b'\n'):
                     return ser
 
         if verbose:
