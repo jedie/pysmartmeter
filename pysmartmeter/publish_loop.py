@@ -97,7 +97,7 @@ def publish_forever(*, settings: MqttSettings, verbose):
     import serial
     config_manager = ConfigManager()
 
-    if (config_manager.BINARY_MODE):
+    if config_manager.BINARY_MODE:
         serial = get_serial(bytesize=serial.EIGHTBITS)
     else:
         serial = get_serial()
@@ -109,9 +109,9 @@ def publish_forever(*, settings: MqttSettings, verbose):
     mqtt_publisher = MqttPublisher(settings=settings, verbose=verbose)
     publisher = HomeAssistantMqtt(mqtt_publisher=mqtt_publisher, verbose=verbose)
 
-    if (config_manager.BINARY_MODE):
+    if config_manager.BINARY_MODE:
         parser_bin = ParserBinMessage()
-        parser = ObisGen(publish_callback=publisher, verbose=False)
+        parser = ObisGen(publish_callback=publisher)
         while True:
             if config_manager.SML_BINARY_TEST_MESSAGE is None:
                 br = bytearray(serial.readline())

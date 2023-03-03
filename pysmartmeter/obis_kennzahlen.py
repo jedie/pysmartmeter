@@ -37,7 +37,7 @@ class ObisTupel(IntEnum):
 
 
 class ObisGen:
-    def __init__(self, *, publish_callback, verbose=False):
+    def __init__(self, *, publish_callback):
         self._config_manager = ConfigManager()
         self._publish_callback = publish_callback
         self._verbose = self._config_manager.MODULE_OBIS_VERBOSE
@@ -71,7 +71,6 @@ class ObisGen:
 
     """ Specific Handler for Smartmeter"""
 
-
     def _resolve_obis_value(self, kv_store, key):
         obis_metadata = self._smartmeter.get(kv_store[key + '-7'], None)
         if obis_metadata is None:
@@ -94,19 +93,17 @@ class ObisGen:
             unit = self._UNIT[kv_store[key + '-4'][2:]]
             scaler_raw = int.from_bytes(bytes.fromhex(kv_store[key + '-3'][2:]), 'big', signed=True)
             scaler = math.pow(10, scaler_raw)
-            val = int.from_bytes(bytes.fromhex(kv_store[key + '-2'][2:]), 'big', signed=True)
+            val = int.from_bytes(bytes.fromhex(kv_store[key + '-2'][2:]), 'big', signed=True) * scaler
             if scaler_raw < 0:
                 val = round(val, abs(scaler_raw))
 
             return [obis_number, slugify(obis_number), obis_metadata[ObisTupel.TEXT],
                     str(val) + "*" + unit, str(val), unit, unit]
 
-
     """Generic handler for smartmeter"""
 
     def send_smartmeter(self, kv_store):
 
-        result = []
         obis_list = []
         unix_timestamp = int(datetime.timestamp(datetime.utcnow()))
 
@@ -116,14 +113,14 @@ class ObisGen:
                 ret_val = self._resolve_obis_value(kv_store, key)
                 if ret_val is not None:
                     if self._verbose:
-                        print (ret_val)
-                    obis = ObisValue(ret_val[0], ret_val[1], ret_val [2], ret_val[3],
+                        print(ret_val)
+                    obis = ObisValue(ret_val[0], ret_val[1], ret_val[2], ret_val[3],
                                      ret_val[4], ret_val[5], ret_val[6])
                     obis_list.append(obis)
 
         if self._add_timestamp:
             obis = ObisValue("utc_timestamp", slugify("utc_timestamp"),
-                             "UTC unixtime", unix_timestamp, unix_timestamp, 's', 's')
+                             "UTC unixtime", str(unix_timestamp), str(unix_timestamp), 's', 's')
             obis_list.append(obis)
 
         self._publish_callback(obis_values=obis_list)
