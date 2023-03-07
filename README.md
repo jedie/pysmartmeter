@@ -60,6 +60,7 @@ Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
 │ systemd-status              Call systemd status of PySmartMeter services                         │
 │ systemd-stop                Stop PySmartMeter systemd services                                   │
 │ test                        Run unittests                                                        │
+│ test-mqtt-connection        Test connection to MQTT Server                                       │
 │ tox                         Run tox                                                              │
 │ update                      Update "requirements*.txt" dependencies files                        │
 │ update-test-snapshot-files  Update all test snapshot files (by remove and recreate all snapshot  │
@@ -103,6 +104,11 @@ This will create a JSON file here: `~/.pysmartmeter`
 You can test reading this settings file with:
 ```bash
 ~/pysmartmeter$ ./cli.py debug-settings
+```
+
+Test your MQTT settings with:
+```bash
+~/pysmartmeter$ ./cli.py test-mqtt-connection
 ```
 
 Setup systemd service:

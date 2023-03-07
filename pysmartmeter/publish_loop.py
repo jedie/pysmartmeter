@@ -5,6 +5,7 @@ import sys
 
 import paho.mqtt.client as mqtt
 from bx_py_utils.anonymize import anonymize
+from rich import print
 from rich.pretty import pprint
 
 import pysmartmeter
@@ -17,32 +18,72 @@ from pysmartmeter.parser import ObisParser
 logger = logging.getLogger(__name__)
 
 
+def get_client_id():
+    hostname = socket.gethostname()
+    client_id = f'PySmartMeter v{pysmartmeter.__version__} on {hostname}'
+    return client_id
+
+
+class OnConnectCallback:
+    def __init__(self, verbose: bool = True):
+        self.verbose = verbose
+
+    def __call__(self, client, userdata, flags, rc):
+        if self.verbose:
+            print(f'MQTT broker connect result code: {rc}', end=' ')
+
+        if rc == 0:
+            if self.verbose:
+                print('[green]OK')
+        else:
+            print('\n[red]MQTT Connection not successful!')
+            print('[yellow]Please check your credentials\n')
+            raise RuntimeError(f'MQTT connection result code {rc} is not 0')
+
+        if self.verbose:
+            print(f'\t{userdata=}')
+            print(f'\t{flags=}')
+
+
+def get_connected_client(settings: MqttSettings, verbose: bool = True, timeout=10):
+    client_id = get_client_id()
+
+    if verbose:
+        print(
+            f'\nConnect [cyan]{settings.host}:{settings.port}[/cyan] as "[magenta]{client_id}[/magenta]"...', end=' '
+        )
+
+    socket.setdefaulttimeout(timeout)  # Sadly: Timeout will not used in getaddrinfo()!
+    info = socket.getaddrinfo(settings.host, settings.port)
+    if not info:
+        print('[red]Resolve error: No info!')
+    elif verbose:
+        print('Host/port test [green]OK')
+
+    mqttc = mqtt.Client(client_id=client_id)
+    mqttc.on_connect = OnConnectCallback(verbose=verbose)
+    mqttc.enable_logger(logger=logger)
+
+    if settings.user_name and settings.password:
+        if verbose:
+            print(
+                f'login with user: {anonymize(settings.user_name)} password:{anonymize(settings.password)}...',
+                end=' ',
+            )
+        mqttc.username_pw_set(settings.user_name, settings.password)
+
+    mqttc.connect(settings.host, port=settings.port)
+
+    if verbose:
+        print('[green]OK')
+    return mqttc
+
+
 class MqttPublisher:
     def __init__(self, settings: MqttSettings, verbose: bool = True):
         self.verbose = verbose
-
-        client_id = self.get_client_id()
-
-        print(f'Connect {settings.host}:{settings.port} as {client_id!r}...', end=' ')
-        self.mqttc = mqtt.Client(client_id=client_id)
-        self.mqttc.enable_logger(logger=logger)
-
-        if settings.user_name and settings.password:
-            print(
-                f'login with user: {anonymize(settings.user_name)}'
-                f' password:{anonymize(settings.password)}...',
-                end=' ',
-            )
-            self.mqttc.username_pw_set(settings.user_name, settings.password)
-        self.mqttc.connect(settings.host, port=settings.port)
-        print('OK')
-
+        self.mqttc = get_connected_client(settings=settings, verbose=verbose)
         self.mqttc.loop_start()
-
-    def get_client_id(self):
-        hostname = socket.gethostname()
-        client_id = f'PySmartMeter v{pysmartmeter.__version__} on {hostname}'
-        return client_id
 
     def publish(self, *, mqtt_payload: MqttPayload) -> None:
         if self.verbose:
@@ -50,7 +91,7 @@ class MqttPublisher:
             print(f'Publish MQTT topic: {mqtt_payload.topic}')
             pprint(mqtt_payload.data)
 
-        assert self.mqttc.is_connected()
+        assert self.mqttc.is_connected(), 'Not connected to MQTT broker!'
         info = self.mqttc.publish(topic=mqtt_payload.topic, payload=json.dumps(mqtt_payload.data))
 
         if self.verbose:

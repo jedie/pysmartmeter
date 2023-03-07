@@ -17,12 +17,13 @@ class SerialMock:
 
 
 class MqttClientMock:
-    init = []
-    enabled_logger = []
-    credentials = []
-    connects = []
-    loop_started = False
-    published = []
+    def __init__(self):
+        self.init = []
+        self.enabled_logger = []
+        self.credentials = []
+        self.connects = []
+        self.loop_started = False
+        self.published = []
 
     def __call__(self, *args, **kwargs):
         self.init.append([args, kwargs])
@@ -55,9 +56,30 @@ class MqttClientMock:
         test_class.assertEqual(self.connects, connects)
         test_class.assertEqual(self.loop_started, loop_started)
 
+    def loop_stop(self):
+        pass
+
+    def disconnect(self):
+        pass
+
 
 class MqttPublisherMock:
     mqtt_payloads = []
 
     def publish(self, *, mqtt_payload):
         self.mqtt_payloads.append(mqtt_payload)
+
+
+class SocketMock:
+    def __init__(self):
+        self.getaddrinfos = []
+
+    def gethostname(self):
+        return 'mocked get hostname'
+
+    def setdefaulttimeout(self, timeout):
+        pass
+
+    def getaddrinfo(self, host, port):
+        self.getaddrinfos.append((host, port))
+        return True

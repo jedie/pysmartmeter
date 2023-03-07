@@ -1,4 +1,3 @@
-import socket
 from unittest.mock import patch
 
 import paho.mqtt.client as mqtt
@@ -11,15 +10,18 @@ from pysmartmeter.data_classes import MqttSettings
 from pysmartmeter.publish_loop import logger as publish_forever_logger
 from pysmartmeter.publish_loop import publish_forever
 from pysmartmeter.tests.data import TEST_DATA_BIG
-from pysmartmeter.tests.mocks import MqttClientMock, SerialMock, SerialMockEnds
+from pysmartmeter.tests.mocks import MqttClientMock, SerialMock, SerialMockEnds, SocketMock
 
 
 class CliTestCase(BaseTestCase):
     def test_publish_loop(self):
         mocked_serial = SerialMock(lines=TEST_DATA_BIG)
         mqtt_client = MqttClientMock()
+        socket_mock = SocketMock()
 
-        with patch.object(publish_loop, 'get_serial', mocked_serial), patch.object(mqtt, 'Client', mqtt_client):
+        with patch.object(publish_loop, 'get_serial', mocked_serial), patch.object(
+            mqtt, 'Client', mqtt_client
+        ), patch.object(publish_loop, 'socket', socket_mock):
             with self.assertRaises(SerialMockEnds), RedirectOut() as buffer:
                 publish_forever(
                     settings=MqttSettings(
@@ -33,7 +35,7 @@ class CliTestCase(BaseTestCase):
 
         mqtt_client.assert_state(
             self,
-            init=[[(), {'client_id': f'PySmartMeter v{__version__} on {socket.gethostname()}'}]],
+            init=[[(), {'client_id': f'PySmartMeter v{__version__} on mocked get hostname'}]],
             enabled_logger=[publish_forever_logger],
             credentials=[{'password': 'foobarbaz', 'user_name': 'bar'}],
             connects=[{'host': 'foo.host.tld', 'port': 123}],
@@ -52,5 +54,7 @@ class CliTestCase(BaseTestCase):
                 'Publish MQTT topic: homeassistant/sensor/EBZ5DD3BZ06ETA107/state',
             ),
         )
+
+        self.assertEqual(socket_mock.getaddrinfos, [('foo.host.tld', 123)])
 
         assert_snapshot(got=published)
