@@ -19,7 +19,7 @@ from pysmartmeter.data_classes import MqttSettings
 from pysmartmeter.detect_serial import print_detect_serial
 from pysmartmeter.dump import serial_dump
 from pysmartmeter.log_utils import log_config
-from pysmartmeter.publish_loop import publish_forever
+from pysmartmeter.publish_loop import get_connected_client, publish_forever
 from pysmartmeter.utilities import systemd
 from pysmartmeter.utilities.credentials import get_mqtt_settings, store_mqtt_settings
 
@@ -152,6 +152,23 @@ def debug_settings():
 
 
 cli.add_command(debug_settings)
+
+
+@click.command()
+def test_mqtt_connection():
+    """
+    Test connection to MQTT Server
+    """
+    log_config()
+    settings: MqttSettings = get_mqtt_settings()
+    mqttc = get_connected_client(settings=settings, verbose=True)
+    mqttc.loop_start()
+    mqttc.loop_stop()
+    mqttc.disconnect()
+    print('\n[green]Test succeed[/green], bye ;)')
+
+
+cli.add_command(test_mqtt_connection)
 
 
 @click.command()

@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from rich import print
+
 from pysmartmeter.data_classes import MqttSettings
 
 
@@ -21,8 +23,8 @@ def get_mqtt_settings() -> MqttSettings:
     try:
         data_str = CREDENTIAL_FILE_PATH.read_text(encoding='UTF-8')
     except FileNotFoundError as err:
-        print(f'ERROR: Error reading config: {err}')
-        print('(Hint save settings first with: "./cli.py store-settings")')
+        print(f'\n[red]ERROR: Error reading config: {err}')
+        print('[bold](Hint save settings first with: "./cli.py store-settings")\n')
         raise FileNotFoundError(err)
     settings = MqttSettings.from_json(data_str)
     return settings

@@ -10,7 +10,7 @@ requires-python = ">=3.9,<4"
 dependencies = [
     "manageprojects",  # https://github.com/jedie/manageprojects
     "pyserial",  # https://github.com/pyserial/pyserial
-    "paho-mqtt",
+    "paho-mqtt",  # https://pypi.org/project/paho-mqtt/
 
     # TODO: Use keyring for store MQTT credentials:
     #"keyring",  # https://github.com/jaraco/keyring
