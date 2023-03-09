@@ -22,7 +22,7 @@ With my "eBZ DD3" energy meterby eBZ GmbH the values update live every second ;)
 
 Install minimum requirements, e.g.:
 ```bash
-~$ sudo apt install make python3-venv
+~$ sudo apt install python3-venv
 ```
 
 Clone sources and install project:
