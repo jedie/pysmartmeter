@@ -96,7 +96,10 @@ class ObisParser:
         line = data.decode(ENCODING)
         if self.verbose:
             rprint(f'[code]{data!r} -> {line!r}')
-        if self.state is None:
+        if not line:
+            if self.verbose:
+                print('ignore empty data')
+        elif self.state is None:
             if self.verbose:
                 print('-' * 100)
                 print('Start -> wait for terminator')

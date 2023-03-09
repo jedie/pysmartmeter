@@ -1,0 +1,96 @@
+[
+    {
+        "obis_values": [
+            {
+                "key": "identifier",
+                "key_slug": "identifier",
+                "name": "Gerätetyp mit Software Version",
+                "raw_unit": null,
+                "raw_value": "/ESY5Q3DB1024 V3.04",
+                "unit": null,
+                "value": "ESY5Q3DB1024 V3.04"
+            },
+            {
+                "key": "1-0:0.0.0*255",
+                "key_slug": "1_0_0_0_0_255",
+                "name": "Eigentumsnummer",
+                "raw_unit": null,
+                "raw_value": "FOOBAR#ETN",
+                "unit": null,
+                "value": "FOOBAR#ETN"
+            },
+            {
+                "key": "1-0:1.8.0*255",
+                "key_slug": "1_0_1_8_0_255",
+                "name": "Zählerstand Bezug (Tariflos)",
+                "raw_unit": "kWh",
+                "raw_value": "00032331.4981013*kWh",
+                "unit": "kWh",
+                "value": 32331.4981013
+            },
+            {
+                "key": "1-0:2.8.0*255",
+                "key_slug": "1_0_2_8_0_255",
+                "name": "Zählerstand Lieferung (Tariflos)",
+                "raw_unit": "kWh",
+                "raw_value": "00025393.8469367*kWh",
+                "unit": "kWh",
+                "value": 25393.8469367
+            },
+            {
+                "key": "1-0:21.7.0*255",
+                "key_slug": "1_0_21_7_0_255",
+                "name": "Wirkleistung L1 Bezug (Momentan)",
+                "raw_unit": "W",
+                "raw_value": "002291.51*W",
+                "unit": "W",
+                "value": 2291.51
+            },
+            {
+                "key": "1-0:41.7.0*255",
+                "key_slug": "1_0_41_7_0_255",
+                "name": "Wirkleistung L2 Bezug (Momentan)",
+                "raw_unit": "W",
+                "raw_value": "000038.11*W",
+                "unit": "W",
+                "value": 38.11
+            },
+            {
+                "key": "1-0:61.7.0*255",
+                "key_slug": "1_0_61_7_0_255",
+                "name": "Wirkleistung L3 Bezug (Momentan)",
+                "raw_unit": "W",
+                "raw_value": "000250.99*W",
+                "unit": "W",
+                "value": 250.99
+            },
+            {
+                "key": "1-0:1.7.0*255",
+                "key_slug": "1_0_1_7_0_255",
+                "name": "Momentan-Leistungen",
+                "raw_unit": "W",
+                "raw_value": "002580.61*W",
+                "unit": "W",
+                "value": 2580.61
+            },
+            {
+                "key": "1-0:96.5.5*255",
+                "key_slug": "1_0_96_5_5_255",
+                "name": "Status",
+                "raw_unit": null,
+                "raw_value": "80",
+                "unit": null,
+                "value": "80"
+            },
+            {
+                "key": "0-0:96.1.255*255",
+                "key_slug": "0_0_96_1_255_255",
+                "name": "Geräte-Identifikationsnummer",
+                "raw_unit": null,
+                "raw_value": "1ESY1304004XXX",
+                "unit": null,
+                "value": "1ESY1304004XXX"
+            }
+        ]
+    }
+]

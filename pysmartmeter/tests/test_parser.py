@@ -192,3 +192,37 @@ class ParserTestCase(BaseTestCase):
             ),
         )
         assert_snapshot(got=serialize_values(parsed_bock_data))
+
+    def test_handle_empty_line(self):
+        line_block = [
+            b'',
+            b'/ESY5Q3DB1024 V3.04\r\n',
+            b'\r\n',
+            b'1-0:0.0.0*255(FOOBAR#ETN)\r\n',
+            b'1-0:1.8.0*255(00032331.4981013*kWh)\r\n',
+            b'1-0:2.8.0*255(00025393.8469367*kWh)\r\n',
+            b'1-0:21.7.0*255(002291.51*W)\r\n',
+            b'1-0:41.7.0*255(000038.11*W)\r\n',
+            b'1-0:61.7.0*255(000250.99*W)\r\n',
+            b'1-0:1.7.0*255(002580.61*W)\r\n',
+            b'1-0:96.5.5*255(80)\r\n',
+            b'0-0:96.1.255*255(1ESY1304004XXX)\r\n',
+            b'!\r\n',
+        ]
+        parsed_bock_data = test_data2obis_parser_result(
+            lines=line_block + line_block,
+            # verbose=True
+        )
+        self.assert_verbose(
+            got=parsed_bock_data[0]['obis_values'][1],
+            excepted=ObisValue(
+                key='1-0:0.0.0*255',
+                key_slug='1_0_0_0_0_255',
+                name='Eigentumsnummer',
+                raw_value='FOOBAR#ETN',
+                value='FOOBAR#ETN',
+                raw_unit=None,
+                unit=None,
+            ),
+        )
+        assert_snapshot(got=serialize_values(parsed_bock_data))
