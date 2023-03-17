@@ -16,7 +16,13 @@ In the end it can looks like the following [Home Assistant](https://www.home-ass
 
 ![2023-02-26_17-39.png](https://raw.githubusercontent.com/jedie/jedie.github.io/master/screenshots/pysmartmeter/2023-02-26_17-39.png "2023-02-26_17-39.png")
 
-With my "eBZ DD3" energy meterby eBZ GmbH the values update live every second ;)
+With my "eBZ DD3" energy meter by eBZ GmbH the values update live every second ;)
+
+
+Currently only energy meters that send [OBIS text protocol)(https://wiki.volkszaehler.org/software/obis) are supported. 
+
+TODO: [#37 - Add support for SML (Smart Message Language) binary protocol](https://github.com/jedie/pysmartmeter/issues/37)
+
 
 ## quickstart
 
