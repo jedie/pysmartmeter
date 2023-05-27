@@ -3,8 +3,9 @@ from bx_py_utils.path import assert_is_file
 from manageprojects.test_utils.click_cli_utils import invoke_click
 from manageprojects.tests.base import BaseTestCase
 
-from pysmartmeter.cli.cli_app import PACKAGE_ROOT, cli
-from pysmartmeter.constants import CLI_EPILOG
+from pysmartmeter.cli.cli_app import cli
+from pysmartmeter.cli.dev import cli as dev_cli
+from pysmartmeter.constants import CLI_EPILOG, PACKAGE_ROOT
 
 
 def assert_cli_help_in_readme(text_block: str, marker: str):
@@ -34,3 +35,16 @@ class ReadmeTestCase(BaseTestCase):
             ),
         )
         assert_cli_help_in_readme(text_block=stdout, marker='main help')
+
+    def test_dev_help(self):
+        stdout = invoke_click(dev_cli, '--help')
+        self.assert_in_content(
+            got=stdout,
+            parts=(
+                'Usage: ./dev-cli.py [OPTIONS] COMMAND [ARGS]...',
+                'check-code-style',
+                'fix-code-style',
+                CLI_EPILOG,
+            ),
+        )
+        assert_cli_help_in_readme(text_block=stdout, marker='dev help')

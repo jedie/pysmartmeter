@@ -1,3 +1,5 @@
+
+
 name: tests
 
 on:
@@ -12,10 +14,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 2
       fail-fast: false
       matrix:
         python-version: ["3.11", "3.10", "3.9"]
+    env:
+      PYTHONUNBUFFERED: 1
+      PYTHONWARNINGS: always
     steps:
     - name: Checkout
       run: |
@@ -34,20 +38,23 @@ jobs:
 
     - name: 'Bootstrap'
       # The first CLI call will create the .venv
+      # TODO: ./dev-cli.py create-default-settings
       run: |
+        ./dev-cli.py version
         ./cli.py version
 
     - name: 'CLI help'
       run: |
+        ./dev-cli.py --help
         ./cli.py --help
 
     - name: 'Safety'
       run: |
-        ./cli.py safety
+        ./dev-cli.py safety
 
     - name: 'Run tests with Python v${{ matrix.python-version }}'
       run: |
-        ./cli.py coverage
+        ./dev-cli.py coverage
 
     - name: 'Upload coverage report'
       uses: codecov/codecov-action@v3
@@ -55,3 +62,4 @@ jobs:
       with:
         fail_ci_if_error: false
         verbose: true
+

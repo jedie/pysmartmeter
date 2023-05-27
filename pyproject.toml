@@ -1,14 +1,16 @@
 [project]
 name = "pysmartmeter"
-version = "0.4.1"
 description = "Collect data from Hichi Smartmeter and expose it via MQTT"
+dynamic = ["version"]
+license = {text = "GPL-3.0-or-later"}
 readme = "README.md"
 authors = [
     {name = 'Jens Diemer', email = 'pysmartmeter@jensdiemer.de'}
 ]
 requires-python = ">=3.9,<4"
 dependencies = [
-    "manageprojects",  # https://github.com/jedie/manageprojects
+    "ha-services>=0.3.2", # https://github.com/jedie/ha-services
+
     "pyserial",  # https://github.com/pyserial/pyserial
     "paho-mqtt",  # https://pypi.org/project/paho-mqtt/
 
@@ -22,26 +24,34 @@ dependencies = [
 ]
 [project.optional-dependencies]
 dev = [
+    "manageprojects",  # https://github.com/jedie/manageprojects
     "pip-tools",  # https://github.com/jazzband/pip-tools/
     "tox",  # https://github.com/tox-dev/tox
     "coverage",  # https://github.com/nedbat/coveragepy
-    "darker>=1.7",  # https://github.com/akaihola/darker
     "autopep8",  # https://github.com/hhatto/autopep8
     "pyupgrade",  # https://github.com/asottile/pyupgrade
-    "isort",  # https://github.com/pycqa/isort
-    "flynt",  # https://github.com/ikamensh/flynt
     "flake8",  # https://github.com/pycqa/flake8
     "pyflakes",  # https://github.com/PyCQA/pyflakes
     "codespell",  # https://github.com/codespell-project/codespell
     "EditorConfig",  # https://github.com/editorconfig/editorconfig-core-py
     "safety",  # https://github.com/pyupio/safety
     "mypy",  # https://github.com/python/mypy
-    "tomli",  # https://github.com/hukkin/tomli
     "twine",  # https://github.com/pypa/twine
-    #
+
+    # https://github.com/akaihola/darker
+    # https://github.com/ikamensh/flynt
+    # https://github.com/pycqa/isort
+    # https://github.com/pygments/pygments
+    "darker[flynt, isort, color]",
+
+    "tomli",  # https://github.com/hukkin/tomli
+    # tomli only needed for Python <3.11, but see bug:
+    # https://github.com/pypa/pip/issues/9644#issuecomment-1456583402
+    #"tomli;python_version<\"3.11\"",  # https://github.com/hukkin/tomli
+
     # Work-a-round for:
     # https://github.com/jazzband/pip-tools/issues/994#issuecomment-1321226661
-    "typing-extensions>=3.10",
+    "typing-extensions>=3.10;python_version<\"3.10\"",
 ]
 
 [project.urls]
@@ -49,15 +59,19 @@ Documentation = "https://github.com/jedie/pysmartmeter"
 Source = "https://github.com/jedie/pysmartmeter"
 
 [project.scripts]
-pysmartmeter = "pysmartmeter.__main__:main"
+pysmartmeter_app = "pysmartmeter.__main__:main"
+pysmartmeter_dev = "pysmartmeter.cli.dev:main"
+
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm>=7.1"]
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["pysmartmeter*"]
 
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+[tool.setuptools.dynamic]
+version = {attr = "pysmartmeter.__version__"}
 
 
 [tool.darker]
@@ -90,22 +104,22 @@ lines_after_imports=2
 
 [tool.coverage.run]
 branch = true
+parallel = true
+concurrency = ["multiprocessing"]
 source = ['.']
-omit = ['.*', '*/tests/*']
 command_line = '-m unittest --verbose --locals --buffer'
 
 [tool.coverage.report]
+omit = ['.*', '*/tests/*']
 skip_empty = true
-fail_under = 45
-
-
-[tool.mypy]
-warn_unused_configs = true
-ignore_missing_imports = true
-allow_redefinition = true  # https://github.com/python/mypy/issues/7165
-show_error_codes = true
-plugins = []
-exclude = ['.venv', 'tests']
+fail_under = 30
+show_missing = true
+exclude_lines = [
+    'if self.debug:',
+    'pragma: no cover',
+    'raise NotImplementedError',
+    'if __name__ == .__main__.:',
+]
 
 
 [tool.tox]  # https://tox.wiki/en/latest/config.html#pyproject-toml
@@ -122,8 +136,20 @@ commands_pre =
     pip install -U pip-tools
     pip-sync requirements.dev.txt
 commands =
-    python -m coverage run
+    {envpython} -m coverage run --context='{envname}'
+    {envpython} -m coverage combine --append
+    {envpython} -m coverage xml
+    {envpython} -m coverage report
 """
+
+
+[tool.mypy]
+warn_unused_configs = true
+ignore_missing_imports = true
+allow_redefinition = true  # https://github.com/python/mypy/issues/7165
+show_error_codes = true
+plugins = []
+exclude = ['.venv', 'tests']
 
 
 [manageprojects] # https://github.com/jedie/manageprojects

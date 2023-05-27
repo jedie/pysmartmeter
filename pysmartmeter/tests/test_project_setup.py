@@ -1,29 +1,22 @@
 import subprocess
-from pathlib import Path
 from unittest import TestCase
 
-import tomli
 from bx_py_utils.path import assert_is_file
 from manageprojects.test_utils.click_cli_utils import subprocess_cli
+from manageprojects.test_utils.project_setup import check_editor_config, get_py_max_line_length
 from manageprojects.utilities import code_style
+from packaging.version import Version
 
 from pysmartmeter import __version__
-from pysmartmeter.cli.cli_app import PACKAGE_ROOT
+from pysmartmeter.constants import PACKAGE_ROOT
 
 
 class ProjectSetupTestCase(TestCase):
     def test_version(self):
-        pyproject_toml_path = Path(PACKAGE_ROOT, 'pyproject.toml')
-        assert_is_file(pyproject_toml_path)
-
         self.assertIsNotNone(__version__)
 
-        pyproject_toml = tomli.loads(pyproject_toml_path.read_text(encoding='UTF-8'))
-        pyproject_name = pyproject_toml['project']['name']
-        self.assertEqual(pyproject_name, 'pysmartmeter')
-        pyproject_version = pyproject_toml['project']['version']
-
-        self.assertEqual(__version__, pyproject_version)
+        version = Version(__version__)  # Will raise InvalidVersion() if wrong formatted
+        self.assertEqual(str(version), __version__)
 
         cli_bin = PACKAGE_ROOT / 'cli.py'
         assert_is_file(cli_bin)
@@ -32,7 +25,7 @@ class ProjectSetupTestCase(TestCase):
         self.assertIn(f'pysmartmeter v{__version__}', output)
 
     def test_code_style(self):
-        cli_bin = PACKAGE_ROOT / 'cli.py'
+        cli_bin = PACKAGE_ROOT / 'dev-cli.py'
         assert_is_file(cli_bin)
 
         try:
@@ -67,3 +60,9 @@ class ProjectSetupTestCase(TestCase):
             code_style.check(package_root=PACKAGE_ROOT)
         except SystemExit as err:
             self.assertEqual(err.code, 0, 'Code style error, see output above!')
+
+    def test_check_editor_config(self):
+        check_editor_config(package_root=PACKAGE_ROOT)
+
+        max_line_length = get_py_max_line_length(package_root=PACKAGE_ROOT)
+        self.assertEqual(max_line_length, 119)
