@@ -19,7 +19,7 @@ In the end it can looks like the following [Home Assistant](https://www.home-ass
 With my "eBZ DD3" energy meter by eBZ GmbH the values update live every second ;)
 
 
-Currently only energy meters that send [OBIS text protocol](https://wiki.volkszaehler.org/software/obis) are supported. 
+Currently only energy meters that send [OBIS text protocol](https://wiki.volkszaehler.org/software/obis) are supported.
 
 TODO: [#37 - Add support for SML (Smart Message Language) binary protocol](https://github.com/jedie/pysmartmeter/issues/37)
 
@@ -48,30 +48,18 @@ Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
 │ --help      Show this message and exit.                                                          │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
-│ check-code-style            Check code style by calling darker + flake8                          │
-│ coverage                    Run and show coverage.                                               │
-│ debug-settings              Display (anonymized) MQTT server username and password               │
-│ debug-systemd-service       Just print the systemd service file content                          │
-│ detect-serial               Just print the detected serial port instance                         │
-│ dump                        Just dump serial output                                              │
-│ fix-code-style              Fix code style of all pysmartmeter source code files via darker      │
-│ install                     Run pip-sync and install 'pysmartmeter' via pip as editable.         │
-│ mypy                        Run Mypy (configured in pyproject.toml)                              │
-│ publish                     Build and upload this project to PyPi                                │
-│ publish-loop                Publish current data via MQTT (endless loop)                         │
-│ safety                      Run safety check against current requirements files                  │
-│ setup-systemd-service       Setup PySmartMeter systemd services and starts it.                   │
-│ store-settings              Store MQTT server settings.                                          │
-│ systemd-restart             Restart PySmartMeter systemd services                                │
-│ systemd-status              Call systemd status of PySmartMeter services                         │
-│ systemd-stop                Stop PySmartMeter systemd services                                   │
-│ test                        Run unittests                                                        │
-│ test-mqtt-connection        Test connection to MQTT Server                                       │
-│ tox                         Run tox                                                              │
-│ update                      Update "requirements*.txt" dependencies files                        │
-│ update-test-snapshot-files  Update all test snapshot files (by remove and recreate all snapshot  │
-│                             files)                                                               │
-│ version                     Print version and exit                                               │
+│ debug-settings               Display (anonymized) MQTT server username and password              │
+│ debug-systemd-service        Just print the systemd service file content                         │
+│ detect-serial                Just print the detected serial port instance                        │
+│ dump                         Just dump serial output                                             │
+│ publish-loop                 Publish current data via MQTT (endless loop)                        │
+│ setup-systemd-service        Setup PySmartMeter systemd services and starts it.                  │
+│ store-settings               Store MQTT server settings.                                         │
+│ systemd-restart              Restart PySmartMeter systemd services                               │
+│ systemd-status               Call systemd status of PySmartMeter services                        │
+│ systemd-stop                 Stop PySmartMeter systemd services                                  │
+│ test-mqtt-connection         Test connection to MQTT Server                                      │
+│ version                      Print version and exit                                              │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated main help end ✂✂✂)
@@ -132,7 +120,49 @@ If everything is fine: Go to your [Home Assistant and check the MQTT integration
 The device discovery will be made automaticly.
 
 
+# Start hacking
+
+```bash
+~$ git clone https://github.com/jedie/pysmartmeter.git
+~$ cd pysmartmeter
+~/pysmartmeter$ ./dev-cli.py --help
+```
+
+
+[comment]: <> (✂✂✂ auto generated dev help start ✂✂✂)
+```
+Usage: ./dev-cli.py [OPTIONS] COMMAND [ARGS]...
+
+╭─ Options ────────────────────────────────────────────────────────────────────────────────────────╮
+│ --help      Show this message and exit.                                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
+│ check-code-style            Check code style by calling darker + flake8                          │
+│ coverage                    Run and show coverage.                                               │
+│ fix-code-style              Fix code style of all inverter source code files via darker          │
+│ install                     Run pip-sync and install 'inverter' via pip as editable.             │
+│ mypy                        Run Mypy (configured in pyproject.toml)                              │
+│ publish                     Build and upload this project to PyPi                                │
+│ safety                      Run safety check against current requirements files                  │
+│ test                        Run unittests                                                        │
+│ tox                         Run tox                                                              │
+│ update                      Update "requirements*.txt" dependencies files                        │
+│ update-test-snapshot-files  Update all test snapshot files (by remove and recreate all snapshot  │
+│                             files)                                                               │
+│ version                     Print version and exit                                               │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+[comment]: <> (✂✂✂ auto generated dev help end ✂✂✂)
+
+
 # Backwards-incompatible changes
+
+## v0.4.x -> v0.5.x
+
+We split the CLI files into:
+
+* `./cli.py` - Commands for end users
+* `./dev-cli.py` - Commands for developers
 
 ## v0.2.x -> v0.3.x
 

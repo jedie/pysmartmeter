@@ -1,6 +1,8 @@
-"""pysmartmeter - Collect data from Hichi Smartmeter and expose it via MQTT"""
+"""
+    pysmartmeter
+    Collect data from Hichi Smartmeter and expose it via MQTT
+"""
 
-from importlib.metadata import version
 
-__version__ = version('pysmartmeter')
+__version__ = '0.5.0rc0'
 __author__ = 'Jens Diemer <pysmartmeter@jensdiemer.de>'
