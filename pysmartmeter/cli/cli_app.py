@@ -1,28 +1,25 @@
-"""
-    CLI for usage
-"""
-import getpass
 import logging
 import sys
 from pathlib import Path
 
 import rich_click as click
-from cli_base.cli_tools.version_info import print_version
+from ha_services.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
+from ha_services.toml_settings.api import TomlSettings
+from ha_services.toml_settings.exceptions import UserSettingsNotFound
+from manageprojects.utilities.version_info import print_version
 from rich import print  # noqa
-from rich.console import Console
 from rich.pretty import pprint
-from rich.traceback import install as rich_traceback_install
 from rich_click import RichGroup
 
 import pysmartmeter
 from pysmartmeter import constants
-from pysmartmeter.data_classes import MqttSettings
+from pysmartmeter.config import Config
+from pysmartmeter.constants import SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
 from pysmartmeter.detect_serial import print_detect_serial
 from pysmartmeter.dump import serial_dump
-from pysmartmeter.log_utils import log_config
-from pysmartmeter.mqtt_publish import get_connected_client, publish_forever
+from pysmartmeter.publish_loop import get_connected_client, publish_forever
+from pysmartmeter.user_settings import UserSettings, migrate_old_settings
 from pysmartmeter.utilities import systemd
-from pysmartmeter.utilities.credentials import get_mqtt_settings, store_mqtt_settings
 
 
 logger = logging.getLogger(__name__)
@@ -55,43 +52,103 @@ def cli():
     pass
 
 
+######################################################################################################
+# User settings
+
+toml_settings = TomlSettings(
+    dir_name=SETTINGS_DIR_NAME,
+    file_name=SETTINGS_FILE_NAME,
+    settings_dataclass=UserSettings(),
+    not_exist_exit_code=None,  # Don't sys.exit() if settings file not present, yet.
+)
+migrate_old_settings(toml_settings)  # TODO: Remove in the Future
+
+try:
+    user_settings: UserSettings = toml_settings.get_user_settings(debug=True)
+except UserSettingsNotFound:
+    # Use default one
+    user_settings = UserSettings()
+
+
+option_kwargs_usb_port = dict(
+    required=True,
+    type=str,
+    help='USB port Hichi smartmeter e.g.: /dev/ttyUSB0',
+    default=user_settings.hichi.port or None,  # Don't accept empty string: We need a address ;)
+    show_default=True,
+)
+
+
 @click.command()
-def detect_serial():
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def edit_settings(verbosity: int):
+    """
+    Edit the settings file. On first call: Create the default one.
+    """
+    setup_logging(verbosity=verbosity)
+    toml_settings.open_in_editor()
+
+
+cli.add_command(edit_settings)
+
+
+@click.command()
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def debug_settings(verbosity: int):
+    """
+    Display (anonymized) MQTT server username and password
+    """
+    setup_logging(verbosity=verbosity)
+    toml_settings.print_settings()
+
+
+cli.add_command(debug_settings)
+
+
+######################################################################################################
+#
+
+
+@click.command()
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def detect_serial(verbosity: int):
     """
     Just print the detected serial port instance
     """
-    log_config()
-    print_detect_serial()
+    setup_logging(verbosity=verbosity)
+    config = Config(verbosity=verbosity, settings=user_settings)
+    print_detect_serial(config)
 
 
 cli.add_command(detect_serial)
 
 
 @click.command()
-def dump():
+@click.option('-p', '--port', **option_kwargs_usb_port)
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def dump(port: str, verbosity: int):
     """
     Just dump serial output
     """
-    log_config()
-    serial_dump()
+    setup_logging(verbosity=verbosity)
+    user_settings.hichi.port = port
+    config = Config(verbosity=verbosity, settings=user_settings)
+    serial_dump(config)
 
 
 cli.add_command(dump)
 
 
 @click.command()
-@click.option('--log/--no-log', **OPTION_ARGS_DEFAULT_TRUE)
-@click.option('--verbose/--no-verbose', **OPTION_ARGS_DEFAULT_TRUE)
-def publish_loop(log: bool = True, verbose: bool = True):
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def publish_loop(verbosity: int):
     """
     Publish current data via MQTT (endless loop)
     """
-    if log:
-        log_config()
-    settings: MqttSettings = get_mqtt_settings()
-    pprint(settings.anonymized())
+    setup_logging(verbosity=verbosity)
+    config = Config(verbosity=verbosity, settings=user_settings)
     try:
-        publish_forever(settings=settings, verbose=verbose)
+        publish_forever(config=config)
     except KeyboardInterrupt:
         print('Bye, bye')
 
@@ -99,57 +156,7 @@ def publish_loop(log: bool = True, verbose: bool = True):
 cli.add_command(publish_loop)
 
 
-@click.command()
-def store_settings():
-    """
-    Store MQTT server settings.
-    """
-    log_config()
 
-    try:
-        settings: MqttSettings = get_mqtt_settings()
-    except FileNotFoundError:
-        print('No settings stored, yet. ok.')
-        print()
-        print('Input settings:')
-    else:
-        print('Current settings:')
-        pprint(settings.anonymized())
-        print()
-        print('Input new settings:')
-
-    host = input('host (e.g.: "test.mosquitto.org"): ')
-    if not host:
-        print('Host is needed! Abort.')
-        sys.exit(1)
-
-    port = input('port (default: 1883): ')
-    if port:
-        port = int(port)
-    else:
-        port = 1883
-    user_name = input('user name: ')
-    password = getpass.getpass('password: ')
-
-    settings = MqttSettings(host=host, port=port, user_name=user_name, password=password)
-    file_path = store_mqtt_settings(settings)
-    print(f'MQTT server settings stored into: {file_path}')
-
-
-cli.add_command(store_settings)
-
-
-@click.command()
-def debug_settings():
-    """
-    Display (anonymized) MQTT server username and password
-    """
-    log_config()
-    settings: MqttSettings = get_mqtt_settings()
-    pprint(settings.anonymized())
-
-
-cli.add_command(debug_settings)
 
 
 @click.command()
@@ -157,7 +164,7 @@ def test_mqtt_connection():
     """
     Test connection to MQTT Server
     """
-    log_config()
+    setup_logging(verbosity=verbosity)
     settings: MqttSettings = get_mqtt_settings()
     mqttc = get_connected_client(settings=settings, verbose=True)
     mqttc.loop_start()
@@ -242,14 +249,6 @@ cli.add_command(version)
 
 def main():
     print_version(pysmartmeter)
-
-    console = Console()
-    rich_traceback_install(
-        width=console.size.width,  # full terminal width
-        show_locals=True,
-        suppress=[click],
-        max_frames=2,
-    )
 
     # Execute Click CLI:
     cli.name = './cli.py'
