@@ -2,6 +2,7 @@ import sys
 
 from rich.pretty import pprint
 
+from pysmartmeter.config import Config
 from pysmartmeter.detect_serial import get_serial
 from pysmartmeter.parser import ObisParser
 
@@ -10,11 +11,11 @@ def print_callback(**kwargs):
     pprint(kwargs, indent_guides=False)
 
 
-def serial_dump():
+def serial_dump(config:Config):
     """
     Dump the output of the first working serial port.
     """
-    ser = get_serial()
+    ser = get_serial(config)
     if not ser:
         print('Serial not found')
         sys.exit(1)

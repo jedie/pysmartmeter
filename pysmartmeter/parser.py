@@ -63,16 +63,16 @@ def parse_obis_value(line) -> ObisValue:
 
 
 class ObisParser:
-    def __init__(self, *, publish_callback, verbose=False):
+    def __init__(self, *, publish_callback, verbosity:int=1):
         self.publish_callback = publish_callback
-        self.verbose = verbose
+        self.verbosity = verbosity
 
         self.state = None
         self._seen_keys = None
         self._buffer = None
 
     def set_new_state(self, new_state):
-        if self.verbose:
+        if self.verbosity:
             print(f'state: {self.state} -> {new_state}')
 
         if self.state is None:
@@ -94,19 +94,19 @@ class ObisParser:
 
     def feed_line(self, data):
         line = data.decode(ENCODING)
-        if self.verbose:
+        if self.verbosity:
             rprint(f'[code]{data!r} -> {line!r}')
         if not line:
-            if self.verbose:
+            if self.verbosity:
                 print('ignore empty data')
         elif self.state is None:
-            if self.verbose:
+            if self.verbosity:
                 print('-' * 100)
                 print('Start -> wait for terminator')
             if line == TERMINATOR:
                 self.set_new_state(State.identifier)
         elif self.state == State.identifier:
-            if self.verbose:
+            if self.verbosity:
                 print('New buffer...', end=' ')
             key = State.identifier.name
             self._buffer = [
@@ -119,7 +119,7 @@ class ObisParser:
                 )
             ]
             self._seen_keys = {key}
-            if self.verbose:
+            if self.verbosity:
                 print(self._buffer)
             self.set_new_state(State.separator)
         elif self.state == State.separator:
@@ -127,12 +127,12 @@ class ObisParser:
         elif self.state == State.data:
             if line == TERMINATOR:
                 self.set_new_state(State.terminator)
-                if self.verbose:
+                if self.verbosity:
                     print(f'Expose buffer to callback {self.publish_callback}:')
                     pprint(self._buffer)
                 self.publish_callback(obis_values=self._buffer)
                 self.set_new_state(State.identifier)
-                if self.verbose:
+                if self.verbosity:
                     print('-' * 100)
             else:
                 try:
@@ -141,7 +141,7 @@ class ObisParser:
                 except Exception as err:
                     print(f'ERROR parse line {line!r}: {err}')
                 else:
-                    if self.verbose:
+                    if self.verbosity:
                         print(f'Store: {obis_value}')
                     self._buffer.append(obis_value)
                     self._seen_keys.add(obis_value.key)
