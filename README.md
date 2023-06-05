@@ -19,7 +19,7 @@ In the end it can looks like the following [Home Assistant](https://www.home-ass
 With my "eBZ DD3" energy meter by eBZ GmbH the values update live every second ;)
 
 
-Currently only energy meters that send [OBIS text protocol](https://wiki.volkszaehler.org/software/obis) are supported.
+Currently only energy meters that send [OBIS text protocol](https://wiki.volkszaehler.org/software/obis) are supported! Test this with the 
 
 TODO: [#37 - Add support for SML (Smart Message Language) binary protocol](https://github.com/jedie/pysmartmeter/issues/37)
 
@@ -110,6 +110,10 @@ Setup systemd service:
 ~/pysmartmeter$ sudo ./cli.py setup-systemd-service
 ```
 This will create a systemd service that automaticly starts on every boot.
+
+Note: Before you start the systemd service, check if everything works correctly with `./cli.py dump` and `./cli.py publish-loop` 
+Otherwise you may start a services that will just deal wie gabage (e.g.: your energy meters speaks no OBIS text protocol) and restarts on and on again ;)
+
 
 Check if service is running:
 ```bash
