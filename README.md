@@ -19,7 +19,7 @@ In the end it can looks like the following [Home Assistant](https://www.home-ass
 With my "eBZ DD3" energy meter by eBZ GmbH the values update live every second ;)
 
 
-Currently only energy meters that send [OBIS text protocol](https://wiki.volkszaehler.org/software/obis) are supported! Test this with the 
+Currently only energy meters that send [OBIS text protocol](https://wiki.volkszaehler.org/software/obis) are supported! (Test this with `./cli.py dump`)
 
 TODO: [#37 - Add support for SML (Smart Message Language) binary protocol](https://github.com/jedie/pysmartmeter/issues/37)
 
