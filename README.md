@@ -25,10 +25,23 @@ TODO: [#37 - Add support for SML (Smart Message Language) binary protocol](https
 
 ## quickstart
 
+### prepare
+
 Install minimum requirements, e.g.:
 ```bash
 ~$ sudo apt install python3-venv
 ```
+
+Note: If you using a Raspberry Pi: Check that https://www.piwheels.org/ are in use.
+For this, just look into `etc/pip.conf` it should be looked like this:
+```bash
+~/pysmartmeter$ cat /etc/pip.conf
+[global]
+extra-index-url=https://www.piwheels.org/simple
+```
+
+
+### clone and start
 
 Clone sources and install project:
 ```bash
@@ -110,7 +123,7 @@ Setup systemd service:
 ```
 This will create a systemd service that automaticly starts on every boot.
 
-Note: Before you start the systemd service, check if everything works correctly with `./cli.py dump` and `./cli.py publish-loop` 
+Note: Before you start the systemd service, check if everything works correctly with `./cli.py dump` and `./cli.py publish-loop`
 Otherwise you may start a services that will just deal wie gabage (e.g.: your energy meters speaks no OBIS text protocol) and restarts on and on again ;)
 
 
