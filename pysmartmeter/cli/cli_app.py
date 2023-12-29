@@ -3,9 +3,9 @@ import sys
 from pathlib import Path
 
 import rich_click as click
-from ha_services.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
-from ha_services.toml_settings.api import TomlSettings
-from ha_services.toml_settings.exceptions import UserSettingsNotFound
+from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
+from cli_base.toml_settings.api import TomlSettings
+from cli_base.toml_settings.exceptions import UserSettingsNotFound
 from manageprojects.utilities.version_info import print_version
 from rich import print  # noqa
 from rich.pretty import pprint
