@@ -51,7 +51,7 @@ class RawObisDataMock:
                 yield line.encode('ASCII')
 
 
-def test_data2obis_parser_result(lines, verbose=False):
+def test_data2obis_parser_result(lines):
     class PublisherMock:
         def __init__(self):
             self.data = []
@@ -60,7 +60,7 @@ def test_data2obis_parser_result(lines, verbose=False):
             self.data.append(kwargs)
 
     publish_mock = PublisherMock()
-    parser = ObisParser(publish_callback=publish_mock, verbose=verbose)
+    parser = ObisParser(publish_callback=publish_mock)
 
     for line in lines:
         parser.feed_line(line)

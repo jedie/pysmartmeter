@@ -1,0 +1,183 @@
+[[parameters]]
+obis_key = "identifier"
+name = "Gerätetyp mit Software Version"
+
+[[parameters]]
+obis_key = "1-0:0.0.0*255"
+name = "Eigentumsnummer"
+
+[[parameters]]
+obis_key = "1-0:96.1.0*255"
+name = "Geräte-Identifikationsnummer"
+
+[[parameters]]
+obis_key = "0-0:96.1.255*255"
+name = "Geräte-Identifikationsnummer"
+
+[[parameters]]
+obis_key = "1-0:1.8.0*255"
+name = "Zählerstand Bezug (Tariflos)"
+device_class = "energy"
+state_class = "total"
+unit_of_measurement = "kWh"
+suggested_display_precision = 3
+min_value = 0
+
+[[parameters]]
+obis_key = "1-0:2.8.0*255"
+name = "Zählerstand Lieferung (Tariflos)"
+device_class = "energy"
+state_class = "total"
+unit_of_measurement = "kWh"
+suggested_display_precision = 3
+min_value = 0
+
+[[parameters]]
+obis_key = "1-0:1.8.1*255"
+name = "Zählerstand Bezug (Tarif 1)"
+device_class = "energy"
+state_class = "total"
+unit_of_measurement = "kWh"
+suggested_display_precision = 3
+min_value = 0
+
+[[parameters]]
+obis_key = "1-0:2.8.1*255"
+name = "Zählerstand Lieferung (Tarif 1)"
+device_class = "energy"
+state_class = "total"
+unit_of_measurement = "kWh"
+suggested_display_precision = 3
+min_value = 0
+
+[[parameters]]
+obis_key = "1-0:1.8.2*255"
+name = "Zählerstand Bezug (Tarif 2)"
+device_class = "energy"
+state_class = "total"
+unit_of_measurement = "kWh"
+suggested_display_precision = 3
+min_value = 0
+
+[[parameters]]
+obis_key = "1-0:2.8.2*255"
+name = "Zählerstand Lieferung (Tarif 2)"
+device_class = "energy"
+state_class = "total"
+unit_of_measurement = "kWh"
+suggested_display_precision = 3
+min_value = 0
+
+[[parameters]]
+obis_key = "1-0:16.7.0*255"
+name = "Momentan-Leistungen"
+device_class = "energy"
+state_class = "measurement"
+unit_of_measurement = "W"
+suggested_display_precision = 1
+min_value = 0
+max_value = 23000
+
+[[parameters]]
+obis_key = "1-0:36.7.0*255"
+name = "Momentane Leistung L1"
+device_class = "energy"
+state_class = "measurement"
+unit_of_measurement = "W"
+suggested_display_precision = 1
+min_value = 0
+max_value = 23000
+
+[[parameters]]
+obis_key = "1-0:56.7.0*255"
+name = "Momentane Leistung L2"
+device_class = "energy"
+state_class = "measurement"
+unit_of_measurement = "W"
+suggested_display_precision = 1
+min_value = 0
+max_value = 23000
+
+[[parameters]]
+obis_key = "1-0:76.7.0*255"
+name = "Momentane Leistung L3"
+device_class = "energy"
+state_class = "measurement"
+unit_of_measurement = "W"
+suggested_display_precision = 1
+min_value = 0
+max_value = 23000
+
+[[parameters]]
+obis_key = "1-0:32.7.0*255"
+name = "Spannung L1"
+device_class = "voltage"
+state_class = "measurement"
+unit_of_measurement = "V"
+suggested_display_precision = 1
+min_value = 200
+max_value = 260
+
+[[parameters]]
+obis_key = "1-0:52.7.0*255"
+name = "Spannung L2"
+device_class = "voltage"
+state_class = "measurement"
+unit_of_measurement = "V"
+suggested_display_precision = 1
+min_value = 200
+max_value = 260
+
+[[parameters]]
+obis_key = "1-0:72.7.0*255"
+name = "Spannung L3"
+device_class = "voltage"
+state_class = "measurement"
+unit_of_measurement = "V"
+suggested_display_precision = 1
+min_value = 200
+max_value = 260
+
+[[parameters]]
+obis_key = "1-0:96.5.0*255"
+name = "Betriebszustand"
+
+[[parameters]]
+obis_key = "0-0:96.8.0*255"
+name = "Betriebsdauer"
+unit_of_measurement = "sec."
+
+[[parameters]]
+obis_key = "1-0:1.7.0*255"
+name = "Momentan-Leistungen"
+device_class = "energy"
+state_class = "measurement"
+unit_of_measurement = "W"
+suggested_display_precision = 1
+min_value = 0
+max_value = 23000
+
+[[parameters]]
+obis_key = "1-0:21.7.0*255"
+name = "Wirkleistung L1 Bezug (Momentan)"
+device_class = "energy"
+state_class = "measurement"
+
+[[parameters]]
+obis_key = "1-0:41.7.0*255"
+name = "Wirkleistung L2 Bezug (Momentan)"
+device_class = "energy"
+state_class = "measurement"
+
+[[parameters]]
+obis_key = "1-0:61.7.0*255"
+name = "Wirkleistung L3 Bezug (Momentan)"
+device_class = "energy"
+state_class = "measurement"
+
+[[parameters]]
+obis_key = "1-0:96.5.5*255"
+name = "Status"
+
+
+

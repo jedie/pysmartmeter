@@ -55,8 +55,8 @@ The output of `./cli.py --help` looks like:
 [comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
 ```
 usage: ./cli.py [-h]
-                {debug-settings,edit-settings,publish-loop,systemd-debug,systemd-remove,systemd-setup,systemd-status,s
-ystemd-stop,version}
+                {debug-settings,edit-settings,print-definition,publish-loop,systemd-debug,systemd-remove,systemd-setup
+,systemd-status,systemd-stop,version}
 
 
 
@@ -64,12 +64,14 @@ ystemd-stop,version}
 │ -h, --help        show this help message and exit                                                                  │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ {debug-settings,edit-settings,publish-loop,systemd-debug,systemd-remove,systemd-setup,systemd-status,systemd-stop, │
-│ version}                                                                                                           │
+│ {debug-settings,edit-settings,print-definition,publish-loop,systemd-debug,systemd-remove,systemd-setup,systemd-sta │
+│ tus,systemd-stop,version}                                                                                          │
 │     debug-settings                                                                                                 │
 │                   Display (anonymized) MQTT server username and password                                           │
 │     edit-settings                                                                                                  │
 │                   Edit the settings file. On first call: Create the default one.                                   │
+│     print-definition                                                                                               │
+│                   Load definition file and print it.                                                               │
 │     publish-loop  Publish all values via MQTT to Home Assistant in a endless loop.                                 │
 │     systemd-debug                                                                                                  │
 │                   Print Systemd service template + context + rendered file content.                                │
@@ -252,6 +254,10 @@ To migrate, just remove the existing `.venv` and create a fresh one, e.g.:
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.6.0](https://github.com/jedie/pysmartmeter/compare/v0.5.0...v0.6.0)
+  * 2023-12-29 - Use stuff from ha-services
+  * 2023-12-29 - Project updates
+  * 2023-12-29 - Use stuff from "cli-base-utilities"
+  * 2023-06-02 - WIP: Use ha-services components
   * 2025-04-25 - Modernize Project
   * 2024-01-17 - +typeguard
   * 2024-01-17 - +"flake8-bugbear"

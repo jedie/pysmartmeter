@@ -11,7 +11,7 @@ def print_callback(**kwargs):
     pprint(kwargs, indent_guides=False)
 
 
-def serial_dump(config:Config):
+def serial_dump(config: Config):
     """
     Dump the output of the first working serial port.
     """
