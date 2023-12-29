@@ -136,6 +136,16 @@ If everything is fine: Go to your [Home Assistant and check the MQTT integration
 The device discovery will be made automaticly.
 
 
+# Troubleshooting
+
+If you have any trouble, try to recreate the Python Virtual Environment first.
+For this, just delete it and start the CLI to recreate it, e.g.:
+```bash
+~/pysmartmeter$ rm -Rf .venv-app/
+~/pysmartmeter$ ./cli.py
+```
+
+
 # Start hacking
 
 ```bash
