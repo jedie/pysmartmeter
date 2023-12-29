@@ -3,8 +3,8 @@ from unittest.mock import patch
 import paho.mqtt.client as mqtt
 from bx_py_utils.test_utils.redirect import RedirectOut
 from bx_py_utils.test_utils.snapshot import assert_snapshot
-from ha_services.toml_settings.api import TomlSettings
-from ha_services.toml_settings.test_utils.data_class_utils import MockTomlSettings
+from cli_base.toml_settings.api import TomlSettings
+from cli_base.toml_settings.test_utils.data_class_utils import MockTomlSettings
 from manageprojects.tests.base import BaseTestCase
 
 from pysmartmeter import __version__, publish_loop
