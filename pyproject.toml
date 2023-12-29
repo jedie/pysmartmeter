@@ -7,7 +7,7 @@ readme = "README.md"
 authors = [
     {name = 'Jens Diemer', email = 'pysmartmeter@jensdiemer.de'}
 ]
-requires-python = ">=3.9,<4"
+requires-python = ">=3.9"
 dependencies = [
     "ha-services", # https://github.com/jedie/ha-services
     "cli-base-utilities",  # https://github.com/jedie/cli-base-utilities
@@ -159,7 +159,9 @@ initial_date = 2022-11-14T08:20:55+01:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
 cookiecutter_directory = "piptools-python"
 applied_migrations = [
+    "d970456", # 2023-02-20T16:19:35+01:00
     "56c0eb7", # 2023-12-22T08:36:44+01:00
+    "7271d4c", # 2023-12-29T21:57:47+01:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]
@@ -173,7 +175,3 @@ package_url = "https://github.com/jedie/pysmartmeter"
 issues_url = "https://github.com/jedie/pysmartmeter/issues"
 license = "GPL-3.0-or-later"
 _template = "https://github.com/jedie/cookiecutter_templates/"
-
-applied_migrations = [
-    "d970456", # 2023-02-20T16:19:35+01:00
-]
