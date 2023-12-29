@@ -3,7 +3,6 @@ from unittest.mock import patch
 import paho.mqtt.client as mqtt
 from bx_py_utils.test_utils.redirect import RedirectOut
 from bx_py_utils.test_utils.snapshot import assert_snapshot
-from cli_base.toml_settings.api import TomlSettings
 from cli_base.toml_settings.test_utils.data_class_utils import MockTomlSettings
 from manageprojects.tests.base import BaseTestCase
 
@@ -22,11 +21,12 @@ class CliTestCase(BaseTestCase):
         mqtt_client = MqttClientMock()
         socket_mock = SocketMock()
 
-        with patch.object(publish_loop, 'get_serial', mocked_serial), patch.object(
-            mqtt, 'Client', mqtt_client
-        ), patch.object(publish_loop, 'socket', socket_mock), MockTomlSettings(
-            SettingsDataclass=UserSettings, settings_overwrites=dict()
-        ) as mocked_toml_settings:
+        with (
+            patch.object(publish_loop, 'get_serial', mocked_serial),
+            patch.object(mqtt, 'Client', mqtt_client),
+            patch.object(publish_loop, 'socket', socket_mock),
+            MockTomlSettings(SettingsDataclass=UserSettings, settings_overwrites=dict()) as mocked_toml_settings,
+        ):
             mocked_settings = mocked_toml_settings.toml_settings.get_user_settings()
             self.assertIsInstance(mocked_settings, UserSettings)
 

@@ -63,7 +63,7 @@ def parse_obis_value(line) -> ObisValue:
 
 
 class ObisParser:
-    def __init__(self, *, publish_callback, verbosity:int=1):
+    def __init__(self, *, publish_callback, verbosity: int = 1):
         self.publish_callback = publish_callback
         self.verbosity = verbosity
 

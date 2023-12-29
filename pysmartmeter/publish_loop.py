@@ -1,6 +1,9 @@
 import logging
+import os
+import resource
 import socket
 
+from ha_services.mqtt4homeassistant.data_classes import HaValue
 from ha_services.mqtt4homeassistant.mqtt import HaMqttPublisher
 from rich import print
 from rich.pretty import pprint
@@ -23,25 +26,7 @@ def get_client_id():
     return client_id
 
 
-class OnConnectCallback:
-    def __init__(self, verbose: bool = True):
-        self.verbose = verbose
 
-    def __call__(self, client, userdata, flags, rc):
-        if self.verbosity:
-            print(f'MQTT broker connect result code: {rc}', end=' ')
-
-        if rc == 0:
-            if self.verbosity:
-                print('[green]OK')
-        else:
-            print('\n[red]MQTT Connection not successful!')
-            print('[yellow]Please check your credentials\n')
-            raise RuntimeError(f'MQTT connection result code {rc} is not 0')
-
-        if self.verbosity:
-            print(f'\t{userdata=}')
-            print(f'\t{flags=}')
 
 
 def obis_values2mqtt_state(obis_values: list[ObisValue], verbose: bool = False) -> MqttPayload:
