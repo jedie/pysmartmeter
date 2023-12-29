@@ -58,7 +58,7 @@ def get_serial(
         if verbose:
             print(f'Read from {ser}...', flush=True)
 
-        for try_count in range(5):
+        for _try_count in range(5):
             try:
                 data = ser.readline()
             except Exception as err:

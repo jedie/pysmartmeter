@@ -4,8 +4,9 @@ from manageprojects.test_utils.click_cli_utils import invoke_click
 from manageprojects.tests.base import BaseTestCase
 
 from pysmartmeter.cli.cli_app import cli
+from pysmartmeter.cli.dev import PACKAGE_ROOT
 from pysmartmeter.cli.dev import cli as dev_cli
-from pysmartmeter.constants import CLI_EPILOG, PACKAGE_ROOT
+from pysmartmeter.constants import CLI_EPILOG
 
 
 def assert_cli_help_in_readme(text_block: str, marker: str):

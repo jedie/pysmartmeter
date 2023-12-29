@@ -6,20 +6,28 @@ import sys
 from pathlib import Path
 
 import rich_click as click
-from ha_services.cli_tools.dev_tools import _run_tox, _run_unittest_cli
-from manageprojects.utilities import code_style
+from bx_py_utils.path import assert_is_file
+from cli_base.cli_tools import code_style
+from cli_base.cli_tools.dev_tools import run_coverage, run_tox, run_unittest_cli
+from cli_base.cli_tools.subprocess_utils import verbose_check_call
+from cli_base.cli_tools.test_utils.snapshot import UpdateTestSnapshotFiles
+from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE
+from cli_base.cli_tools.version_info import print_version
 from manageprojects.utilities.publish import publish_package
-from manageprojects.utilities.subprocess_utils import verbose_check_call
-from manageprojects.utilities.version_info import print_version
-from rich import print  # noqa; noqa
+from rich.console import Console
+from rich.traceback import install as rich_traceback_install
 from rich_click import RichGroup
 
 import pysmartmeter
 from pysmartmeter import constants
-from pysmartmeter.constants import PACKAGE_ROOT
+from pysmartmeter.constants import BASE_PATH
 
 
 logger = logging.getLogger(__name__)
+
+
+PACKAGE_ROOT = BASE_PATH.parent
+assert_is_file(PACKAGE_ROOT / 'pyproject.toml')  # Exists only in cloned git repo
 
 
 OPTION_ARGS_DEFAULT_TRUE = dict(is_flag=True, show_default=True, default=True)
@@ -57,35 +65,19 @@ def cli():
 
 
 @click.command()
-@click.option('--verbose/--no-verbose', **OPTION_ARGS_DEFAULT_FALSE)
-def mypy(verbose: bool = True):
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def mypy(verbosity: int):
     """Run Mypy (configured in pyproject.toml)"""
-    verbose_check_call('mypy', '.', cwd=PACKAGE_ROOT, verbose=verbose, exit_on_error=True)
+    verbose_check_call('mypy', '.', cwd=PACKAGE_ROOT, verbose=verbosity > 0, exit_on_error=True)
 
 
 cli.add_command(mypy)
 
 
 @click.command()
-@click.option('--verbose/--no-verbose', **OPTION_ARGS_DEFAULT_FALSE)
-def coverage(verbose: bool = True):
-    """
-    Run and show coverage.
-    """
-    verbose_check_call('coverage', 'run', verbose=verbose, exit_on_error=True)
-    verbose_check_call('coverage', 'combine', '--append', verbose=verbose, exit_on_error=True)
-    verbose_check_call('coverage', 'report', '--fail-under=30', verbose=verbose, exit_on_error=True)
-    verbose_check_call('coverage', 'xml', verbose=verbose, exit_on_error=True)
-    verbose_check_call('coverage', 'json', verbose=verbose, exit_on_error=True)
-
-
-cli.add_command(coverage)
-
-
-@click.command()
 def install():
     """
-    Run pip-sync and install 'inverter' via pip as editable.
+    Run pip-sync and install 'pysmartmeter' via pip as editable.
     """
     verbose_check_call('pip-sync', PACKAGE_ROOT / 'requirements.dev.txt')
     verbose_check_call('pip', 'install', '--no-deps', '-e', '.')
@@ -116,7 +108,7 @@ def update():
     verbose_check_call(bin_path / 'pip', 'install', '-U', 'pip-tools')
 
     extra_env = dict(
-        CUSTOM_COMPILE_COMMAND='./cli.py update',
+        CUSTOM_COMPILE_COMMAND='./dev-cli.py update',
     )
 
     pip_compile_base = [
@@ -161,11 +153,12 @@ def publish():
     """
     Build and upload this project to PyPi
     """
-    _run_unittest_cli(verbose=False, exit_after_run=False)  # Don't publish a broken state
+    run_unittest_cli(verbose=False, exit_after_run=False)  # Don't publish a broken state
 
     publish_package(
         module=pysmartmeter,
         package_path=PACKAGE_ROOT,
+        distribution_name='pysmartmeter',
     )
 
 
@@ -174,12 +167,12 @@ cli.add_command(publish)
 
 @click.command()
 @click.option('--color/--no-color', **OPTION_ARGS_DEFAULT_TRUE)
-@click.option('--verbose/--no-verbose', **OPTION_ARGS_DEFAULT_FALSE)
-def fix_code_style(color: bool = True, verbose: bool = False):
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def fix_code_style(color: bool, verbosity: int):
     """
-    Fix code style of all inverter source code files via darker
+    Fix code style of all pysmartmeter source code files via darker
     """
-    code_style.fix(package_root=PACKAGE_ROOT, color=color, verbose=verbose)
+    code_style.fix(package_root=PACKAGE_ROOT, darker_color=color, darker_verbose=verbosity > 0)
 
 
 cli.add_command(fix_code_style)
@@ -187,43 +180,33 @@ cli.add_command(fix_code_style)
 
 @click.command()
 @click.option('--color/--no-color', **OPTION_ARGS_DEFAULT_TRUE)
-@click.option('--verbose/--no-verbose', **OPTION_ARGS_DEFAULT_FALSE)
-def check_code_style(color: bool = True, verbose: bool = False):
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def check_code_style(color: bool, verbosity: int):
     """
     Check code style by calling darker + flake8
     """
-    code_style.check(package_root=PACKAGE_ROOT, color=color, verbose=verbose)
+    code_style.check(package_root=PACKAGE_ROOT, darker_color=color, darker_verbose=verbosity > 0)
 
 
 cli.add_command(check_code_style)
 
 
 @click.command()
-def update_test_snapshot_files():
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def update_test_snapshot_files(verbosity: int):
     """
     Update all test snapshot files (by remove and recreate all snapshot files)
     """
 
-    def iter_snapshot_files():
-        yield from PACKAGE_ROOT.rglob('*.snapshot.*')
-
-    removed_file_count = 0
-    for item in iter_snapshot_files():
-        item.unlink()
-        removed_file_count += 1
-    print(f'{removed_file_count} test snapshot files removed... run tests...')
-
-    # Just recreate them by running tests:
-    _run_unittest_cli(
-        extra_env=dict(
-            RAISE_SNAPSHOT_ERRORS='0',  # Recreate snapshot files without error
-        ),
-        verbose=False,
-        exit_after_run=False,
-    )
-
-    new_files = len(list(iter_snapshot_files()))
-    print(f'{new_files} test snapshot files created, ok.\n')
+    with UpdateTestSnapshotFiles(root_path=PACKAGE_ROOT, verbose=verbosity > 0):
+        # Just recreate them by running tests:
+        run_unittest_cli(
+            extra_env=dict(
+                RAISE_SNAPSHOT_ERRORS='0',  # Recreate snapshot files without error
+            ),
+            verbose=verbosity > 1,
+            exit_after_run=False,
+        )
 
 
 cli.add_command(update_test_snapshot_files)
@@ -234,10 +217,21 @@ def test():
     """
     Run unittests
     """
-    _run_unittest_cli()
+    run_unittest_cli()
 
 
 cli.add_command(test)
+
+
+@click.command()  # Dummy command
+def coverage():
+    """
+    Run tests and show coverage report.
+    """
+    run_coverage()
+
+
+cli.add_command(coverage)
 
 
 @click.command()  # Dummy "tox" command
@@ -245,7 +239,7 @@ def tox():
     """
     Run tox
     """
-    _run_tox()
+    run_tox()
 
 
 cli.add_command(tox)
@@ -301,13 +295,24 @@ cli.add_command(version)
 def main():
     print_version(pysmartmeter)
 
+    console = Console()
+    rich_traceback_install(
+        width=console.size.width,  # full terminal width
+        show_locals=True,
+        suppress=[click],
+        max_frames=2,
+    )
+
     if len(sys.argv) >= 2:
-        # Check if we just pass a command call
+        # Check if we can just pass a command call to origin CLI:
         command = sys.argv[1]
-        if command == 'test':
-            _run_unittest_cli()
-        elif command == 'tox':
-            _run_tox()
+        command_map = {
+            'test': run_unittest_cli,
+            'tox': run_tox,
+            'coverage': run_coverage,
+        }
+        if real_func := command_map.get(command):
+            real_func(argv=sys.argv, exit_after_run=True)
 
     # Execute Click CLI:
     cli()

@@ -9,7 +9,8 @@ authors = [
 ]
 requires-python = ">=3.9,<4"
 dependencies = [
-    "ha-services>=0.3.2", # https://github.com/jedie/ha-services
+    "ha-services", # https://github.com/jedie/ha-services
+    "cli-base-utilities",  # https://github.com/jedie/cli-base-utilities
 
     "pyserial",  # https://github.com/pyserial/pyserial
     "paho-mqtt",  # https://pypi.org/project/paho-mqtt/
@@ -24,7 +25,7 @@ dependencies = [
 ]
 [project.optional-dependencies]
 dev = [
-    "manageprojects",  # https://github.com/jedie/manageprojects
+    "manageprojects>=0.17.1",  # https://github.com/jedie/manageprojects
     "pip-tools",  # https://github.com/jazzband/pip-tools/
     "tox",  # https://github.com/tox-dev/tox
     "coverage",  # https://github.com/nedbat/coveragepy
@@ -157,6 +158,9 @@ initial_revision = "e826e73"
 initial_date = 2022-11-14T08:20:55+01:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
 cookiecutter_directory = "piptools-python"
+applied_migrations = [
+    "56c0eb7", # 2023-12-22T08:36:44+01:00
+]
 
 [manageprojects.cookiecutter_context.cookiecutter]
 full_name = "Jens Diemer"
