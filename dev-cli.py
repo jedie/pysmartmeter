@@ -8,6 +8,7 @@
 """
 
 import hashlib
+import shlex
 import subprocess
 import sys
 import venv
@@ -60,7 +61,7 @@ PROJECT_SHELL_SCRIPT = BIN_PATH / 'pysmartmeter_dev'
 
 
 def get_dep_hash():
-    """Get SHA512 hash from poetry.lock content."""
+    """Get SHA512 hash from lock file content."""
     return hashlib.sha512(DEP_LOCK_PATH.read_bytes()).hexdigest()
 
 
@@ -77,7 +78,7 @@ def venv_up2date():
 
 
 def verbose_check_call(*popen_args):
-    print(f'\n+ {" ".join(str(arg) for arg in popen_args)}\n')
+    print(f'\n+ {shlex.join(str(arg) for arg in popen_args)}\n')
     return subprocess.check_call(popen_args)
 
 
@@ -106,7 +107,7 @@ def main(argv):
 
     # Call our entry point CLI:
     try:
-        verbose_check_call(PROJECT_SHELL_SCRIPT, *sys.argv[1:])
+        verbose_check_call(PROJECT_SHELL_SCRIPT, *argv[1:])
     except subprocess.CalledProcessError as err:
         sys.exit(err.returncode)
 

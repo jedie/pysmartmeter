@@ -16,15 +16,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.10", "3.9"]
-    env:
-      PYTHONUNBUFFERED: 1
-      PYTHONWARNINGS: always
+        python-version: ["3.12", "3.11", "3.10", "3.9"]
     steps:
     - name: Checkout
       run: |
         echo $GITHUB_REF $GITHUB_SHA
-        git clone --depth 1 https://github.com/$GITHUB_REPOSITORY.git .
+        git clone https://github.com/$GITHUB_REPOSITORY.git .
         git fetch origin $GITHUB_SHA:temporary-ci-branch
         git checkout $GITHUB_SHA || (git fetch && git checkout $GITHUB_SHA)
 
@@ -34,25 +31,34 @@ jobs:
       with:
         python-version: '${{ matrix.python-version }}'
         cache: 'pip' # caching pip dependencies
-        cache-dependency-path: '**/requirements.dev.txt'
+        cache-dependency-path: '**/requirements.*.txt'
 
-    - name: 'Bootstrap'
+    - name: 'Bootstrap app venv'
       # The first CLI call will create the .venv
-      # TODO: ./dev-cli.py create-default-settings
       run: |
-        ./dev-cli.py version
         ./cli.py version
 
-    - name: 'CLI help'
+    - name: 'app CLI help'
+      run: |
+        ./cli.py --help
+
+    - name: 'Bootstrap dev venv'
+      # The first CLI call will create the .venv
+      run: |
+        ./dev-cli.py version
+
+    - name: 'dev CLI help'
       run: |
         ./dev-cli.py --help
-        ./cli.py --help
 
     - name: 'Safety'
       run: |
         ./dev-cli.py safety
 
     - name: 'Run tests with Python v${{ matrix.python-version }}'
+      env:
+        PYTHONUNBUFFERED: 1
+        PYTHONWARNINGS: always
       run: |
         ./dev-cli.py coverage
 
