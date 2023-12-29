@@ -1,14 +1,19 @@
+"""
+    CLI for usage
+"""
 import logging
 import sys
 from pathlib import Path
 
 import rich_click as click
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
+from cli_base.cli_tools.version_info import print_version
 from cli_base.toml_settings.api import TomlSettings
 from cli_base.toml_settings.exceptions import UserSettingsNotFound
 from manageprojects.utilities.version_info import print_version
 from rich import print  # noqa
-from rich.pretty import pprint
+from rich.console import Console
+from rich.traceback import install as rich_traceback_install
 from rich_click import RichGroup
 
 import pysmartmeter
@@ -106,7 +111,6 @@ cli.add_command(debug_settings)
 
 
 ######################################################################################################
-#
 
 
 @click.command()
@@ -154,9 +158,6 @@ def publish_loop(verbosity: int):
 
 
 cli.add_command(publish_loop)
-
-
-
 
 
 @click.command()
@@ -249,6 +250,14 @@ cli.add_command(version)
 
 def main():
     print_version(pysmartmeter)
+
+    console = Console()
+    rich_traceback_install(
+        width=console.size.width,  # full terminal width
+        show_locals=True,
+        suppress=[click],
+        max_frames=2,
+    )
 
     # Execute Click CLI:
     cli.name = './cli.py'
