@@ -1,8 +1,7 @@
 # pysmartmeter
 
-
 [![tests](https://github.com/jedie/pysmartmeter/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/jedie/pysmartmeter/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/github/jedie/pysmartmeter/branch/main/graph/badge.svg)](https://codecov.io/github/jedie/pysmartmeter)
+[![codecov](https://codecov.io/github/jedie/pysmartmeter/branch/main/graph/badge.svg)](https://app.codecov.io/github/jedie/pysmartmeter)
 [![pysmartmeter @ PyPi](https://img.shields.io/pypi/v/pysmartmeter?label=pysmartmeter%20%40%20PyPi)](https://pypi.org/project/pysmartmeter/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/pysmartmeter)](https://github.com/jedie/pysmartmeter/blob/main/pyproject.toml)
 [![License GPL-3.0-or-later](https://img.shields.io/pypi/l/pysmartmeter)](https://github.com/jedie/pysmartmeter/blob/main/LICENSE)
@@ -142,9 +141,9 @@ Usage: ./dev-cli.py [OPTIONS] COMMAND [ARGS]...
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
 │ check-code-style            Check code style by calling darker + flake8                          │
-│ coverage                    Run and show coverage.                                               │
-│ fix-code-style              Fix code style of all inverter source code files via darker          │
-│ install                     Run pip-sync and install 'inverter' via pip as editable.             │
+│ coverage                    Run tests and show coverage report.                                  │
+│ fix-code-style              Fix code style of all pysmartmeter source code files via darker      │
+│ install                     Run pip-sync and install 'pysmartmeter' via pip as editable.         │
 │ mypy                        Run Mypy (configured in pyproject.toml)                              │
 │ publish                     Build and upload this project to PyPi                                │
 │ safety                      Run safety check against current requirements files                  │

@@ -3,6 +3,7 @@ from unittest.mock import patch
 import paho.mqtt.client as mqtt
 from bx_py_utils.test_utils.redirect import RedirectOut
 from bx_py_utils.test_utils.snapshot import assert_snapshot
+from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRichClick
 from manageprojects.tests.base import BaseTestCase
 
 from pysmartmeter import __version__, publish_loop
@@ -19,19 +20,23 @@ class CliTestCase(BaseTestCase):
         mqtt_client = MqttClientMock()
         socket_mock = SocketMock()
 
-        with patch.object(publish_loop, 'get_serial', mocked_serial), patch.object(
-            mqtt, 'Client', mqtt_client
-        ), patch.object(publish_loop, 'socket', socket_mock):
-            with self.assertRaises(SerialMockEnds), RedirectOut() as buffer:
-                publish_forever(
-                    settings=MqttSettings(
-                        host='foo.host.tld',
-                        port=123,
-                        user_name='bar',
-                        password='foobarbaz',
-                    ),
-                    verbose=True,
-                )
+        with (
+            patch.object(publish_loop, 'get_serial', mocked_serial),
+            patch.object(mqtt, 'Client', mqtt_client),
+            patch.object(publish_loop, 'socket', socket_mock),
+            self.assertRaises(SerialMockEnds),
+            NoColorEnvRichClick(),
+            RedirectOut() as buffer,
+        ):
+            publish_forever(
+                settings=MqttSettings(
+                    host='foo.host.tld',
+                    port=123,
+                    user_name='bar',
+                    password='foobarbaz',
+                ),
+                verbose=True,
+            )
 
         mqtt_client.assert_state(
             self,
