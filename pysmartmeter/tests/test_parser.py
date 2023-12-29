@@ -2,7 +2,7 @@ from bx_py_utils.test_utils.snapshot import assert_snapshot
 
 from pysmartmeter.data_classes import ObisValue
 from pysmartmeter.parser import parse_obis_value
-from pysmartmeter.tests import BaseTestCase
+from pysmartmeter.tests.base import BaseTestCase
 from pysmartmeter.tests.data import (
     RawObisDataMock,
     get_obis_data_block,

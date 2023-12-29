@@ -155,6 +155,9 @@ initial_revision = "e826e73"
 initial_date = 2022-11-14T08:20:55+01:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
 cookiecutter_directory = "piptools-python"
+applied_migrations = [
+    "56c0eb7", # 2023-12-22T08:36:44+01:00
+]
 
 [manageprojects.cookiecutter_context.cookiecutter]
 full_name = "Jens Diemer"
