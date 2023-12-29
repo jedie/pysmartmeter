@@ -33,7 +33,7 @@ else:
         sys.exit(-1)
 
 
-assert sys.version_info >= (3, 9), 'Python version is too old!'
+assert sys.version_info >= (3, 9), f'Python version {sys.version_info} is too old!'
 
 
 if sys.platform == 'win32':  # wtf
