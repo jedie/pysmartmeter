@@ -10,7 +10,7 @@ from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
 from cli_base.cli_tools.version_info import print_version
 from cli_base.toml_settings.api import TomlSettings
 from cli_base.toml_settings.exceptions import UserSettingsNotFound
-from manageprojects.utilities.version_info import print_version
+from ha_services.mqtt4homeassistant.mqtt import get_connected_client
 from rich import print  # noqa
 from rich.console import Console
 from rich.traceback import install as rich_traceback_install
@@ -22,8 +22,8 @@ from pysmartmeter.config import Config
 from pysmartmeter.constants import SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
 from pysmartmeter.detect_serial import print_detect_serial
 from pysmartmeter.dump import serial_dump
-from pysmartmeter.publish_loop import get_connected_client, publish_forever
-from pysmartmeter.user_settings import UserSettings, migrate_old_settings
+from pysmartmeter.publish_loop import publish_forever
+from pysmartmeter.user_settings import MqttSettings, UserSettings, migrate_old_settings
 from pysmartmeter.utilities import systemd
 
 
@@ -161,13 +161,14 @@ cli.add_command(publish_loop)
 
 
 @click.command()
-def test_mqtt_connection():
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def test_mqtt_connection(verbosity: int):
     """
     Test connection to MQTT Server
     """
     setup_logging(verbosity=verbosity)
-    settings: MqttSettings = get_mqtt_settings()
-    mqttc = get_connected_client(settings=settings, verbose=True)
+    mqtt_settings: MqttSettings = user_settings.mqtt
+    mqttc = get_connected_client(settings=mqtt_settings, verbosity=verbosity)
     mqttc.loop_start()
     mqttc.loop_stop()
     mqttc.disconnect()

@@ -2,15 +2,19 @@ import dataclasses
 import json
 import logging
 import sys
+import tomllib
 from pathlib import Path
 
 import serial
 import tomlkit
-from ha_services.mqtt4homeassistant.data_classes import MqttSettings as OriginMqttSettings
+from bx_py_utils.path import assert_is_file
 from cli_base.systemd.data_classes import BaseSystemdServiceInfo, BaseSystemdServiceTemplateContext
 from cli_base.toml_settings.api import TomlSettings
 from cli_base.toml_settings.serialize import dataclass2toml
+from ha_services.mqtt4homeassistant.data_classes import MqttSettings as OriginMqttSettings
 from tomlkit import TOMLDocument
+
+from pysmartmeter.constants import BASE_PATH, PACKAGE_ROOT, SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
 
 
 logger = logging.getLogger(__name__)
@@ -60,6 +64,19 @@ class Hichi:
 
 
 @dataclasses.dataclass
+class EnergyMeterDefinitions:
+    definition: Path = BASE_PATH / 'definitions' / 'ebz_dd3.toml'
+
+    def get_definition(self) -> dict:
+        definition_path: Path = self.definition
+        logger.info('Load definition file form: %s', definition_path)
+        assert_is_file(definition_path)  # makes better error messages
+        with definition_path.open('rb') as f:
+            definitions = tomllib.load(f)
+        return definitions
+
+
+@dataclasses.dataclass
 class UserSettings:
     """
     User settings for PySmartMeter
@@ -68,6 +85,7 @@ class UserSettings:
     systemd: dataclasses = dataclasses.field(default_factory=SystemdServiceInfo)
     mqtt: dataclasses = dataclasses.field(default_factory=MqttSettings)
     hichi: dataclasses = dataclasses.field(default_factory=Hichi)
+    energy_meter: EnergyMeterDefinitions = dataclasses.field(default_factory=EnergyMeterDefinitions)
 
 
 def migrate_old_settings(toml_settings: TomlSettings):  # TODO: Remove in the Future
@@ -116,8 +134,8 @@ def get_toml_settings() -> TomlSettings:
     return toml_settings
 
 
-def get_user_settings(verbosity: int) -> UserSettings:
+def get_user_settings(*, debug: bool = False) -> UserSettings:
     toml_settings: TomlSettings = get_toml_settings()
     migrate_old_settings(toml_settings)  # TODO: Remove in the Future
-    user_settings: UserSettings = toml_settings.get_user_settings(debug=verbosity > 0)
+    user_settings: UserSettings = toml_settings.get_user_settings(debug=debug)
     return user_settings

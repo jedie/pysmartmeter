@@ -1,13 +1,13 @@
 import enum
+import logging
 import re
 
-from rich import print as rprint
 from rich.pretty import pprint
 
 from pysmartmeter.data_classes import ObisValue
-from pysmartmeter.obis_map import OBIS_KEY_MAP
-from pysmartmeter.utilities.string_utils import slugify
 
+
+logger = logging.getLogger(__name__)
 
 ENCODING = 'ASCII'
 TERMINATOR = '!\r\n'
@@ -37,7 +37,7 @@ def parse_obis_value(line) -> ObisValue:
         try:
             value = int(raw_value, 16)
         except Exception as err:
-            print(f'Convert {raw_value!r} error: {err}')
+            logger.exception("Convert %r error: %s", raw_value, err)
         else:
             unit = 'sec.'
     elif '*' in raw_value:
@@ -45,16 +45,12 @@ def parse_obis_value(line) -> ObisValue:
         try:
             value = float(value)
         except Exception as err:
-            print(f'Convert {raw_value!r} error: {err}')
+            logger.exception("Convert %r error: %s", raw_value, err)
 
         unit = raw_unit
 
-    name = OBIS_KEY_MAP.get(key, key)
-
     return ObisValue(
         key=key,
-        key_slug=slugify(key, sep='_'),
-        name=name,
         raw_value=raw_value,
         value=value,
         raw_unit=raw_unit,
@@ -63,7 +59,7 @@ def parse_obis_value(line) -> ObisValue:
 
 
 class ObisParser:
-    def __init__(self, *, publish_callback, verbosity:int=1):
+    def __init__(self, *, publish_callback, verbosity: int = 1):
         self.publish_callback = publish_callback
         self.verbosity = verbosity
 
@@ -72,8 +68,7 @@ class ObisParser:
         self._buffer = None
 
     def set_new_state(self, new_state):
-        if self.verbosity:
-            print(f'state: {self.state} -> {new_state}')
+        logger.debug("state: %s -> %s", self.state, new_state)
 
         if self.state is None:
             assert (
@@ -94,55 +89,45 @@ class ObisParser:
 
     def feed_line(self, data):
         line = data.decode(ENCODING)
-        if self.verbosity:
-            rprint(f'[code]{data!r} -> {line!r}')
+        logger.debug("%r -> %r", data, line)
         if not line:
-            if self.verbosity:
-                print('ignore empty data')
+            logger.debug('ignore empty data')
         elif self.state is None:
-            if self.verbosity:
-                print('-' * 100)
-                print('Start -> wait for terminator')
+            logger.debug('-' * 100)
+            logger.debug('Start -> wait for terminator')
             if line == TERMINATOR:
                 self.set_new_state(State.identifier)
         elif self.state == State.identifier:
-            if self.verbosity:
-                print('New buffer...', end=' ')
+            logger.debug('New buffer...')
             key = State.identifier.name
             self._buffer = [
                 ObisValue(
                     key=key,
-                    key_slug=key,
-                    name=OBIS_KEY_MAP.get(key, key),
                     raw_value=line.strip(),
                     value=line.strip('/ \r\n'),
                 )
             ]
             self._seen_keys = {key}
-            if self.verbosity:
-                print(self._buffer)
+            logger.debug(self._buffer)
             self.set_new_state(State.separator)
         elif self.state == State.separator:
             self.set_new_state(State.data)
         elif self.state == State.data:
             if line == TERMINATOR:
                 self.set_new_state(State.terminator)
-                if self.verbosity:
-                    print(f'Expose buffer to callback {self.publish_callback}:')
-                    pprint(self._buffer)
+                logger.debug("Expose buffer to callback %s:", self.publish_callback)
+                pprint(self._buffer)
                 self.publish_callback(obis_values=self._buffer)
                 self.set_new_state(State.identifier)
-                if self.verbosity:
-                    print('-' * 100)
+                logger.debug('-' * 100)
             else:
                 try:
                     obis_value: ObisValue = parse_obis_value(line)
                     assert obis_value.key not in self._seen_keys, f'Double {obis_value.key} found!'
                 except Exception as err:
-                    print(f'ERROR parse line {line!r}: {err}')
+                    logger.debug("ERROR parse line %r: %s", line, err)
                 else:
-                    if self.verbosity:
-                        print(f'Store: {obis_value}')
+                    logger.debug("Store: %s", obis_value)
                     self._buffer.append(obis_value)
                     self._seen_keys.add(obis_value.key)
         else:

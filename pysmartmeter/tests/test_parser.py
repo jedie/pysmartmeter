@@ -42,8 +42,6 @@ class ParserTestCase(BaseTestCase):
             result,
             ObisValue(
                 key='1-0:0.0.0*255',
-                key_slug='1_0_0_0_0_255',
-                name='Eigentumsnummer',
                 raw_value='1EBZ0100000123',
                 value='1EBZ0100000123',
                 raw_unit=None,
@@ -56,8 +54,6 @@ class ParserTestCase(BaseTestCase):
             result,
             ObisValue(
                 key='1-0:1.8.0*255',
-                key_slug='1_0_1_8_0_255',
-                name='Zählerstand Bezug (Tariflos)',
                 raw_value='012345*kWh',
                 value=12345.0,
                 raw_unit='kWh',
@@ -70,8 +66,6 @@ class ParserTestCase(BaseTestCase):
             result,
             ObisValue(
                 key='0-0:96.8.0*255',
-                key_slug='0_0_96_8_0_255',
-                name='Betriebsdauer',
                 raw_value='00BEEF002',
                 value=200208386,
                 raw_unit=None,
@@ -86,8 +80,6 @@ class ParserTestCase(BaseTestCase):
             got=parsed_bock_data[0]['obis_values'][0],
             excepted=ObisValue(
                 key='identifier',
-                key_slug='identifier',
-                name='Gerätetyp mit Software Version',
                 raw_value='/EBZ5DD3BZ06ETA_107',
                 value='EBZ5DD3BZ06ETA_107',
                 raw_unit=None,
@@ -98,8 +90,6 @@ class ParserTestCase(BaseTestCase):
             got=parsed_bock_data[0]['obis_values'][1],
             excepted=ObisValue(
                 key='1-0:0.0.0*255',
-                key_slug='1_0_0_0_0_255',
-                name='Eigentumsnummer',
                 raw_value='1EBZ0100000123',
                 value='1EBZ0100000123',
                 raw_unit=None,
@@ -125,8 +115,6 @@ class ParserTestCase(BaseTestCase):
             got=parsed_bock_data[0]['obis_values'][0],
             excepted=ObisValue(
                 key='identifier',
-                key_slug='identifier',
-                name='Gerätetyp mit Software Version',
                 raw_value='/EBZ5DD3BZ06ETA_107',
                 value='EBZ5DD3BZ06ETA_107',
                 raw_unit=None,
@@ -137,8 +125,6 @@ class ParserTestCase(BaseTestCase):
             got=parsed_bock_data[0]['obis_values'][1],
             excepted=ObisValue(
                 key='1-0:0.0.0*255',
-                key_slug='1_0_0_0_0_255',
-                name='Eigentumsnummer',
                 raw_value='1EBZ0100000123',
                 value='1EBZ0100000123',
                 raw_unit=None,
@@ -171,8 +157,6 @@ class ParserTestCase(BaseTestCase):
             got=parsed_bock_data[0]['obis_values'][0],
             excepted=ObisValue(
                 key='identifier',
-                key_slug='identifier',
-                name='Gerätetyp mit Software Version',
                 raw_value='/EBZ5DD3BZ06ETA_107',
                 value='EBZ5DD3BZ06ETA_107',
                 raw_unit=None,
@@ -183,8 +167,6 @@ class ParserTestCase(BaseTestCase):
             got=parsed_bock_data[0]['obis_values'][1],
             excepted=ObisValue(
                 key='1-0:0.0.0*255',
-                key_slug='1_0_0_0_0_255',
-                name='Eigentumsnummer',
                 raw_value='1EBZ0100000123',
                 value='1EBZ0100000123',
                 raw_unit=None,
@@ -217,8 +199,6 @@ class ParserTestCase(BaseTestCase):
             got=parsed_bock_data[0]['obis_values'][1],
             excepted=ObisValue(
                 key='1-0:0.0.0*255',
-                key_slug='1_0_0_0_0_255',
-                name='Eigentumsnummer',
                 raw_value='FOOBAR#ETN',
                 value='FOOBAR#ETN',
                 raw_unit=None,

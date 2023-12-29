@@ -1,24 +1,30 @@
-# import logging
-# from pprint import pp
-# from typing import Annotated
-#
-# import tyro
-# from cli_base.cli_tools.verbosity import setup_logging
-# from cli_base.tyro_commands import TyroVerbosityArgType
-# from pymodbus.exceptions import ModbusIOException
-# from pymodbus.pdu import ExceptionResponse
-# from pymodbus.pdu.register_message import ReadHoldingRegistersResponse
-# from rich import get_console  # noqa
-# from rich import print  # noqa; noqa
-# from rich.pretty import pprint
-#
-# from pysmartmeter.api import get_modbus_client
-# from pysmartmeter.cli_app import app
-# from pysmartmeter.probe_usb_ports import print_parameter_values, probe_one_port
-# from pysmartmeter.user_settings import EnergyMeter, UserSettings, get_user_settings
-#
-#
-# logger = logging.getLogger(__name__)
+import logging
+from pprint import pp
+
+from cli_base.cli_tools.verbosity import setup_logging
+from cli_base.tyro_commands import TyroVerbosityArgType
+from rich import get_console  # noqa
+from rich import print  # noqa
+
+from pysmartmeter.cli_app import app
+from pysmartmeter.user_settings import EnergyMeterDefinitions, UserSettings, get_toml_settings, get_user_settings
+
+
+logger = logging.getLogger(__name__)
+
+
+@app.command
+def print_definition(verbosity: TyroVerbosityArgType):
+    """
+    Load definition file and print it.
+    """
+    setup_logging(verbosity=verbosity)
+    user_settings: UserSettings = get_user_settings()
+    energy_meter: EnergyMeterDefinitions = user_settings.energy_meter
+    definitions: dict = energy_meter.get_definition()
+    pp(definitions)
+
+
 #
 #
 # TyroMaxPortArgType = Annotated[
