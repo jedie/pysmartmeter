@@ -1,29 +1,10 @@
 import os
 import unittest.util
 from pathlib import Path
-from unittest import TestCase
 
 from bx_py_utils.test_utils.deny_requests import deny_any_real_request
 from cli_base.cli_tools.verbosity import MAX_LOG_LEVEL, setup_logging
 from rich import print  # noqa
-from rich.pretty import pprint
-
-
-class BaseTestCase(TestCase):
-    maxDiff = None
-    unittest.util._MAX_LENGTH = 999
-
-    def assert_verbose(self, got, excepted):
-        try:
-            self.assertEqual(
-                got,
-                excepted,
-            )
-        except AssertionError:
-            print('-' * 100)
-            pprint(got, indent_guides=False)
-            print('-' * 100)
-            raise
 
 
 def pre_configure_tests() -> None:
@@ -31,7 +12,7 @@ def pre_configure_tests() -> None:
 
     # Hacky way to display more "assert"-Context in failing tests:
     _MIN_MAX_DIFF = unittest.util._MAX_LENGTH - unittest.util._MIN_DIFF_LEN
-    unittest.util._MAX_LENGTH = int(os.environ.get('UNITTEST_MAX_LENGTH', 300))
+    unittest.util._MAX_LENGTH = int(os.environ.get('UNITTEST_MAX_LENGTH', 999))
     unittest.util._MIN_DIFF_LEN = unittest.util._MAX_LENGTH - _MIN_MAX_DIFF
 
     # Deny any request via docket/urllib3 because tests they should mock all requests:
