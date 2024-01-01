@@ -81,6 +81,9 @@ Test if you Hichi Smartmeter with CP2102 USB to UART Bridge Controller will be f
 ~/pysmartmeter$ ./cli.py detect-serial
 ```
 
+Note: It's a good idea to use the `/dev/serial/by-id/{your-device-id}` path as serial port, instead of `/dev/ttyUSB1`
+Call `udevadm info -n /dev/ttyUSB*` to get information about all USB serial devices and `ls -l /dev/serial/by-id/` to see the existing links.
+
 Maybe you didn't have permissions to access the port, e.g.:
 ```bash
 ~/pysmartmeter$ ./cli.py dump
