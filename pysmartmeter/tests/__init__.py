@@ -5,6 +5,12 @@ from pathlib import Path
 from bx_py_utils.test_utils.deny_requests import deny_any_real_request
 from cli_base.cli_tools.verbosity import MAX_LOG_LEVEL, setup_logging
 from rich import print  # noqa
+from typeguard import install_import_hook
+
+
+if os.environ.get('TYPEGUARD', '1') == '1':
+    print('Install typeguard import hook')
+    install_import_hook(packages=('pysmartmeter',))
 
 
 def pre_configure_tests() -> None:
