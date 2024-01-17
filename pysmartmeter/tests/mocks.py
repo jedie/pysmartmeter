@@ -1,3 +1,6 @@
+from pysmartmeter.publish_loop import MqttPublisher
+
+
 class SerialMockEnds(StopIteration):
     pass
 
@@ -63,8 +66,9 @@ class MqttClientMock:
         pass
 
 
-class MqttPublisherMock:
-    mqtt_payloads = []
+class MqttPublisherMock(MqttPublisher):
+    def __init__(self):
+        self.mqtt_payloads = []
 
     def publish(self, *, mqtt_payload):
         self.mqtt_payloads.append(mqtt_payload)

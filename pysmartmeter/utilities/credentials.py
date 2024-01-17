@@ -8,7 +8,7 @@ from pysmartmeter.data_classes import MqttSettings
 CREDENTIAL_FILE_PATH = Path('~/.pysmartmeter').expanduser()
 
 
-def store_mqtt_settings(settings: MqttSettings):
+def store_mqtt_settings(settings: MqttSettings) -> Path:
     print(f'Store MQTT server settings into: {CREDENTIAL_FILE_PATH}')
 
     data_str = settings.as_json()
