@@ -3,12 +3,7 @@
     through `python -m pysmartmeter`.
 """
 
-
-from pysmartmeter.cli import cli_app
-
-
-def main():
-    cli_app.main()
+from pysmartmeter.cli_app import main
 
 
 if __name__ == '__main__':

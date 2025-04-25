@@ -8,9 +8,8 @@ from rich import print  # noqa
 from typeguard import install_import_hook
 
 
-if os.environ.get('TYPEGUARD', '1') == '1':
-    print('Install typeguard import hook')
-    install_import_hook(packages=('pysmartmeter',))
+# Check type annotations via typeguard in all tests:
+install_import_hook(packages=('pysmartmeter',))
 
 
 def pre_configure_tests() -> None:

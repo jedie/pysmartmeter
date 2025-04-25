@@ -1,4 +1,4 @@
-from pysmartmeter.publish_loop import MqttPublisher
+from pysmartmeter.mqtt_publish import MqttPublisher
 
 
 class SerialMockEnds(StopIteration):
@@ -7,6 +7,7 @@ class SerialMockEnds(StopIteration):
 
 class SerialMock:
     def __init__(self, lines):
+        assert lines
         self.lines = iter(lines)
 
     def __call__(self):

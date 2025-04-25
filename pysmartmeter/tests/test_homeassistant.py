@@ -5,8 +5,8 @@ from bx_py_utils.test_utils.snapshot import assert_snapshot
 
 from pysmartmeter.data_classes import HomeassistantValue, MqttPayload, ObisValue
 from pysmartmeter.homeassistant import data2config, data2state, get_value_by_key, ha_convert_obis_values
+from pysmartmeter.mqtt_publish import HomeAssistantMqtt, obis_values2mqtt_config, obis_values2mqtt_state
 from pysmartmeter.parser import ObisParser
-from pysmartmeter.publish_loop import HomeAssistantMqtt, obis_values2mqtt_config, obis_values2mqtt_state
 from pysmartmeter.tests.base import BaseTestCase
 from pysmartmeter.tests.data import TEST_DATA_BIG, get_obis_values
 from pysmartmeter.tests.mocks import MqttPublisherMock

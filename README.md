@@ -54,25 +54,34 @@ The output of `./cli.py --help` looks like:
 
 [comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
 ```
-Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
+usage: ./cli.py [-h]
+                {debug-settings,edit-settings,publish-loop,systemd-debug,systemd-remove,systemd-setup,systemd-status,s
+ystemd-stop,version}
 
-╭─ Options ────────────────────────────────────────────────────────────────────────────────────────╮
-│ --help      Show this message and exit.                                                          │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
-│ debug-settings               Display (anonymized) MQTT server username and password              │
-│ debug-systemd-service        Just print the systemd service file content                         │
-│ detect-serial                Just print the detected serial port instance                        │
-│ dump                         Just dump serial output                                             │
-│ publish-loop                 Publish current data via MQTT (endless loop)                        │
-│ setup-systemd-service        Setup PySmartMeter systemd services and starts it.                  │
-│ store-settings               Store MQTT server settings.                                         │
-│ systemd-restart              Restart PySmartMeter systemd services                               │
-│ systemd-status               Call systemd status of PySmartMeter services                        │
-│ systemd-stop                 Stop PySmartMeter systemd services                                  │
-│ test-mqtt-connection         Test connection to MQTT Server                                      │
-│ version                      Print version and exit                                              │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+
+╭─ options ──────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help        show this help message and exit                                                                  │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ {debug-settings,edit-settings,publish-loop,systemd-debug,systemd-remove,systemd-setup,systemd-status,systemd-stop, │
+│ version}                                                                                                           │
+│     debug-settings                                                                                                 │
+│                   Display (anonymized) MQTT server username and password                                           │
+│     edit-settings                                                                                                  │
+│                   Edit the settings file. On first call: Create the default one.                                   │
+│     publish-loop  Publish all values via MQTT to Home Assistant in a endless loop.                                 │
+│     systemd-debug                                                                                                  │
+│                   Print Systemd service template + context + rendered file content.                                │
+│     systemd-remove                                                                                                 │
+│                   Stops the systemd service and removed the service file. (May need sudo)                          │
+│     systemd-setup                                                                                                  │
+│                   Write Systemd service file, enable it and (re-)start the service. (May need sudo)                │
+│     systemd-status                                                                                                 │
+│                   Display status of systemd service. (May need sudo)                                               │
+│     systemd-stop  Stops the systemd service. (May need sudo)                                                       │
+│     version       Print version and exit                                                                           │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated main help end ✂✂✂)
 
@@ -160,28 +169,54 @@ For this, just delete it and start the CLI to recreate it, e.g.:
 
 [comment]: <> (✂✂✂ auto generated dev help start ✂✂✂)
 ```
-Usage: ./dev-cli.py [OPTIONS] COMMAND [ARGS]...
+usage: ./dev-cli.py [-h]
+                    {check-code-style,coverage,fix-code-style,install,mypy,nox,pip-audit,publish,test,update,update-re
+adme-history,update-test-snapshot-files,version}
 
-╭─ Options ────────────────────────────────────────────────────────────────────────────────────────╮
-│ --help      Show this message and exit.                                                          │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
-│ check-code-style            Check code style by calling darker + flake8                          │
-│ coverage                    Run tests and show coverage report.                                  │
-│ fix-code-style              Fix code style of all pysmartmeter source code files via darker      │
-│ install                     Run pip-sync and install 'pysmartmeter' via pip as editable.         │
-│ mypy                        Run Mypy (configured in pyproject.toml)                              │
-│ publish                     Build and upload this project to PyPi                                │
-│ safety                      Run safety check against current requirements files                  │
-│ test                        Run unittests                                                        │
-│ tox                         Run tox                                                              │
-│ update                      Update "requirements*.txt" dependencies files                        │
-│ update-test-snapshot-files  Update all test snapshot files (by remove and recreate all snapshot  │
-│                             files)                                                               │
-│ version                     Print version and exit                                               │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+
+╭─ options ──────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help        show this help message and exit                                                                  │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ {check-code-style,coverage,fix-code-style,install,mypy,nox,pip-audit,publish,test,update,update-readme-history,upd │
+│ ate-test-snapshot-files,version}                                                                                   │
+│     check-code-style                                                                                               │
+│                   Check code style by calling darker + flake8                                                      │
+│     coverage      Run tests and show coverage report.                                                              │
+│     fix-code-style                                                                                                 │
+│                   Fix code style of all pysmartmeter source code files via darker                                  │
+│     install       Install requirements and 'pysmartmeter' via pip as editable.                                     │
+│     mypy          Run Mypy (configured in pyproject.toml)                                                          │
+│     nox           Run nox                                                                                          │
+│     pip-audit     Run pip-audit check against current requirements files                                           │
+│     publish       Build and upload this project to PyPi                                                            │
+│     test          Run unittests                                                                                    │
+│     update        Update "requirements*.txt" dependencies files                                                    │
+│     update-readme-history                                                                                          │
+│                   Update project history base on git commits/tags in README.md Will be exited with 1 if the        │
+│                   README.md was updated otherwise with 0.                                                          │
+│                                                                                                                    │
+│                   Also, callable via e.g.:                                                                         │
+│                       python -m cli_base update-readme-history -v                                                  │
+│     update-test-snapshot-files                                                                                     │
+│                   Update all test snapshot files (by remove and recreate all snapshot files)                       │
+│     version       Print version and exit                                                                           │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated dev help end ✂✂✂)
+
+
+# various links
+
+* Discussion: https://www.photovoltaikforum.com/thread/188160-pysmartmeter (de)
+* https://github.com/pyserial/pyserial
+* https://github.com/eclipse/paho.mqtt.python
+* https://github.com/eclipse/mosquitto
+* https://dewiki.de/Lexikon/OBIS-Kennzahlen (de) | https://www.promotic.eu/en/pmdoc/Subsystems/Comm/PmDrivers/IEC62056_OBIS.htm (en)
+* https://www.photovoltaikforum.com/thread/145886-habe-lesk%C3%B6pfe-mit-usb-%C3%BCber/ (de)
+* https://www.heise.de/tests/Ausprobiert-Guenstiger-IR-Lesekopf-fuer-Smart-Meter-mit-Tastmota-Firmware-7065559.html (de)
+* https://www.home-assistant.io
 
 
 # Backwards-incompatible changes
@@ -212,13 +247,95 @@ To migrate, just remove the existing `.venv` and create a fresh one, e.g.:
 ```
 
 
-# various links
+# History
 
-* Discussion: https://www.photovoltaikforum.com/thread/188160-pysmartmeter (de)
-* https://github.com/pyserial/pyserial
-* https://github.com/eclipse/paho.mqtt.python
-* https://github.com/eclipse/mosquitto
-* https://dewiki.de/Lexikon/OBIS-Kennzahlen (de) | https://www.promotic.eu/en/pmdoc/Subsystems/Comm/PmDrivers/IEC62056_OBIS.htm (en)
-* https://www.photovoltaikforum.com/thread/145886-habe-lesk%C3%B6pfe-mit-usb-%C3%BCber/ (de)
-* https://www.heise.de/tests/Ausprobiert-Guenstiger-IR-Lesekopf-fuer-Smart-Meter-mit-Tastmota-Firmware-7065559.html (de)
-* https://www.home-assistant.io
+[comment]: <> (✂✂✂ auto generated history start ✂✂✂)
+
+* [v0.6.0](https://github.com/jedie/pysmartmeter/compare/v0.5.0...v0.6.0)
+  * 2025-04-25 - Modernize Project
+  * 2024-01-17 - +typeguard
+  * 2024-01-17 - +"flake8-bugbear"
+  * 2024-01-01 - Update README.md
+  * 2023-12-29 - +# Troubleshooting
+  * 2023-12-29 - Add a note about https://www.piwheels.org/
+* [v0.5.0](https://github.com/jedie/pysmartmeter/compare/v0.4.1...v0.5.0)
+  * 2023-12-29 - cleanup pyproject.toml and cli scripts
+  * 2023-12-29 - Move BaseTestCase
+  * 2023-12-29 - Apply manageprojects updates
+  * 2023-06-05 - Update README.md
+  * 2023-05-27 - Split CLI into: cli.py and dev-cli.py
+* [v0.4.1](https://github.com/jedie/pysmartmeter/compare/v0.4.0...v0.4.1)
+  * 2023-03-09 - Ignore empty input lines and add expand OBIS map
+* [v0.4.0](https://github.com/jedie/pysmartmeter/compare/v0.3.4...v0.4.0)
+  * 2023-03-08 - mock version
+  * 2023-03-08 - update requirements
+  * 2023-03-08 - Bump version to 0.4.0
+  * 2023-03-07 - Fix#32 add "test-mqtt-connection" CLI command
+
+<details><summary>Expand older history entries ...</summary>
+
+* [v0.3.4](https://github.com/jedie/pysmartmeter/compare/v0.3.3...v0.3.4)
+  * 2023-02-26 - Update README.md
+  * 2023-02-26 - Set HA device class "voltage" for voltage entries
+  * 2023-02-26 - Add test with HomeAssistantMqtt + ObisParser
+  * 2023-02-26 - Add a test snapshot with the full RAW_TEST_DATA_BIG
+* [v0.3.3](https://github.com/jedie/pysmartmeter/compare/v0.3.2...v0.3.3)
+  * 2023-02-26 - Enhance "detect-serial"
+  * 2023-02-26 - Update README.md
+* [v0.3.2](https://github.com/jedie/pysmartmeter/compare/v0.3.1...v0.3.2)
+  * 2023-02-26 - Bugfix "publish-loop" CLI command and add tests for it
+  * 2023-02-26 - Display systemd config file, after create / before status
+* [v0.3.1](https://github.com/jedie/pysmartmeter/compare/v0.3.0...v0.3.1)
+  * 2023-02-26 - Use publish_package() from manageprojects
+* [v0.3.0](https://github.com/jedie/pysmartmeter/compare/v0.2.0...v0.3.0)
+  * 2023-02-26 - README: How to migrate from v0.2 to v0.3
+  * 2023-02-26 - Display systemd status after commands
+  * 2023-02-26 - unify systemd command error handling
+  * 2023-02-26 - Update README
+  * 2023-02-26 - Add "systemd-restart" to CLI
+  * 2023-02-26 - sudo info for systemd command
+  * 2023-02-24 - migrate form poetry to piptools via manageprojects
+  * 2023-02-26 - update tests
+  * 2023-02-25 - Update obis_map.py
+  * 2023-02-24 - Update README.md
+  * 2023-02-24 - +manageprojects
+  * 2023-02-24 - manageprojects updates
+  * 2023-02-24 - fix CI
+  * 2023-02-24 - Update requirements
+  * 2023-02-24 - Test credentials utilities
+  * 2023-02-24 - Bugfix Error store-settings #17
+* [v0.2.0](https://github.com/jedie/pysmartmeter/compare/v0.1.0...v0.2.0)
+  * 2022-12-18 - Fix #13: "last_reset" is missing (for Home Assistant)
+  * 2022-12-20 - Snapshot a complete configs/data MQTT payload for Home Assistant
+* [v0.1.0](https://github.com/jedie/pysmartmeter/compare/7d8631b...v0.1.0)
+  * 2022-12-10 - Update README.md
+  * 2022-11-24 - Fix #11 by disable logging in systemd daemon mode
+  * 2022-11-23 - fix typo: '1-0:76.7.0*255' is 'Momentane Leistung L3' ;)
+  * 2022-11-21 - Update README
+  * 2022-11-21 - Fix typo "Hitchi" -> "Hichi"
+  * 2022-11-18 - Hit about permission errors
+  * 2022-11-18 - fix publish to PyPi
+  * 2022-11-18 - CLI: Build and upload this project to PyPi
+  * 2022-11-18 - fix tests
+  * 2022-11-18 - Implement MQTT publishing via systemd service
+  * 2022-11-14 - test code style + mypy
+  * 2022-11-14 - fix code style
+  * 2022-11-14 - setup CI
+  * 2022-11-14 - Bugfix 'identifier'
+  * 2022-11-14 - Don't use poetry in cli.sh
+  * 2022-11-14 - Add a way to setup the project without poetry
+  * 2022-11-13 - Add cli.sh
+  * 2022-11-13 - switch to poetry
+  * 2022-11-13 - cleanup
+  * 2022-11-13 - Add OBIS Parser
+  * 2022-11-10 - make serial-dump
+  * 2022-11-10 - switch to https://github.com/jedie/cookiecutter_templates/tree/main/pipenv-python
+  * 2022-11-10 - Add a simple dump serial output script
+  * 2022-11-10 - update project
+  * 2022-11-10 - init project
+  * 2022-11-10 - Initial commit
+
+</details>
+
+
+[comment]: <> (✂✂✂ auto generated history end ✂✂✂)

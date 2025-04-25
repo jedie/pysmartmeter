@@ -20,7 +20,7 @@ from pysmartmeter.data_classes import MqttSettings
 from pysmartmeter.detect_serial import print_detect_serial
 from pysmartmeter.dump import serial_dump
 from pysmartmeter.log_utils import log_config
-from pysmartmeter.publish_loop import get_connected_client, publish_forever
+from pysmartmeter.mqtt_publish import get_connected_client, publish_forever
 from pysmartmeter.utilities import systemd
 from pysmartmeter.utilities.credentials import get_mqtt_settings, store_mqtt_settings
 

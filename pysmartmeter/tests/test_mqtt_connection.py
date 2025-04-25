@@ -6,7 +6,7 @@ from manageprojects.test_utils.click_cli_utils import invoke_click
 from manageprojects.tests.base import BaseTestCase
 
 import pysmartmeter
-from pysmartmeter import publish_loop
+from pysmartmeter import mqtt_publish
 from pysmartmeter.cli import cli_app
 from pysmartmeter.cli.cli_app import cli
 from pysmartmeter.data_classes import MqttSettings
@@ -24,10 +24,11 @@ class TestMqttConnection(BaseTestCase):
             password='foobarbaz',
         )
 
-        with patch.object(mqtt, 'Client', mqtt_client), patch.object(
-            publish_loop, 'socket', socket_mock
-        ), patch.object(cli_app, 'get_mqtt_settings', return_value=settings), patch.object(
-            pysmartmeter, '__version__', '1.2.3'
+        with (
+            patch.object(mqtt, 'Client', mqtt_client),
+            patch.object(mqtt_publish, 'socket', socket_mock),
+            patch.object(cli_app, 'get_mqtt_settings', return_value=settings),
+            patch.object(pysmartmeter, '__version__', '1.2.3'),
         ):
             stdout = invoke_click(cli, 'test-mqtt-connection')
 
