@@ -6,10 +6,10 @@ from bx_py_utils.test_utils.snapshot import assert_snapshot
 from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRichClick
 from manageprojects.tests.base import BaseTestCase
 
-from pysmartmeter import __version__, publish_loop
+from pysmartmeter import __version__, mqtt_publish
 from pysmartmeter.data_classes import MqttSettings
-from pysmartmeter.publish_loop import logger as publish_forever_logger
-from pysmartmeter.publish_loop import publish_forever
+from pysmartmeter.mqtt_publish import logger as publish_forever_logger
+from pysmartmeter.mqtt_publish import publish_forever
 from pysmartmeter.tests.data import TEST_DATA_BIG
 from pysmartmeter.tests.mocks import MqttClientMock, SerialMock, SerialMockEnds, SocketMock
 
@@ -21,20 +21,21 @@ class CliTestCase(BaseTestCase):
         socket_mock = SocketMock()
 
         with (
-            patch.object(publish_loop, 'get_serial', mocked_serial),
+            patch.object(mqtt_publish, 'get_serial', mocked_serial),
             patch.object(mqtt, 'Client', mqtt_client),
-            patch.object(publish_loop, 'socket', socket_mock),
-            self.assertRaises(SerialMockEnds),
+            patch.object(mqtt_publish, 'socket', socket_mock),
             NoColorEnvRichClick(),
             RedirectOut() as buffer,
+            self.assertRaises(SerialMockEnds),
         ):
+            settings = MqttSettings(
+                host='foo.host.tld',
+                port=123,
+                user_name='bar',
+                password='foobarbaz',
+            )
             publish_forever(
-                settings=MqttSettings(
-                    host='foo.host.tld',
-                    port=123,
-                    user_name='bar',
-                    password='foobarbaz',
-                ),
+                settings=settings,
                 verbose=True,
             )
 

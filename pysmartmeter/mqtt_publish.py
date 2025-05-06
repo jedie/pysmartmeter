@@ -124,9 +124,7 @@ class HomeAssistantMqtt:
 
         if self.verbose:
             print(f'publish values (send count: {self.send_count}):')
-        self.mqtt_publisher.publish(
-            mqtt_payload=obis_values2mqtt_state(obis_values=obis_values, verbose=self.verbose)
-        )
+        self.mqtt_publisher.publish(mqtt_payload=obis_values2mqtt_state(obis_values=obis_values, verbose=self.verbose))
         self.send_count += 1
 
 

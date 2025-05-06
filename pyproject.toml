@@ -1,13 +1,13 @@
 [project]
 name = "pysmartmeter"
-description = "Collect data from Hichi Smartmeter and expose it via MQTT"
 dynamic = ["version"]
+description = "Collect data from Hichi Smartmeter and expose it via MQTT"
 license = {text = "GPL-3.0-or-later"}
 readme = "README.md"
 authors = [
     {name = 'Jens Diemer', email = 'pysmartmeter@jensdiemer.de'}
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 dependencies = [
     "ha-services", # https://github.com/jedie/ha-services
     "cli-base-utilities",  # https://github.com/jedie/cli-base-utilities
@@ -18,16 +18,19 @@ dependencies = [
     # TODO: Use keyring for store MQTT credentials:
     #"keyring",  # https://github.com/jaraco/keyring
 
+    "cli-base-utilities>=0.17.0",  # https://github.com/jedie/cli-base-utilities
     "bx_py_utils",  # https://github.com/boxine/bx_py_utils
-    "click",  # https://github.com/pallets/click/
-    "rich-click",  # https://github.com/ewels/rich-click
+    "tyro",  # https://github.com/brentyi/tyro
     "rich",  # https://github.com/Textualize/rich
 ]
-[project.optional-dependencies]
+
+[dependency-groups]
 dev = [
-    "manageprojects>=0.17.1",  # https://github.com/jedie/manageprojects
-    "pip-tools",  # https://github.com/jazzband/pip-tools/
-    "tox",  # https://github.com/tox-dev/tox
+    "manageprojects",  # https://github.com/jedie/manageprojects
+    "urllib3", # for bx_py_utils.test_utils.deny_requests.deny_any_real_request() in tests
+    "uv",  # https://github.com/astral-sh/uv
+    "hatchling",  # https://github.com/pypa/hatch/tree/master/backend
+    "nox",  # https://github.com/wntrblm/nox
     "coverage",  # https://github.com/nedbat/coveragepy
     "autopep8",  # https://github.com/hhatto/autopep8
     "pyupgrade",  # https://github.com/asottile/pyupgrade
@@ -36,9 +39,10 @@ dev = [
     "pyflakes",  # https://github.com/PyCQA/pyflakes
     "codespell",  # https://github.com/codespell-project/codespell
     "EditorConfig",  # https://github.com/editorconfig/editorconfig-core-py
-    "safety",  # https://github.com/pyupio/safety
+    "pip-audit",  # https://github.com/pypa/pip-audit
     "mypy",  # https://github.com/python/mypy
     "twine",  # https://github.com/pypa/twine
+    "pre-commit",  # https://github.com/pre-commit/pre-commit
     "typeguard",  # https://github.com/agronholm/typeguard/
 
     # https://github.com/akaihola/darker
@@ -46,15 +50,6 @@ dev = [
     # https://github.com/pycqa/isort
     # https://github.com/pygments/pygments
     "darker[flynt, isort, color]",
-
-    "tomli",  # https://github.com/hukkin/tomli
-    # tomli only needed for Python <3.11, but see bug:
-    # https://github.com/pypa/pip/issues/9644#issuecomment-1456583402
-    #"tomli;python_version<\"3.11\"",  # https://github.com/hukkin/tomli
-
-    # Work-a-round for:
-    # https://github.com/jazzband/pip-tools/issues/994#issuecomment-1321226661
-    "typing-extensions>=3.10;python_version<\"3.10\"",
 ]
 
 [project.urls]
@@ -63,35 +58,41 @@ Source = "https://github.com/jedie/pysmartmeter"
 
 [project.scripts]
 pysmartmeter_app = "pysmartmeter.__main__:main"
-pysmartmeter_dev = "pysmartmeter.cli.dev:main"
+pysmartmeter_dev = "pysmartmeter.cli_dev:main"
+
 
 [build-system]
-requires = ["setuptools>=61.0", "setuptools_scm>=7.1"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["pysmartmeter*"]
+[tool.hatch.build.targets.wheel]
+packages = ["pysmartmeter"]
 
-[tool.setuptools.dynamic]
-version = {attr = "pysmartmeter.__version__"}
+[tool.hatch.version]
+path = "pysmartmeter/__init__.py"
+
+
+[tool.cli_base.pip_audit]
+requirements=["requirements.dev.txt"]
+strict=true
+require_hashes=true
+ignore-vuln=[]
+
+
+[tool.cli_base]
+version_module_name = "pysmartmeter"  # Used by "update-readme-history" git hook
 
 
 [tool.darker]
 src = ['.']
 revision = "origin/main..."
 line_length = 119
-verbose = true
 color = true
 skip_string_normalization = true
 diff = false
 check = false
 stdout = false
 isort = true
-flynt = true
-lint = [
-    "flake8",
-]
 log_level = "INFO"
 
 
@@ -125,27 +126,6 @@ exclude_lines = [
 ]
 
 
-[tool.tox]  # https://tox.wiki/en/latest/config.html#pyproject-toml
-legacy_tox_ini = """
-[tox]
-isolated_build = True
-envlist = py{311,310,39}
-skip_missing_interpreters = True
-
-[testenv]
-passenv = *
-skip_install = true
-commands_pre =
-    pip install -U pip-tools
-    pip-sync requirements.dev.txt
-commands =
-    {envpython} -m coverage run --context='{envname}'
-    {envpython} -m coverage combine --append
-    {envpython} -m coverage xml
-    {envpython} -m coverage report
-"""
-
-
 [tool.mypy]
 warn_unused_configs = true
 ignore_missing_imports = true
@@ -159,11 +139,12 @@ exclude = ['.venv', 'tests']
 initial_revision = "e826e73"
 initial_date = 2022-11-14T08:20:55+01:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
-cookiecutter_directory = "piptools-python"
+cookiecutter_directory = "uv-python"
 applied_migrations = [
     "d970456", # 2023-02-20T16:19:35+01:00
     "56c0eb7", # 2023-12-22T08:36:44+01:00
     "7271d4c", # 2023-12-29T21:57:47+01:00
+    "4662321", # 2025-04-22T20:40:34+02:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]
@@ -171,7 +152,7 @@ full_name = "Jens Diemer"
 github_username = "jedie"
 author_email = "pysmartmeter@jensdiemer.de"
 package_name = "pysmartmeter"
-package_version = "0.0.1"
+package_version = "0.6.0"
 package_description = "Collect data from Hichi Smartmeter and expose it via MQTT"
 package_url = "https://github.com/jedie/pysmartmeter"
 issues_url = "https://github.com/jedie/pysmartmeter/issues"
