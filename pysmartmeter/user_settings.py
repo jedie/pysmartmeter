@@ -14,7 +14,7 @@ from cli_base.toml_settings.serialize import dataclass2toml
 from ha_services.mqtt4homeassistant.data_classes import MqttSettings as OriginMqttSettings
 from tomlkit import TOMLDocument
 
-from pysmartmeter.constants import BASE_PATH, PACKAGE_ROOT, SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
+from pysmartmeter.constants import BASE_PATH, SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
 
 
 logger = logging.getLogger(__name__)

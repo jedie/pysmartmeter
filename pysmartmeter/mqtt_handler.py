@@ -1,6 +1,5 @@
 import logging
 
-from ha_services.mqtt4homeassistant.components.sensor import Sensor
 from ha_services.mqtt4homeassistant.device import MainMqttDevice, MqttDevice
 from ha_services.mqtt4homeassistant.mqtt import get_connected_client
 

@@ -11,6 +11,7 @@ from cli_base.cli_tools.version_info import print_version
 from cli_base.toml_settings.api import TomlSettings
 from cli_base.toml_settings.exceptions import UserSettingsNotFound
 from ha_services.mqtt4homeassistant.mqtt import get_connected_client
+from pysmartmeter.publish_loop import publish_forever
 from rich import print  # noqa
 from rich.console import Console
 from rich.traceback import install as rich_traceback_install
@@ -22,7 +23,6 @@ from pysmartmeter.config import Config
 from pysmartmeter.constants import SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
 from pysmartmeter.detect_serial import print_detect_serial
 from pysmartmeter.dump import serial_dump
-from pysmartmeter.publish_loop import publish_forever
 from pysmartmeter.user_settings import MqttSettings, UserSettings, migrate_old_settings
 from pysmartmeter.utilities import systemd
 
