@@ -2,8 +2,9 @@ import logging
 
 from cli_base.cli_tools.verbosity import setup_logging
 from cli_base.tyro_commands import TyroVerbosityArgType
-from rich import get_console  # noqa
-from rich import print  # noqa
+from rich import (
+    print,  # noqa
+)
 
 from pysmartmeter.cli_app import app
 from pysmartmeter.user_settings import get_toml_settings

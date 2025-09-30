@@ -1,6 +1,3 @@
-from pysmartmeter.mqtt_publish import MqttPublisher
-
-
 class SerialMockEnds(StopIteration):
     pass
 
@@ -65,14 +62,6 @@ class MqttClientMock:
 
     def disconnect(self):
         pass
-
-
-class MqttPublisherMock(MqttPublisher):
-    def __init__(self):
-        self.mqtt_payloads = []
-
-    def publish(self, *, mqtt_payload):
-        self.mqtt_payloads.append(mqtt_payload)
 
 
 class SocketMock:

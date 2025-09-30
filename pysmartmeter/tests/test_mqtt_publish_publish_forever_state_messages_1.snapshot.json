@@ -1,0 +1,158 @@
+[
+    {
+        "payload": "TheHostName",
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-hostname/state"
+    },
+    {
+        "payload": "2009-02-13T23:31:30+00:00",
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-up_time/state"
+    },
+    {
+        "payload": "2009-02-13T23:31:30+00:00",
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-process_start/state"
+    },
+    {
+        "payload": 1234,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-cpu_freq/state"
+    },
+    {
+        "payload": 123,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-swap_usage/state"
+    },
+    {
+        "payload": 1,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-system_load_1min/state"
+    },
+    {
+        "payload": 12,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-total_cpu_usage/state"
+    },
+    {
+        "payload": 12,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-process_cpu_usage/state"
+    },
+    {
+        "payload": 51.0,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-temperaturecoretemp/state"
+    },
+    {
+        "payload": 32.85,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-temperaturenvme/state"
+    },
+    {
+        "payload": 0.1201171875,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0sent/state"
+    },
+    {
+        "payload": 0.0,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0sentrate/state"
+    },
+    {
+        "payload": 0.4453125,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0received/state"
+    },
+    {
+        "payload": 0.0,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0receivedrate/state"
+    },
+    {
+        "payload": "wlo1",
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-wifi_device_name/state"
+    },
+    {
+        "payload": "foobar",
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-ESSID/state"
+    },
+    {
+        "payload": 29.2,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-bit_rate/state"
+    },
+    {
+        "payload": 5.18,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-frequency/state"
+    },
+    {
+        "payload": "45/70",
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-link_quality/state"
+    },
+    {
+        "payload": -65,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid/the_main_uid-signal_level/state"
+    },
+    {
+        "payload": "EBZ5DD3BZ06ETA_107",
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-geratetyp_mit_software_version/state"
+    },
+    {
+        "payload": "1EBZ0100000123",
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-eigentumsnummer/state"
+    },
+    {
+        "payload": "1EBZ0100000123",
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-gerate_identifikationsnummer/state"
+    },
+    {
+        "payload": 10002.0,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-zahlerstand_bezug_tariflos/state"
+    },
+    {
+        "payload": "001C0104",
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-betriebszustand/state"
+    },
+    {
+        "payload": 12513026,
+        "qos": 0,
+        "retain": false,
+        "topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-betriebsdauer/state"
+    }
+]

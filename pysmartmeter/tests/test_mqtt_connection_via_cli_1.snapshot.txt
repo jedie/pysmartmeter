@@ -1,4 +1,0 @@
-Connect foo.host.tld:123 as "PySmartMeter v1.2.3 on mocked get hostname"... Host/port test OK
-login with user: bxr password:fxxxxxxxz... OK
-
-Test succeed, bye ;)

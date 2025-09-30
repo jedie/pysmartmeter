@@ -55,8 +55,8 @@ The output of `./cli.py --help` looks like:
 [comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
 ```
 usage: ./cli.py [-h]
-                {debug-settings,edit-settings,publish-loop,systemd-debug,systemd-remove,systemd-setup,systemd-status,s
-ystemd-stop,version}
+                {debug-settings,dump,edit-settings,print-definitions,print-detect-serial,publish-loop,systemd-debug,sy
+stemd-logs,systemd-remove,systemd-setup,systemd-status,systemd-stop,version}
 
 
 
@@ -64,15 +64,21 @@ ystemd-stop,version}
 │ -h, --help        show this help message and exit                                                                  │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ {debug-settings,edit-settings,publish-loop,systemd-debug,systemd-remove,systemd-setup,systemd-status,systemd-stop, │
-│ version}                                                                                                           │
+│ {debug-settings,dump,edit-settings,print-definitions,print-detect-serial,publish-loop,systemd-debug,systemd-logs,s │
+│ ystemd-remove,systemd-setup,systemd-status,systemd-stop,version}                                                   │
 │     debug-settings                                                                                                 │
 │                   Display (anonymized) MQTT server username and password                                           │
+│     dump          Dump the output of the first working serial port.                                                │
 │     edit-settings                                                                                                  │
 │                   Edit the settings file. On first call: Create the default one.                                   │
+│     print-definitions                                                                                              │
+│                   Print the used definitions                                                                       │
+│     print-detect-serial                                                                                            │
+│                   Tries to find a working serial port and display RAW data from it.                                │
 │     publish-loop  Publish all values via MQTT to Home Assistant in a endless loop.                                 │
 │     systemd-debug                                                                                                  │
 │                   Print Systemd service template + context + rendered file content.                                │
+│     systemd-logs  Show systemd service logs. (May need sudo)                                                       │
 │     systemd-remove                                                                                                 │
 │                   Stops the systemd service and removed the service file. (May need sudo)                          │
 │     systemd-setup                                                                                                  │
@@ -170,8 +176,8 @@ For this, just delete it and start the CLI to recreate it, e.g.:
 [comment]: <> (✂✂✂ auto generated dev help start ✂✂✂)
 ```
 usage: ./dev-cli.py [-h]
-                    {check-code-style,coverage,fix-code-style,install,mypy,nox,pip-audit,publish,test,update,update-re
-adme-history,update-test-snapshot-files,version}
+                    {coverage,create-default-settings,install,lint,mypy,nox,pip-audit,publish,test,update,update-readm
+e-history,update-test-snapshot-files,version}
 
 
 
@@ -179,20 +185,19 @@ adme-history,update-test-snapshot-files,version}
 │ -h, --help        show this help message and exit                                                                  │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ {check-code-style,coverage,fix-code-style,install,mypy,nox,pip-audit,publish,test,update,update-readme-history,upd │
-│ ate-test-snapshot-files,version}                                                                                   │
-│     check-code-style                                                                                               │
-│                   Check code style by calling darker + flake8                                                      │
+│ {coverage,create-default-settings,install,lint,mypy,nox,pip-audit,publish,test,update,update-readme-history,update │
+│ -test-snapshot-files,version}                                                                                      │
 │     coverage      Run tests and show coverage report.                                                              │
-│     fix-code-style                                                                                                 │
-│                   Fix code style of all pysmartmeter source code files via darker                                  │
+│     create-default-settings                                                                                        │
+│                   Create a default user settings file. (Used by CI pipeline ;)                                     │
 │     install       Install requirements and 'pysmartmeter' via pip as editable.                                     │
+│     lint          Check/fix code style by run: "ruff check --fix"                                                  │
 │     mypy          Run Mypy (configured in pyproject.toml)                                                          │
 │     nox           Run nox                                                                                          │
 │     pip-audit     Run pip-audit check against current requirements files                                           │
 │     publish       Build and upload this project to PyPi                                                            │
 │     test          Run unittests                                                                                    │
-│     update        Update "requirements*.txt" dependencies files                                                    │
+│     update        Update dependencies (uv.lock) and git pre-commit hooks                                           │
 │     update-readme-history                                                                                          │
 │                   Update project history base on git commits/tags in README.md Will be exited with 1 if the        │
 │                   README.md was updated otherwise with 0.                                                          │
@@ -251,7 +256,8 @@ To migrate, just remove the existing `.venv` and create a fresh one, e.g.:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [v0.6.0](https://github.com/jedie/pysmartmeter/compare/v0.5.0...v0.6.0)
+* [v0.7.0](https://github.com/jedie/pysmartmeter/compare/v0.5.0...v0.7.0)
+  * 2025-09-30 - Refactoring using new ha-services version
   * 2025-04-25 - Modernize Project
   * 2024-01-17 - +typeguard
   * 2024-01-17 - +"flake8-bugbear"

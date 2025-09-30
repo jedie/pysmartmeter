@@ -1,4 +1,5 @@
 
+
 name: tests
 
 on:
@@ -45,6 +46,7 @@ jobs:
       # The first CLI call will create the .venv
       run: |
         ./dev-cli.py version
+        ./dev-cli.py create-default-settings
 
     - name: 'dev CLI help'
       run: |
