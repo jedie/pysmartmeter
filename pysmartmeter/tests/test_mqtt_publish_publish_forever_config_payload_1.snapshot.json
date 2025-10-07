@@ -1,0 +1,560 @@
+[
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-hostname/attributes",
+        "name": "Hostname",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-hostname/state",
+        "unique_id": "the_main_uid-hostname",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-up_time/attributes",
+        "name": "System Up Time",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-up_time/state",
+        "unique_id": "the_main_uid-up_time",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-process_start/attributes",
+        "name": "Process Start",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-process_start/state",
+        "unique_id": "the_main_uid-process_start",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": "frequency",
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-cpu_freq/attributes",
+        "name": "CPU frequency",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-cpu_freq/state",
+        "suggested_display_precision": 0,
+        "unique_id": "the_main_uid-cpu_freq",
+        "unit_of_measurement": "MHz"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-swap_usage/attributes",
+        "name": "Swap usage",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-swap_usage/state",
+        "suggested_display_precision": 1,
+        "unique_id": "the_main_uid-swap_usage",
+        "unit_of_measurement": "%"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-system_load_1min/attributes",
+        "name": "System load 1min.",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-system_load_1min/state",
+        "suggested_display_precision": 2,
+        "unique_id": "the_main_uid-system_load_1min",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-total_cpu_usage/attributes",
+        "name": "Total CPU usage",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-total_cpu_usage/state",
+        "suggested_display_precision": 1,
+        "unique_id": "the_main_uid-total_cpu_usage",
+        "unit_of_measurement": "%"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-process_cpu_usage/attributes",
+        "name": "Process CPU usage",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-process_cpu_usage/state",
+        "suggested_display_precision": 1,
+        "unique_id": "the_main_uid-process_cpu_usage",
+        "unit_of_measurement": "%"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": "temperature",
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-temperaturecoretemp/attributes",
+        "name": "Temperature coretemp",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-temperaturecoretemp/state",
+        "suggested_display_precision": 0,
+        "unique_id": "the_main_uid-temperaturecoretemp",
+        "unit_of_measurement": "°C"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": "temperature",
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-temperaturenvme/attributes",
+        "name": "Temperature nvme",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-temperaturenvme/state",
+        "suggested_display_precision": 0,
+        "unique_id": "the_main_uid-temperaturenvme",
+        "unit_of_measurement": "°C"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": "data_size",
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0sent/attributes",
+        "name": "eth0 sent",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0sent/state",
+        "suggested_display_precision": 1,
+        "unique_id": "the_main_uid-eth0sent",
+        "unit_of_measurement": "KiB"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": "data_rate",
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0sentrate/attributes",
+        "name": "eth0 sent rate",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0sentrate/state",
+        "suggested_display_precision": 1,
+        "unique_id": "the_main_uid-eth0sentrate",
+        "unit_of_measurement": "KiB/s"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": "data_size",
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0received/attributes",
+        "name": "eth0 received",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0received/state",
+        "suggested_display_precision": 1,
+        "unique_id": "the_main_uid-eth0received",
+        "unit_of_measurement": "KiB"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": "data_rate",
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0receivedrate/attributes",
+        "name": "eth0 received rate",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0receivedrate/state",
+        "suggested_display_precision": 1,
+        "unique_id": "the_main_uid-eth0receivedrate",
+        "unit_of_measurement": "KiB/s"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-wifi_device_name/attributes",
+        "name": "Wifi Device Name",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-wifi_device_name/state",
+        "unique_id": "the_main_uid-wifi_device_name",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-ESSID/attributes",
+        "name": "Essid",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-ESSID/state",
+        "unique_id": "the_main_uid-ESSID",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-bit_rate/attributes",
+        "name": "Bit rate",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-bit_rate/state",
+        "unique_id": "the_main_uid-bit_rate",
+        "unit_of_measurement": "Mb/s"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-frequency/attributes",
+        "name": "Frequency",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-frequency/state",
+        "unique_id": "the_main_uid-frequency",
+        "unit_of_measurement": "GHz"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-link_quality/attributes",
+        "name": "Link quality",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-link_quality/state",
+        "unique_id": "the_main_uid-link_quality",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid",
+            "manufacturer": "pysmartmeter",
+            "name": "pysmartmeter",
+            "sw_version": "0.7.0"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-signal_level/attributes",
+        "name": "Signal level",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "measurement",
+        "state_topic": "homeassistant/sensor/the_main_uid/the_main_uid-signal_level/state",
+        "unique_id": "the_main_uid-signal_level",
+        "unit_of_measurement": "dBm"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid-ebz_dd3",
+            "manufacturer": "eBZ",
+            "name": "eBZ DD3",
+            "via_device": "the_main_uid"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-geratetyp_mit_software_version/attributes",
+        "name": "Gerätetyp mit Software Version",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-geratetyp_mit_software_version/state",
+        "unique_id": "the_main_uid-ebz_dd3-geratetyp_mit_software_version",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid-ebz_dd3",
+            "manufacturer": "eBZ",
+            "name": "eBZ DD3",
+            "via_device": "the_main_uid"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-eigentumsnummer/attributes",
+        "name": "Eigentumsnummer",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-eigentumsnummer/state",
+        "unique_id": "the_main_uid-ebz_dd3-eigentumsnummer",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid-ebz_dd3",
+            "manufacturer": "eBZ",
+            "name": "eBZ DD3",
+            "via_device": "the_main_uid"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-gerate_identifikationsnummer/attributes",
+        "name": "Geräte-Identifikationsnummer",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-gerate_identifikationsnummer/state",
+        "unique_id": "the_main_uid-ebz_dd3-gerate_identifikationsnummer",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid-ebz_dd3",
+            "manufacturer": "eBZ",
+            "name": "eBZ DD3",
+            "via_device": "the_main_uid"
+        },
+        "device_class": "energy",
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-zahlerstand_bezug_tariflos/attributes",
+        "name": "Zählerstand Bezug (Tariflos)",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": "total",
+        "state_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-zahlerstand_bezug_tariflos/state",
+        "suggested_display_precision": 3,
+        "unique_id": "the_main_uid-ebz_dd3-zahlerstand_bezug_tariflos",
+        "unit_of_measurement": "kWh"
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid-ebz_dd3",
+            "manufacturer": "eBZ",
+            "name": "eBZ DD3",
+            "via_device": "the_main_uid"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-betriebszustand/attributes",
+        "name": "Betriebszustand",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-betriebszustand/state",
+        "unique_id": "the_main_uid-ebz_dd3-betriebszustand",
+        "unit_of_measurement": null
+    },
+    {
+        "component": "sensor",
+        "device": {
+            "identifiers": "the_main_uid-ebz_dd3",
+            "manufacturer": "eBZ",
+            "name": "eBZ DD3",
+            "via_device": "the_main_uid"
+        },
+        "device_class": null,
+        "json_attributes_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-betriebsdauer/attributes",
+        "name": "Betriebsdauer",
+        "origin": {
+            "name": "ha-services-tests",
+            "support_url": "https://pypi.org/project/ha_services/",
+            "sw_version": "1.2.3"
+        },
+        "state_class": null,
+        "state_topic": "homeassistant/sensor/the_main_uid-ebz_dd3/the_main_uid-ebz_dd3-betriebsdauer/state",
+        "unique_id": "the_main_uid-ebz_dd3-betriebsdauer",
+        "unit_of_measurement": "sec."
+    }
+]

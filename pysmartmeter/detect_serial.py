@@ -77,10 +77,3 @@ def get_serial(
 
     if not checked_ports:
         print('[red]No serial ports found!')
-
-
-def print_detect_serial():
-    ser = get_serial(verbose=True)
-    if ser:
-        print('[green]Found serial:')
-        print(ser)

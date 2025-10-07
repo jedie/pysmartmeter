@@ -1,12 +1,10 @@
 import enum
 import re
 
-from rich import print as rprint
+from rich import print  # noqa
 from rich.pretty import pprint
 
 from pysmartmeter.data_classes import ObisValue
-from pysmartmeter.obis_map import OBIS_KEY_MAP
-from pysmartmeter.utilities.string_utils import slugify
 
 
 ENCODING = 'ASCII'
@@ -49,12 +47,8 @@ def parse_obis_value(line) -> ObisValue:
 
         unit = raw_unit
 
-    name = OBIS_KEY_MAP.get(key, key)
-
     return ObisValue(
         key=key,
-        key_slug=slugify(key, sep='_'),
-        name=name,
         raw_value=raw_value,
         value=value,
         raw_unit=raw_unit,
@@ -95,7 +89,7 @@ class ObisParser:
     def feed_line(self, data):
         line = data.decode(ENCODING)
         if self.verbose:
-            rprint(f'[code]{data!r} -> {line!r}')
+            print(f'[code]{data!r} -> {line!r}')
         if not line:
             if self.verbose:
                 print('ignore empty data')
@@ -112,8 +106,6 @@ class ObisParser:
             self._buffer = [
                 ObisValue(
                     key=key,
-                    key_slug=key,
-                    name=OBIS_KEY_MAP.get(key, key),
                     raw_value=line.strip(),
                     value=line.strip('/ \r\n'),
                 )

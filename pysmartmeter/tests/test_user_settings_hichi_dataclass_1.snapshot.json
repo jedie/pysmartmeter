@@ -1,0 +1,8 @@
+{
+    "manufacturer": "eBZ",
+    "name": "ebz_dd3",
+    "port": "/dev/ttyUSB0",
+    "retries": 3,
+    "timeout": 0.5,
+    "verbose_name": "eBZ DD3"
+}

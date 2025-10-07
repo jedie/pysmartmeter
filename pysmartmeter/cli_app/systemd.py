@@ -1,5 +1,5 @@
 """
-Manage systemd service commands
+    Manage systemd service commands
 """
 
 import logging
@@ -74,3 +74,14 @@ def systemd_stop(verbosity: TyroVerbosityArgType):
     systemd_settings = _get_systemd_settings(verbosity)
 
     ServiceControl(info=systemd_settings).stop()
+
+
+@app.command
+def systemd_logs(verbosity: TyroVerbosityArgType):
+    """
+    Show systemd service logs. (May need sudo)
+    """
+    setup_logging(verbosity=verbosity)
+    systemd_settings = _get_systemd_settings(verbosity)
+
+    ServiceControl(info=systemd_settings).logs()
