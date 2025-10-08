@@ -1,7 +1,6 @@
 import logging
-import sys
 
-from pysmartmeter.detect_serial import get_serial
+from pysmartmeter.detect_serial import get_serial_port
 from pysmartmeter.mqtt_handler import HichiMqttHandler
 from pysmartmeter.parser import ObisParser
 from pysmartmeter.user_settings import UserSettings, get_user_settings
@@ -21,13 +20,9 @@ def publish_forever(*, verbosity: int):
         verbosity=verbosity,
     )
 
-    ser = get_serial(verbose=True)
-    if ser:
-        print('[green]Found serial:')
-        print(ser)
-    else:
-        print('Serial not found')
-        sys.exit(1)
+    port = user_settings.hichi.port
+
+    ser = get_serial_port(port)
 
     parser = ObisParser(publish_callback=hichi_mqtt_handler)
 

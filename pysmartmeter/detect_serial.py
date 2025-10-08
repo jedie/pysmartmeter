@@ -1,4 +1,5 @@
 import grp
+import logging
 import time
 from pathlib import Path
 
@@ -7,15 +8,31 @@ from rich import print  # noqa
 from serial.tools.list_ports_posix import comports
 
 
-def get_serial(
-    baudrate=9600,
-    parity=serial.PARITY_EVEN,
-    stopbits=serial.STOPBITS_ONE,
-    bytesize=serial.SEVENBITS,
-    timeout=1,
-    terminator=b'\r\n',
-    verbose=True,
-):
+logger = logging.getLogger(__name__)
+
+
+def get_serial_port(port) -> serial.Serial:
+    port_stat = Path(port).stat()
+
+    logger.info('Connect to serial port: %s', port)
+    logger.info('file mode: %s', oct(port_stat.st_mode))
+    logger.info('user ID: %s', port_stat.st_uid)
+    logger.info('user group ID: %s', port_stat.st_gid)
+    user_group_name = grp.getgrgid(port_stat.st_gid).gr_name
+    logger.info('user group: %r', user_group_name)
+
+    ser = serial.Serial(
+        port,
+        baudrate=9600,
+        parity=serial.PARITY_EVEN,
+        stopbits=serial.STOPBITS_ONE,
+        bytesize=serial.SEVENBITS,
+        timeout=1,
+    )
+    return ser
+
+
+def get_serial(terminator=b'\r\n', verbose=True):
     """
     Get the first "working" serial instance back.
     """
@@ -29,29 +46,16 @@ def get_serial(
             print('_' * 100)
             print(f'[magenta]try: {port} {desc} {hwid}')
 
-        port_stat = Path(port).stat()
-        print(f'{port} file mode:', oct(port_stat.st_mode))
-        print(f'{port} user ID:', port_stat.st_uid)
-        print(f'{port} user group ID:', port_stat.st_gid)
-        user_group_name = grp.getgrgid(port_stat.st_gid).gr_name
-        print(f'{port} user group: {user_group_name!r}')
-
         try:
-            ser = serial.Serial(
-                port,
-                baudrate=baudrate,
-                parity=parity,
-                stopbits=stopbits,
-                bytesize=bytesize,
-                timeout=timeout,
-            )
+            ser = get_serial_port(port)
         except Exception as err:
             if verbose:
                 print(f'[red]ERROR: {err}')
                 print()
                 print('Hint:')
-                print(f'\t[blue]sudo usermod -a -G {user_group_name} $USER')
+                print('\t[blue]sudo usermod -a -G <user-group> $USER')
                 print('and try again ;)')
+                print('See README for more details.')
                 print('-' * 100)
             continue
 
@@ -73,7 +77,7 @@ def get_serial(
                     return ser
 
         if verbose:
-            print('[red]Can\'t read from. Try next serial.')
+            print("[red]Can't read from. Try next serial.")
 
     if not checked_ports:
         print('[red]No serial ports found!')

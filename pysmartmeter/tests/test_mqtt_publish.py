@@ -50,7 +50,7 @@ class MqttPublishTestCase(TestCase):
                 tick=True,  # Needed to avoid ZeroDivisionError in rate calculation
             ),
             patch.object(mqtt_publish, 'get_user_settings', return_value=user_settings),
-            patch.object(mqtt_publish, 'get_serial', GetSerialMock(count=1)),
+            patch.object(mqtt_publish, 'get_serial_port', GetSerialMock(count=1)),
             patch.object(mqtt_handler, 'get_connected_client', return_value=mqtt_client_mock),
             self.assertRaises(StopTestLoop),
             self.assertLogs(logger=None),
