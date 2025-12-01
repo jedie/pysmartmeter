@@ -5,7 +5,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-hostname/attributes",
@@ -26,7 +26,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-up_time/attributes",
@@ -47,7 +47,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-process_start/attributes",
@@ -68,7 +68,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": "frequency",
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-cpu_freq/attributes",
@@ -90,7 +90,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-swap_usage/attributes",
@@ -112,7 +112,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-system_load_1min/attributes",
@@ -134,7 +134,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-total_cpu_usage/attributes",
@@ -156,7 +156,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-process_cpu_usage/attributes",
@@ -178,7 +178,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": "temperature",
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-temperaturecoretemp/attributes",
@@ -200,7 +200,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": "temperature",
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-temperaturenvme/attributes",
@@ -222,7 +222,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": "data_size",
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0sent/attributes",
@@ -244,7 +244,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": "data_rate",
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0sentrate/attributes",
@@ -266,7 +266,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": "data_size",
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0received/attributes",
@@ -288,7 +288,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": "data_rate",
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-eth0receivedrate/attributes",
@@ -310,7 +310,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-wifi_device_name/attributes",
@@ -331,7 +331,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-ESSID/attributes",
@@ -352,7 +352,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-bit_rate/attributes",
@@ -373,7 +373,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-frequency/attributes",
@@ -394,7 +394,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-link_quality/attributes",
@@ -415,7 +415,7 @@
             "identifiers": "the_main_uid",
             "manufacturer": "pysmartmeter",
             "name": "pysmartmeter",
-            "sw_version": "0.7.0"
+            "sw_version": "0.7.1"
         },
         "device_class": null,
         "json_attributes_topic": "homeassistant/sensor/the_main_uid/the_main_uid-signal_level/attributes",

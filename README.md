@@ -256,7 +256,8 @@ To migrate, just remove the existing `.venv` and create a fresh one, e.g.:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/pysmartmeter/compare/v0.7.0...main)
+* [v0.7.1](https://github.com/jedie/pysmartmeter/compare/v0.7.0...v0.7.1)
+  * 2025-12-01 - Apply manageprojects updates
   * 2025-12-01 - Update requirements
 * [v0.7.0](https://github.com/jedie/pysmartmeter/compare/v0.5.0...v0.7.0)
   * 2025-10-08 - Update to ha-services>=2.15.0
