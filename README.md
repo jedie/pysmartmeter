@@ -256,6 +256,8 @@ To migrate, just remove the existing `.venv` and create a fresh one, e.g.:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/pysmartmeter/compare/v0.7.0...main)
+  * 2025-12-01 - Update requirements
 * [v0.7.0](https://github.com/jedie/pysmartmeter/compare/v0.5.0...v0.7.0)
   * 2025-10-08 - Update to ha-services>=2.15.0
   * 2025-10-08 - Use serial port from user settings
@@ -274,14 +276,14 @@ To migrate, just remove the existing `.venv` and create a fresh one, e.g.:
   * 2023-05-27 - Split CLI into: cli.py and dev-cli.py
 * [v0.4.1](https://github.com/jedie/pysmartmeter/compare/v0.4.0...v0.4.1)
   * 2023-03-09 - Ignore empty input lines and add expand OBIS map
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.4.0](https://github.com/jedie/pysmartmeter/compare/v0.3.4...v0.4.0)
   * 2023-03-08 - mock version
   * 2023-03-08 - update requirements
   * 2023-03-08 - Bump version to 0.4.0
   * 2023-03-07 - Fix#32 add "test-mqtt-connection" CLI command
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.3.4](https://github.com/jedie/pysmartmeter/compare/v0.3.3...v0.3.4)
   * 2023-02-26 - Update README.md
   * 2023-02-26 - Set HA device class "voltage" for voltage entries
