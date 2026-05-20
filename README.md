@@ -256,6 +256,8 @@ To migrate, just remove the existing `.venv` and create a fresh one, e.g.:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/pysmartmeter/compare/v0.7.1...main)
+  * 2026-05-20 - Update requirements
 * [v0.7.1](https://github.com/jedie/pysmartmeter/compare/v0.7.0...v0.7.1)
   * 2025-12-01 - Apply manageprojects updates
   * 2025-12-01 - Update requirements
@@ -275,11 +277,11 @@ To migrate, just remove the existing `.venv` and create a fresh one, e.g.:
   * 2023-12-29 - Apply manageprojects updates
   * 2023-06-05 - Update README.md
   * 2023-05-27 - Split CLI into: cli.py and dev-cli.py
-* [v0.4.1](https://github.com/jedie/pysmartmeter/compare/v0.4.0...v0.4.1)
-  * 2023-03-09 - Ignore empty input lines and add expand OBIS map
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.4.1](https://github.com/jedie/pysmartmeter/compare/v0.4.0...v0.4.1)
+  * 2023-03-09 - Ignore empty input lines and add expand OBIS map
 * [v0.4.0](https://github.com/jedie/pysmartmeter/compare/v0.3.4...v0.4.0)
   * 2023-03-08 - mock version
   * 2023-03-08 - update requirements
